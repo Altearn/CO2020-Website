@@ -20,7 +20,7 @@ export function NSelect(props) {
                     onChange={props.onChange}
                 >
                     {props.valuesList.map((data, index) => (
-                        <MenuItem value={data.value}>{data.title}</MenuItem>
+                        <MenuItem key={data.value} value={data.value}>{data.title}</MenuItem>
                     ))}
                 </Select>
             </div>

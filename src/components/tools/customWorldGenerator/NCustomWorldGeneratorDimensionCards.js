@@ -64,7 +64,7 @@ export function NCustomWorldGeneratorDimensionCards(props) {
         <>
             <Grid container spacing={2} className={classes.grid}>
                 {Object.keys(props.JSON).map(key => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={key} className={classes.gridItem}>
                         <NCard
                             className={classes.root}
                             isDarkTheme={props.isDarkTheme}
