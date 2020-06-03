@@ -1,0 +1,126 @@
+{
+  "RahNeil_N3": {
+    "Erebus": {
+      "Tools": {
+        "Title": "Outils",
+        "Custom_World_Generator": {
+          "Title": "Générateur de monde personnalisé",
+          "Card": {
+            "Image": "Un monde personnalisé",
+            "Description": "Ce générateur te permet de modifier la génération des dimensions du monde normal, du Nether, de l'End ainsi que de pouvoir créer des dimensions personnalisées."
+          },
+          "Template": {
+            "Title": "Choix du modèle",
+            "Show_JSON": {
+              "Action": "Voir en JSON",
+              "Description": "Vois le modèle en JSON, comme si il fut exporté sans avoir été modifié"
+            },
+            "Default": {
+              "Title": "Monde par défaut",
+              "Description": "Un monde Minecraft normal exporté.\nSeules les trois dimensions de base sont présentes, non modifiées."
+            },
+            "Empty": {
+              "Title": "Modèle vide",
+              "Description": "Un modèle vide, sans paramètres modifiés .\nUtile pour partir de zéro."
+            }
+          },
+          "General_Settings": {
+            "Title": "Paramètres généraux",
+            "Bonus_Chest": {
+              "Title": "Coffre bonus",
+              "Description": "Si un coffre bonus doit apparaître au point d'apparition du monde ou non. Le coffre bonus fonctionne comme un kit de démarrage et contient des éléments de base qui peuvent aider le joueur à survivre tôt"
+            },
+            "Generate_Structures": {
+              "Title": "Generer des structures",
+              "Description": "Si des structures devraient être naturellement générées dans le monde ou non."
+            },
+            "Seed": {
+              "Title": "Graine (seed)",
+              "Description": "La graine (seed) numérique du monde. Si deux mondes ont la même valeur, ils seront les mêmes"
+            }
+          },
+          "Dimensions": {
+            "Title": "Modifier les dimensions",
+            "Add": "Ajouter une dimension",
+            "Template": "Modèle de dimension",
+            "Settings": {
+              "Type": {
+                "Title": "Type de dimension",
+                "Description": "Le type de dimension change des propriétés spéciales, comme si le monde doit être divisé par huit, ou si de l'eau peut y être placée."
+              }
+            },
+            "Edit": {
+              "Title": "Modifier la dimension",
+              "Description": "Clique pour modifier le type, le niveau de la mer, ou encore les biomes qui sont présents dans cette dimension."
+            },
+            "Overworld": {
+              "Title": "Dimension normale",
+              "Code": "mondeNormal",
+              "Description": "La dimension normale par défaut de Minecraft, sans paramètres modifiés."
+            },
+            "Nether": {
+              "Title": "Le Nether",
+              "Code": "nether",
+              "Description": "Le nether par défaut de Minecraft, sans paramètres modifiés."
+            },
+            "End": {
+              "Title": "L'End",
+              "Code": "end",
+              "Description": "L'End par défaut de Minecraft, sans paramètres modifiés."
+            },
+            "Superflat_Village": {
+              "Title": "Village en monde plat",
+              "Code": "villageMondePlat",
+              "Description": "Un monde plat avec une couche d'herbe sur quatre couches de terre stérile sur cinq couches de basalt. Le monde entier est couvert de maisons de villageois."
+            }
+          },
+          "Export": {
+            "Title": "Exporter le monde",
+            "World": {
+              "Title": "Monde exporté",
+              "Description": "Ton monde exporté en JSON"
+            }
+          }
+        }
+      },
+      "Library": {
+        "Card": {
+          "Action": "Voir dans la librairie",
+          "Description": "Vois ce que d'autres ont fait en utilisant cet outil"
+        },
+        "Search": "Rechercher dans la librairie"
+      },
+      "Language": {
+        "Current": "Français",
+        "Change": "Changer de langue"
+      },
+      "Theme": {
+        "Light": "Passer au thème clair",
+        "Dark": "Passer au thème sombre"
+      },
+      "Title": "Erebus",
+      "Search": "Rechercher",
+      "Home_Page": "Page d'accueil",
+      "More": "Plus",
+      "Next": "Suivant",
+      "Back": "Retour",
+      "Export": "Exporter",
+      "Close": "Fermer",
+      "Choose": "Choisir",
+      "Download": "Télécharger",
+      "Randomize": "Randomiser",
+      "Delete": "Supprimer",
+      "Deleted": "Supprimé ",
+      "Action_Copy": "Copier",
+      "Copy": "copie",
+      "Copied_As": "Copié en ",
+      "Added_As": "Ajouté comme ",
+      "Cancel": "Annuler",
+      "Undo": "Annuler",
+      "Custom": "Personnalisé",
+      "Error": {
+        "Language": "Une erreur est survenue pendant le chargement de"
+      }
+    }
+  }
+}

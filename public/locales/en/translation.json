@@ -1,0 +1,127 @@
+{
+  "RahNeil_N3": {
+    "Erebus": {
+      "Tools": {
+        "Title": "Tools",
+        "Custom_World_Generator": {
+          "Title": "Custom world generator",
+          "Card": {
+            "Image": "A custom world",
+            "Description": "This generator lets you change the generation of the Overworld, Nether, and End dimensions as well as the ability to create custom dimensions."
+          },
+          "Template": {
+            "Title": "Choose template",
+            "Show_JSON": {
+              "Action": "See in JSON",
+              "Description": "See the template in JSON, as if it was exported without any modifications made"
+            },
+            "Default": {
+              "Title": "Default world",
+              "Description": "An exported default Minecraft world.\nOnly the three default dimensions are present, untouched."
+            },
+            "Empty": {
+              "Title": "Empty template",
+              "Description": "An empty template, with no parameters sets.\nUseful to start from scratch."
+            }
+          },
+          "General_Settings": {
+            "Title": "General settings",
+            "Bonus_Chest": {
+              "Title": "Bonus chest",
+              "Description": "Whether the world has a bonus chest at spawn or not. The bonus chest is a chest with items that act as a starter kit."
+            },
+            "Generate_Structures": {
+              "Title": "Generate structures",
+              "Description": "Whether structures should be generated in the world or not."
+            },
+            "Seed": {
+              "Title": "Seed",
+              "Description": "The numerical seed of the world. If two worlds have the same seed, they will be the same."
+            }
+          },
+          "Dimensions": {
+            "Title": "Edit dimensions",
+            "Add": "Add dimension",
+            "Template": "Dimension template",
+            "Settings": {
+              "Type": {
+                "Title": "Dimension type",
+                "Description": "The dimension type affects some special properties, like if the world size is divided by eight, or if water can be placed."
+              }
+            },
+            "Edit": {
+              "Title": "Edit dimension",
+              "Description": "Click to further modify this dimension, with parameters such as its type, the sea level, or the biome presents in it."
+            },
+            "Overworld": {
+              "Title": "Overworld",
+              "Code": "overworld",
+              "Description": "The default Minecraft Overworld, with no parameters modified."
+            },
+            "Nether": {
+              "Title": "The Nether",
+              "Code": "nether",
+              "Description": "The default Minecraft Nether, with no parameters modified."
+            },
+            "End": {
+              "Title": "The End",
+              "Code": "end",
+              "Description": "The default Minecraft End, with no parameters modified."
+            },
+            "Superflat_Village": {
+              "Title": "Superflat Village",
+              "Code": "superflatVillage",
+              "Description": "A Superflat world with a layer of grass on four layers of coarse dirt on top of five layers of basalt. The entire world is full of village houses."
+            }
+          },
+          "Export": {
+            "Title": "Export world",
+            "World": {
+              "Title": "Exported world",
+              "Description": "Your exported world in JSON"
+            }
+          }
+        }
+      },
+      "Library": {
+        "Card": {
+          "Action": "Explore in library",
+          "Description": "See what others made using this tool"
+        },
+        "Search": "Search in library"
+      },
+      "Language": {
+        "Current": "English",
+        "Change": "Change language"
+      },
+      "Theme": {
+        "Light": "Switch to light theme",
+        "Dark": "Switch to dark theme"
+      },
+      "Title": "Erebus",
+      "Search": "Search",
+      "Home_Page": "Home page",
+      "More": "More",
+      "Next": "Next",
+      "Back": "Back",
+      "Export": "Export",
+      "Close": "Close",
+      "Choose": "Choose",
+      "Download": "Download",
+      "Randomize": "Randomize",
+      "Delete": "Delete",
+      "Deleted": "Deleted ",
+      "Action_Copy": "Copy",
+      "Copy": "copy",
+      "Copied_As": "Copied as ",
+      "Added_As": "Added as ",
+      "Cancel": "Cancel",
+      "Undo": "Undo",
+      "OK": "OK",
+      "Custom": "Custom",
+      "Error": {
+        "Language": "An error occured while loading"
+      }
+    }
+  }
+}
