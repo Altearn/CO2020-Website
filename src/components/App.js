@@ -7,8 +7,8 @@ import { useMediaQuery, CssBaseline } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 
 import { NAppBar } from './appbar/NAppBar';
-import { NHome } from './NHome';
-import { NCustomWorldGenerator } from './tools/customWorldGenerator/NCustomWorldGenerator';
+import { NHome } from './pages/home/NHome';
+import { NDonateModal } from './pages/donate/NDonateModal';
 
 export default function App() {
     var prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -52,12 +52,13 @@ export default function App() {
                 <BrowserRouter>
                     <NAppBar toggleTheme={toggleTheme} isDarkTheme={renderDark} />
 
+                    <NHome isDarkTheme={renderDark}/>
                     <Switch>
-                        <Route path="/customWorldGenerator">
-                            <NCustomWorldGenerator isDarkTheme={renderDark} />
+                        <Route exact path="/">
+                            <NDonateModal />
                         </Route>
-                        <Route path="/">
-                            <NHome isDarkTheme={renderDark} />
+                        <Route path="/donate">
+                            <NDonateModal opened />
                         </Route>
                     </Switch>
                 </BrowserRouter>

@@ -15,6 +15,7 @@ export function NSlider(props) {
                         checked={props.checked}
                         onChange={props.onChange}
                         color="primary"
+                        disabled={props.disabled}
                     />
                 }
                 label={props.text}

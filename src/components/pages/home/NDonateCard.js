@@ -1,0 +1,90 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+
+import { CardActionArea, CardMedia, Button, Typography } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+
+import { NCard } from '../../NCard';
+
+export function NDonateCard(props) {
+    const { t } = useTranslation();
+    const history = useHistory();
+    const classes = useStyles();
+
+    return (
+        <>
+            <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                <CardActionArea className={classes.actionArea} onClick={() => history.push("/donate")}>
+                    <CardMedia
+                        className={classes.media}
+                        image="/NDonateCardBackground.jpg"
+                        title={t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                    >
+                        <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
+                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                        </Typography>
+                        <Typography variant="body2" component="p" className={classes.description}>
+                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Description')}
+                        </Typography>
+                        <Button size="large" tabIndex="-1" disableRipple className={classes.whiteColorMargin} variant='outlined'>
+                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                        </Button>
+                    </CardMedia>
+                </CardActionArea>
+            </NCard>
+        </>
+    );
+}
+
+export function NDonateCardLoading(props) {
+    const classes = useStyles();
+
+    return (
+        <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+            <Skeleton variant="rect" className={classes.actionArea}>
+                <CardActionArea>
+                    <CardMedia className={classes.media} title="Donate now">
+                        <div>
+                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
+                                Donate now
+                            </Typography>
+                            <Typography variant="body2" component="p" className={classes.description}>
+                                Donate now to support the charity of your choice :D
+                                The donation amount isn't restricted
+                            </Typography>
+                            <Button size="large" tabIndex="-1" disableRipple className={classes.whiteColorMargin} variant='outlined'>
+                                Donate now
+                            </Button>
+                        </div>
+                    </CardMedia>
+                </CardActionArea>
+            </Skeleton>
+        </NCard>
+    );
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        height: '100%',
+    },
+    actionArea: {
+        height: '100%',
+    },
+    media: {
+        padding: theme.spacing(6),
+        height: '100%',
+    },
+    whiteColorMargin: {
+        color: theme.palette.common.white,
+        borderColor: '#fff',
+        marginTop: theme.spacing(2),
+    },
+    description: {
+        color: theme.palette.common.white,
+        borderColor: '#fff',
+        whiteSpace: 'pre-line'
+    },
+}));

@@ -24,11 +24,11 @@ export function NAppbarActions(props) {
 
     return (
         <>
-            <Tooltip title={t('RahNeil_N3.Erebus.More')} arrow>
+            <Tooltip title={t('RahNeil_N3.Irus.More')} arrow>
                 <IconButton
                     aria-controls="nMore"
                     aria-haspopup="true"
-                    aria-label={t('RahNeil_N3.Erebus.More')}
+                    aria-label={t('RahNeil_N3.Irus.More')}
                     color="inherit"
                     onClick={handleOpenMore}
                     className={classes.iconButton}

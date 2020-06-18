@@ -20,7 +20,7 @@ export default function NLanguageSelectItem(props) {
         props.close();
         i18n.changeLanguage(props.code, (err) => {
             if (err) {
-                enqueueSnackbar(t('RahNeil_N3.Erebus.Error.Language')+' "'+props.text+'"', { 
+                enqueueSnackbar(t('RahNeil_N3.Irus.Error.Language')+' "'+props.text+'"', { 
                     variant: 'error',
                 });
             }

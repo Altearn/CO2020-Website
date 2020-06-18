@@ -16,7 +16,7 @@ export function NDarkModeButton(props) {
                 className={classes.menuItem}
                 aria-controls="nLanguageSelect"
                 aria-haspopup="true"
-                aria-label={t('RahNeil_N3.Erebus.Language.Change')}
+                aria-label={t('RahNeil_N3.Irus.Language.Change')}
                 onClick={() => {props.closeMenu(); props.toggleTheme();}}
             >
                 <ListItemIcon className={classes.menuItemIcon}>
@@ -27,13 +27,13 @@ export function NDarkModeButton(props) {
                     }
                 </ListItemIcon>
                 <Typography variant="inherit">
-                    {t('RahNeil_N3.Erebus.Theme.'+(props.isDarkTheme?'Light':'Dark'))}
+                    {t('RahNeil_N3.Irus.Theme.'+(props.isDarkTheme?'Light':'Dark'))}
                 </Typography>
             </MenuItem>
         :
-            <Tooltip title={t('RahNeil_N3.Erebus.Theme.'+(props.isDarkTheme?'Light':'Dark'))} arrow>
+            <Tooltip title={t('RahNeil_N3.Irus.Theme.'+(props.isDarkTheme?'Light':'Dark'))} arrow>
                 <IconButton
-                    aria-label={t('RahNeil_N3.Erebus.Theme.'+(props.isDarkTheme?'Light':'Dark'))}
+                    aria-label={t('RahNeil_N3.Irus.Theme.'+(props.isDarkTheme?'Light':'Dark'))}
                     color="inherit"
                     onClick={props.toggleTheme}
                     className={classes.iconButton}

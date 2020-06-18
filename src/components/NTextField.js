@@ -15,6 +15,8 @@ export function NTextField(props) {
                 onChange={props.onChange}
                 type={props.type}
                 className={classes.field}
+                disabled={props.disabled}
+                inputProps={props.inputProps}
             />
             <Tooltip title={props.description} arrow>
                 <HelpIcon color="action" fontSize="small" />

@@ -28,14 +28,14 @@ export function NStepper(props) {
 
     const ActionsStep = (subProps) => {
         return (
-            <div className={classes.actionsContainer}>
+            <div className={subProps.noMargins?null:classes.actionsContainer}>
                 <div>
                     <Button
                         disabled={subProps.index === 0}
                         onClick={handleBackStep}
                         className={classes.button}
                     >
-                        {t('RahNeil_N3.Erebus.Back')}
+                        {t('RahNeil_N3.Irus.Back')}
                     </Button>
                     {subProps.index === props.steps.length-1 ?
                         props.finishButton
@@ -46,7 +46,7 @@ export function NStepper(props) {
                             onClick={handleNextStep}
                             className={classes.button}
                         >
-                            {t('RahNeil_N3.Erebus.Next')}
+                            {t('RahNeil_N3.Irus.Next')}
                         </Button>
                     }
                 </div>
@@ -56,7 +56,7 @@ export function NStepper(props) {
 
     return (
         useMediaQuery(theme => theme.breakpoints.up('sm'))?
-            <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
+            <Stepper activeStep={activeStep} orientation="vertical">
                 {props.steps.map((data, index) => (
                     <Step key={data.label.placeholder}>
                         <StepLabel>
@@ -64,7 +64,7 @@ export function NStepper(props) {
                         </StepLabel>
                         <StepContent>
                             {data.content.translation}
-                            <ActionsStep index={index} />
+                            <ActionsStep index={index} noMargins={data.noMargins} />
                         </StepContent>
                     </Step>
                 ))}
@@ -92,7 +92,7 @@ export function NStepper(props) {
                             props.finishButton
                         :
                             <Button size="small" onClick={activeStep !== 3 ? handleNextStep:null}>
-                                {t('RahNeil_N3.Erebus.Next')}
+                                {t('RahNeil_N3.Irus.Next')}
                                 {theme.direction === 'rtl' ?
                                     <KeyboardArrowLeft />
                                 :
@@ -103,7 +103,7 @@ export function NStepper(props) {
                     backButton={
                         <Button size="small" onClick={handleBackStep} disabled={activeStep === 0}>
                             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                            {t('RahNeil_N3.Erebus.Back')}
+                            {t('RahNeil_N3.Irus.Back')}
                         </Button>
                     }
                 />
@@ -147,7 +147,7 @@ export function NStepperLoading(props) {
 
     return (
         useMediaQuery(theme => theme.breakpoints.up('sm'))?
-            <Stepper activeStep={0} orientation="vertical" className={classes.stepper}>
+            <Stepper activeStep={0} orientation="vertical">
                 {props.steps.map((data, index) => (
                     index===0?
                         <Step key={data.label.placeholder}>
@@ -222,9 +222,6 @@ const useStyles = makeStyles((theme) => ({
     },
     mobileStepper: {
         flexGrow: 1,
-    },
-    stepper: {
-        backgroundColor: theme.palette.background.default,
     },
     mobileStep: {
         overflow: 'hidden',

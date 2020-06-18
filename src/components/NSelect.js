@@ -14,10 +14,10 @@ export function NSelect(props) {
                     {props.text}
                 </InputLabel>
                 <Select
-                    disabled={props.disabled}
                     labelId={props.text}
                     value={props.value}
                     onChange={props.onChange}
+                    disabled={props.disabled}
                 >
                     {props.valuesList.map((data, index) => (
                         <MenuItem key={data.value} value={data.value}>{data.title}</MenuItem>

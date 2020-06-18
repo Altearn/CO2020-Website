@@ -29,19 +29,19 @@ export function NLanguageSelectorButton(props) {
                     className={classes.menuItem}
                     aria-controls="nLanguageSelect"
                     aria-haspopup="true"
-                    aria-label={t('RahNeil_N3.Erebus.Language.Change')}
+                    aria-label={t('RahNeil_N3.Irus.Language.Change')}
                     onClick={(e) => {props.closeMenu(); handleOpenLanguageSelect(e);}}
                 >
                     <ListItemIcon className={classes.menuItemIcon}>
                         <TranslateIcon fontSize="small" />
                     </ListItemIcon>
                     <Typography variant="inherit">
-                        {t('RahNeil_N3.Erebus.Language.Change')}
+                        {t('RahNeil_N3.Irus.Language.Change')}
                     </Typography>
                 </MenuItem>
             :
                 <>
-                    <Tooltip title={t('RahNeil_N3.Erebus.Language.Change')} arrow enterDelay={750}>
+                    <Tooltip title={t('RahNeil_N3.Irus.Language.Change')} arrow enterDelay={750}>
                         <Button
                             aria-controls="nLanguageSelect"
                             aria-haspopup="true"
@@ -51,14 +51,14 @@ export function NLanguageSelectorButton(props) {
                             onClick={handleOpenLanguageSelect}
                             className={classes.textButton}
                         >
-                            {t('RahNeil_N3.Erebus.Language.Current')}
+                            {t('RahNeil_N3.Irus.Language.Current')}
                         </Button>
                     </Tooltip>
-                    <Tooltip title={t('RahNeil_N3.Erebus.Language.Change')} arrow>
+                    <Tooltip title={t('RahNeil_N3.Irus.Language.Change')} arrow>
                         <IconButton
                             aria-controls="nLanguageSelect"
                             aria-haspopup="true"
-                            aria-label={t('RahNeil_N3.Erebus.Language.Change')}
+                            aria-label={t('RahNeil_N3.Irus.Language.Change')}
                             color="inherit"
                             onClick={handleOpenLanguageSelect}
                             className={classes.iconButton}

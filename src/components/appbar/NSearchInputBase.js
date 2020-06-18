@@ -3,19 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { InputBase, ListItemIcon } from '@material-ui/core';
 import ExtensionIcon from '@material-ui/icons/Extension';
 
 export function NSearchInputBase() {
     const { t } = useTranslation();
     const classes = useStyles();
-    const filter = createFilterOptions();
     const history = useHistory();
 
     const tools = [
-        { title: t('RahNeil_N3.Erebus.Tools.Custom_World_Generator.Title'), url: '/customWorldGenerator' },
-        { title: t('RahNeil_N3.Erebus.Home_Page'), url: '/' }
+        { title: t('RahNeil_N3.Irus.Home_Page'), url: '/' },
+        { title: t('RahNeil_N3.Irus.Donations.Donate_Now.Short'), url: '/donate' }
     ];
 
     const pendingValue = [];
@@ -52,18 +51,6 @@ export function NSearchInputBase() {
                 ):option.title
             )}
             autoHighlight
-            filterOptions={(options, params) => {
-                const filtered = filter(options, params);
-    
-                if (params.inputValue !== '') {
-                    filtered.push({
-                        inputValue: params.inputValue,
-                        title: t('RahNeil_N3.Erebus.Library.Search')
-                    });
-                }
-        
-                return filtered;
-            }}
             inputValue={searchString}
             disablePortal
             getOptionLabel={option => option.title}
@@ -75,7 +62,7 @@ export function NSearchInputBase() {
                     }}
                     ref={params.InputProps.ref}
                     inputProps={params.inputProps}
-                    placeholder={t('RahNeil_N3.Erebus.Search')+'...'}
+                    placeholder={t('RahNeil_N3.Irus.Search')+'...'}
                     onChange={handleInputChange}
                 />
             )}

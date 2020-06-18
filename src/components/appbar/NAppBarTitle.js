@@ -11,7 +11,7 @@ export function NAppBarTitle() {
     
     return (
         <Typography className={classes.title} variant="h6" color="inherit" nowrap>
-            {t('RahNeil_N3.Erebus.Title')}
+            {t('RahNeil_N3.Irus.Title')}
         </Typography>
     )
 }
@@ -23,7 +23,7 @@ export function NAppBarTitleLoading() {
         <Typography className={classes.title} variant="h6" color="inherit" nowrap>
             <Skeleton>
                 <span>
-                    Erebus
+                    Irus
                 </span>
             </Skeleton>
         </Typography>
