@@ -265,17 +265,22 @@ export function NDonateModal(props) {
             content: {
                 translation: (
                     <PayPalButton
-                        amount={5}
-                        shippingPreference='NO_SHIPPING'
-                        onAuthorize={(details, data) => {
-                            alert("Transaction completed by " + details.payer.name.given_name);
-                    
-                            // OPTIONAL: Call your server to save the transaction
-                            return fetch("/paypal-transaction-complete", {
-                                    method: "post",
-                                    body: JSON.stringify({
-                                    orderID: data.orderID
-                                })
+                        createOrder={function(data, actions) {
+                            return fetch('/api/createOrder/5.00', {
+                                method: 'post'
+                            }).then(function(res) {
+                                return res.json();
+                            }).then(function(data) {
+                                return data.id;
+                            });
+                        }}
+                        onApprove={function(data, actions) {
+                            return fetch('/api/approveOrder/' + data.orderID, {
+                                method: 'post'
+                            }).then(function(res) {
+                                return res.json();
+                            }).then(function(details) {
+                                alert('Transaction completed');
                             });
                         }}
                         catchError={(error) => {
@@ -292,6 +297,9 @@ export function NDonateModal(props) {
                             enqueueSnackbar(
                                 <Translation t='RahNeil_N3.Irus.Donations.Checkout.Snackbar.Cancelled' />
                             , {variant: 'warning'});
+                        }}
+                        options={{
+                            clientId: "AaOAdi1D3pHsAO3dyIHc7r6tPVVbe5FGm6rqPn9h5iW0bu4dgaY6ogjb5kGXI3tAp-oG_JYTKPGYvMBQ"
                         }}
                     />
                 ),
