@@ -51,6 +51,10 @@
             "4": "si vous ne liez pas votre compte Minecraft."
           }
         },
+        "Success": {
+          "Title": "Merci pour votre don !",
+          "Description": "Vous devriez recevoir vos récompenses bientôt ;)"
+        },
         "Title": "Dons"
       },
       "Error": {
