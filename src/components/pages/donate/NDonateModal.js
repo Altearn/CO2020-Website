@@ -31,30 +31,8 @@ export function NDonateModal(props) {
     const fullScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const [success, setSuccess] = React.useState(true);
+    const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
-
-    React.useEffect(() => {
-        if (success) {
-            const timeoutID = window.setTimeout(() => {
-                setSuccessStep(1);
-            }, 1000);
-            const timeoutID2 = window.setTimeout(() => {
-                setSuccessStep(2);
-            }, 2250);
-            const timeoutID3 = window.setTimeout(() => {
-                setSuccessStep(3);
-            }, 2750);
-        
-            return () => {
-                window.clearTimeout(timeoutID);
-                window.clearTimeout(timeoutID2);
-                window.clearTimeout(timeoutID3);
-            }
-        }else{
-            setSuccessStep(0);
-        }
-    }, success);
 
     const handleClose = () => {
         history.push('/');
@@ -324,7 +302,29 @@ export function NDonateModal(props) {
                                 return res.json();
                             }).then(function(data) {
                                 if (data.status==='success') {
-                                    alert('Transaction completed');
+                                    setSuccess(true);
+
+                                    const timeoutID = window.setTimeout(() => {
+                                        setSuccessStep(1);
+                                        window.clearTimeout(timeoutID);
+                                    }, 500);
+                                    const timeoutID2 = window.setTimeout(() => {
+                                        setSuccessStep(2);
+                                        window.clearTimeout(timeoutID2);
+                                    }, 1750);
+                                    const timeoutID3 = window.setTimeout(() => {
+                                        setSuccessStep(3);
+                                        window.clearTimeout(timeoutID3);
+                                    }, 2250);
+                                    const timeoutID4 = window.setTimeout(() => {
+                                        history.push('/');
+                                        window.clearTimeout(timeoutID4);
+                                    }, 4500);
+                                    const timeoutID5 = window.setTimeout(() => {
+                                        setSuccess(false);
+                                        setSuccessStep(0);
+                                        window.clearTimeout(timeoutID5);
+                                    }, 4750);
                                 }else{
                                     enqueueSnackbar(
                                         <Translation t='RahNeil_N3.Irus.Error.General' />
@@ -428,12 +428,12 @@ export function NDonateModal(props) {
                                 </svg>
                                 <Fade in={successStep>1} timeout={1500}>
                                     <Typography gutterbottom variant="h4" component="h2" className={classes.successTitle}>
-                                        Thank you for your donation !
+                                        <Translation t='RahNeil_N3.Irus.Donations.Success.Title' />
                                     </Typography>
                                 </Fade>
                                 <Fade in={successStep>2} timeout={1500}>
                                     <Typography variant="subtitle1" component="p" className={classes.successDescription}>
-                                        It really means a lot to us and blah blah ?
+                                        <Translation t='RahNeil_N3.Irus.Donations.Success.Description' />
                                     </Typography>
                                 </Fade>
                             </>

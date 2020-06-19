@@ -51,6 +51,10 @@
             "4": "if you don't link your Minecraft account."
           }
         },
+        "Success": {
+          "Title": "Thank you for your donation !",
+          "Description": "You should receive your rewards soon ;)"
+        },
         "Title": "Donations"
       },
       "Error": {
