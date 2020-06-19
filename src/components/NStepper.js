@@ -37,9 +37,7 @@ export function NStepper(props) {
                     >
                         {t('RahNeil_N3.Irus.Back')}
                     </Button>
-                    {subProps.index === props.steps.length-1 ?
-                        props.finishButton
-                    :
+                    {subProps.index === props.steps.length-1 ?null:
                         <Button
                             variant="contained"
                             color="primary"
@@ -88,10 +86,11 @@ export function NStepper(props) {
                     steps={props.steps.length}
                     activeStep={activeStep}
                     nextButton={
-                        activeStep === props.steps.length-1 ?
-                            props.finishButton
-                        :
-                            <Button size="small" onClick={activeStep !== 3 ? handleNextStep:null}>
+                            <Button
+                                size="small"
+                                onClick={activeStep !== 3 ? handleNextStep:null}
+                                disabled={activeStep===props.steps.length-1}
+                            >
                                 {t('RahNeil_N3.Irus.Next')}
                                 {theme.direction === 'rtl' ?
                                     <KeyboardArrowLeft />
