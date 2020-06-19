@@ -218,6 +218,7 @@ const useStyles = makeStyles((theme) => ({
     },
     actionsContainer: {
         marginTop: theme.spacing(4),
+        paddingBottom: theme.spacing(1),
     },
     mobileStepper: {
         flexGrow: 1,

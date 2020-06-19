@@ -50,6 +50,7 @@ export function NSearchInputBase() {
                     </>
                 ):option.title
             )}
+            
             autoHighlight
             inputValue={searchString}
             disablePortal
@@ -61,7 +62,7 @@ export function NSearchInputBase() {
                         input: classes.inputInput,
                     }}
                     ref={params.InputProps.ref}
-                    inputProps={params.inputProps, { 'aria-label': t('RahNeil_N3.Irus.Search') }}
+                    inputProps={params.inputProps}
                     placeholder={t('RahNeil_N3.Irus.Search')+'...'}
                     onChange={handleInputChange}
                 />
