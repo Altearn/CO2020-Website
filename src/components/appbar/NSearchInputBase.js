@@ -61,7 +61,7 @@ export function NSearchInputBase() {
                         input: classes.inputInput,
                     }}
                     ref={params.InputProps.ref}
-                    inputProps={params.inputProps}
+                    inputProps={params.inputProps, { 'aria-label': t('RahNeil_N3.Irus.Search') }}
                     placeholder={t('RahNeil_N3.Irus.Search')+'...'}
                     onChange={handleInputChange}
                 />
