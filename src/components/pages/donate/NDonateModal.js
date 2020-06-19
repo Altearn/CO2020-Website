@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useSnackbar } from 'notistack';
 
-import { Dialog, TextField, Grid, DialogTitle, InputAdornment, Collapse, DialogActions, Slide, Button, DialogContent, useTheme, useMediaQuery, IconButton, Typography } from '@material-ui/core';
+import { Dialog, TextField, Grid, DialogTitle, Tooltip, InputAdornment, Collapse, DialogActions, Slide, Button, DialogContent, useTheme, useMediaQuery, IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Skeleton, Alert } from '@material-ui/lab';
 
@@ -58,6 +58,19 @@ export function NDonateModal(props) {
                     console.log(e);
                 });
         }
+    }
+
+    function MinecraftHead() {
+        return (
+            <img
+                height={36}
+                src={
+                    "https://crafatar.com/renders/head/"
+                    +(uuid===null?'a2b8d2c37729406888d3d569d4e23375':uuid)+".png?overlay&default=606e2ff0ed7748429d6ce1d3321c7838"
+                }
+                alt={username}
+            />
+        );
     }
 
     const steps = [
@@ -152,16 +165,17 @@ export function NDonateModal(props) {
                         </Collapse>
     
                         <Grid container spacing={1} alignItems="center">
-                            <Grid item>
-                                <img
-                                    height={36}
-                                    src={
-                                        "https://crafatar.com/renders/head/"
-                                        +(uuid===null?'a2b8d2c37729406888d3d569d4e23375':uuid)+".png?overlay&default=606e2ff0ed7748429d6ce1d3321c7838"
-                                    }
-                                    alt={username}
-                                />
-                            </Grid>
+                            {uuid!=='a2b8d2c37729406888d3d569d4e23375'&&uuid!==null?
+                                <Tooltip title={usernameLinked} arrow>
+                                    <Grid item>
+                                        <MinecraftHead/>
+                                    </Grid>
+                                </Tooltip>
+                            :
+                                <Grid item>
+                                    <MinecraftHead/>
+                                </Grid>
+                            }
                             <Grid item style={{flex: fullScreen?1:'inherit'}}>
                                 <TextField
                                     label={
