@@ -5,11 +5,12 @@ import { useHistory } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useSnackbar } from 'notistack';
 
-import { Dialog, TextField, Grid, DialogTitle, Fade, Tooltip, InputAdornment, Collapse, DialogActions, Slide, Button, DialogContent, useTheme, useMediaQuery, IconButton, Typography } from '@material-ui/core';
+import { Dialog, TextField, Grid, DialogTitle, Fade, InputAdornment, Collapse, DialogActions, Slide, Button, DialogContent, useTheme, useMediaQuery, IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Skeleton, Alert } from '@material-ui/lab';
 
 import { NStepper, NStepperLoading } from '../../NStepper.js';
+import { NMinecraftStep, NMinecraftStepLoading } from './NMinecraftStep.js';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -24,10 +25,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export function NDonateModal(props) {
     const history = useHistory();
     const [uuid, setUuid] = React.useState(null);
-    const [username, setUsername] = React.useState('');
     const [discordUsername, setDiscordUsername] = React.useState('');
     const [discordTag, setDiscordTag] = React.useState('');
-    const [usernameLinked, setUsernameLinked] = React.useState(null);
     const fullScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
@@ -38,43 +37,6 @@ export function NDonateModal(props) {
         history.push('/');
     }
 
-    const handleUsernameChange = (event) => {
-        var value = event.target.value;
-        setUsername(value);
-    }
-
-    const handleMinecraftLink = (event) => {
-        if (username==='') {
-            setUuid(null);
-            setUsernameLinked(null);
-        }else{
-            fetch("https://api.minetools.eu/uuid/"+username,
-                { crossDomain: true, method: 'GET'}).then((res) => {
-                    res.json().then((json) => {
-                        setUuid(json.id==null?'a2b8d2c37729406888d3d569d4e23375':json.id);
-                        setUsernameLinked(username);
-                    }).catch( e => {
-                        console.log(e);
-                    });
-                }).catch( e => {
-                    console.log(e);
-                });
-        }
-    }
-
-    function MinecraftHead() {
-        return (
-            <img
-                height={36}
-                src={
-                    "https://crafatar.com/renders/head/"
-                    +(uuid===null?'a2b8d2c37729406888d3d569d4e23375':uuid)+".png?overlay&default=606e2ff0ed7748429d6ce1d3321c7838"
-                }
-                alt={username}
-            />
-        );
-    }
-
     const steps = [
         {
             label: {
@@ -83,123 +45,10 @@ export function NDonateModal(props) {
             },
             content: {
                 placeholder: (
-                    <>
-                        <Alert severity="warning" className={classes.alert} classes={{display: 'flex'}}>
-                            <Skeleton style={{maxWidth: 'inherit'}}>
-                                <span>
-                                    This step is <strong>optional</strong>, but you won't be <strong>whitelisted</strong> if you don't link your Minecraft account.
-                                </span>
-                            </Skeleton>
-                        </Alert>
-    
-                        <Grid container spacing={1} alignItems="center">
-                            <Grid item>
-                                <img
-                                    height={36}
-                                    src={
-                                        "https://crafatar.com/renders/head/a2b8d2c37729406888d3d569d4e23375.png?overlay&default=606e2ff0ed7748429d6ce1d3321c7838"
-                                    }
-                                    alt="Loading..."
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    label=" "
-                                    disabled
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    disabled
-                                    fullWidth={fullScreen}
-                                    className={classes.linkButton}
-                                >
-                                    <Skeleton>
-                                        <span>
-                                            Link
-                                        </span>
-                                    </Skeleton>
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </>
+                    <NMinecraftStepLoading />
                 ),
                 translation: (
-                    <>
-                        <Collapse in={uuid===null}>
-                            <Alert severity="warning" className={classes.alert}>
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Warning.0'/>
-                                &nbsp;
-                                <strong>
-                                    <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Warning.1'/>
-                                </strong>
-                                &nbsp;
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Warning.2'/>
-                                &nbsp;
-                                <strong>
-                                    <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Warning.3'/>
-                                </strong>
-                                &nbsp;
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Warning.4'/>
-                            </Alert>
-                        </Collapse>
-
-                        <Collapse in={uuid==='a2b8d2c37729406888d3d569d4e23375'}>
-                            <Alert severity="error" className={classes.alert}>
-                                <strong>
-                                    <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Error.0'/>
-                                </strong>
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Error.1'/>
-                            </Alert>
-                        </Collapse>
-
-                        <Collapse in={uuid!=='a2b8d2c37729406888d3d569d4e23375'&&uuid!==null}>
-                            <Alert severity="success" className={classes.alert}>
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Success.0'/>
-                                &nbsp;
-                                <strong>
-                                    {usernameLinked}
-                                </strong>
-                                <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Success.1'/>
-                            </Alert>
-                        </Collapse>
-    
-                        <Grid container spacing={1} alignItems="center">
-                            {uuid!=='a2b8d2c37729406888d3d569d4e23375'&&uuid!==null?
-                                <Tooltip title={usernameLinked} arrow>
-                                    <Grid item>
-                                        <MinecraftHead/>
-                                    </Grid>
-                                </Tooltip>
-                            :
-                                <Grid item>
-                                    <MinecraftHead/>
-                                </Grid>
-                            }
-                            <Grid item style={{flex: fullScreen?1:'inherit'}}>
-                                <TextField
-                                    label={
-                                        <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Username'/>
-                                    }
-                                    value={username}
-                                    fullWidth={fullScreen}
-                                    onChange={handleUsernameChange}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    onClick={handleMinecraftLink}
-                                    disabled={username===usernameLinked||username===''}
-                                >
-                                    <Translation t='RahNeil_N3.Irus.Donations.Minecraft.Link_Action'/>
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </>
+                    <NMinecraftStep uuid={uuid} setUuid={setUuid} />
                 ),
             }
         },
@@ -319,12 +168,12 @@ export function NDonateModal(props) {
                                     const timeoutID4 = window.setTimeout(() => {
                                         history.push('/');
                                         window.clearTimeout(timeoutID4);
-                                    }, 4500);
+                                    }, 5000);
                                     const timeoutID5 = window.setTimeout(() => {
                                         setSuccess(false);
                                         setSuccessStep(0);
                                         window.clearTimeout(timeoutID5);
-                                    }, 4750);
+                                    }, 5250);
                                 }else{
                                     enqueueSnackbar(
                                         <Translation t='RahNeil_N3.Irus.Error.General' />
@@ -334,7 +183,7 @@ export function NDonateModal(props) {
                             });
                         }}
                         catchError={(error) => {
-                            enqueueSnackbar(error, {variant: 'error',});
+                            enqueueSnackbar(error, {variant: 'error'});
                             history.push('/');
                         }}
                         onError={() => {
@@ -452,9 +301,6 @@ const useStyles = makeStyles((theme) => ({
     },
     titleTypography: {
         flex: 1,
-    },
-    alert: {
-        marginBottom: theme.spacing(2),
     },
     successContent: {
         backgroundColor: theme.palette.success.main,
