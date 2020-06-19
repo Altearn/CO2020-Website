@@ -17,6 +17,7 @@
             "2": "as you won't receive the role if you made a mistake !"
           },
           "Title": "Link Discord account",
+          "Username": "Discord username",
           "Warning": {
             "0": "This step is",
             "1": "optional",

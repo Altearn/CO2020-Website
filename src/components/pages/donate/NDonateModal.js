@@ -228,7 +228,9 @@ export function NDonateModal(props) {
                         <Grid container>
                             <Grid item>
                                 <TextField
-                                    label='Discord username'
+                                    label={
+                                        <Translation t='RahNeil_N3.Irus.Donations.Discord.Username'/>
+                                    }
                                     value={discordUsername}
                                     onChange={(event) => setDiscordUsername(event.target.value)}
                                 />

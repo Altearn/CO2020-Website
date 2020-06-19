@@ -1,6 +1,75 @@
 {
   "RahNeil_N3": {
     "Irus": {
+      "Back": "Retour",
+      "Cancel": "Annuler",
+      "Donations": {
+        "Checkout": {
+          "Snackbar": {
+            "Cancelled": "Transaction abandonnée"
+          },
+          "Title": "Choisir le montant & payer"
+        },
+        "Discord": {
+          "Info": {
+            "0": "Vérifiez bien qu'il n'y a pas de",
+            "1": "fautes de frappe",
+            "2": "ou vous pourriez ne pas recevoir le rôle !"
+          },
+          "Title": "Lier au compte Discord",
+          "Username": "Pseudonyme Discord",
+          "Warning": {
+            "0": "Cette étape est",
+            "1": "facultative",
+            "2": "mais vous ne recevrez pas le",
+            "3": "rôle de donateur",
+            "4": "si vous ne liez pas votre compte Discord."
+          }
+        },
+        "Donate_Now": {
+          "Description": "Faites un don pour soutenir l'organisation caritative de votre choix :D\nChoisissez le montant que vous voulez",
+          "Short": "Faire un don",
+          "Title": "Faire un don"
+        },
+        "Minecraft": {
+          "Error": {
+            "0": "Nom d'utilisateur invalide",
+            "1": ", veuillez vérifier s'il y a des fautes de frappe et réessayer."
+          },
+          "Link_Action": "Lier",
+          "Success": {
+            "0": "Hey",
+            "1": "! Nous espérons vous voir bientôt sur nos serveurs :D"
+          },
+          "Title": "Lier au compte Minecraft",
+          "Username": "Pseudonyme Minecraft",
+          "Warning": {
+            "0": "Cette étape est",
+            "1": "facultative",
+            "2": "mais vous ne serez pas sur",
+            "3": "la liste blanche",
+            "4": "si vous ne liez pas votre compte Minecraft."
+          }
+        },
+        "Title": "Dons"
+      },
+      "Error": {
+        "General": "Une erreur s'est produite, veuillez réessayer plus tard",
+        "Language": "Une erreur est survenue lors du chargement de"
+      },
+      "Home_Page": "Page d'accueil",
+      "Language": {
+        "Change": "Changer de langue",
+        "Current": "Français"
+      },
+      "More": "Plus",
+      "Next": "Suivant",
+      "Search": "Rechercher",
+      "Theme": {
+        "Dark": "Passer au thème sombre",
+        "Light": "Passer au thème clair"
+      },
+      "Title": "Irus"
     }
   }
 }
