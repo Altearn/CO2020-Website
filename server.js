@@ -13,10 +13,6 @@ client.on('ready', () => {
 
 client.login('NzIzMjUyNzY4MDg0NTkwNjMz.XuvcfQ.siAjI04qNzXGEkHIU6MZ7G-6c-0');
 
-app.get('/ping', function (req, res) {
- return res.send('pong');
-});
-
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
