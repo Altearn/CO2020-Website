@@ -131,6 +131,7 @@ export function NDonateModal(props) {
                 keepMounted
                 TransitionComponent={Transition}
                 fullWidth
+                scroll='body'
             >
                 <Collapse in={!success}>
                     <DialogTitle className={classes.title} disableTypography>
@@ -148,7 +149,7 @@ export function NDonateModal(props) {
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
-                    <DialogContent dividers>
+                    <DialogContent>
                         <Suspense fallback={<NStepperLoading steps={steps} />}>
                             <NStepper steps={steps} />
                         </Suspense>
