@@ -79,6 +79,7 @@ export function NLanguageSelectorButton(props) {
                 <NLanguageSelectItem text="English" code="en-US" country="us" close={handleCloseLanguageSelect} />
                 <NLanguageSelectItem text="English" code="en-GB" country="gb" close={handleCloseLanguageSelect} />
                 <NLanguageSelectItem text="Français" code="fr-FR" country="fr" close={handleCloseLanguageSelect} />
+                <NLanguageSelectItem text="Italiano" code="it-IT" country="it" close={handleCloseLanguageSelect} />
             </Menu>
         </>
     );
