@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { PayPalButton } from "react-paypal-button-v2";
 import { useSnackbar } from 'notistack';

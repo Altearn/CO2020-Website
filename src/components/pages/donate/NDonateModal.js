@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
-import { Dialog, DialogTitle, Fade, InputAdornment, Collapse, DialogActions, Slide, Button, DialogContent, useTheme, useMediaQuery, IconButton, Typography } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Dialog, Fade, Collapse, Slide, DialogContent, useTheme, useMediaQuery, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-import { NStepper, NStepperLoading } from '../../NStepper.js';
 import { NMinecraftStep, NMinecraftStepLoading } from './NMinecraftStep.js';
 import { NDiscordStep } from './NDiscordStep.js';
 import { NCheckoutStep } from './NCheckoutStep.js';
+import { NDonateModalForm } from './NDonateModalForm.js';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -134,35 +133,7 @@ export function NDonateModal(props) {
                 scroll='body'
             >
                 <Collapse in={!success}>
-                    <DialogTitle className={classes.title} disableTypography>
-                        <Typography className={classes.titleTypography} variant="h5" component="span">
-                            <Suspense fallback={<Skeleton><span>Donate now</span></Skeleton>}>
-                                <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
-                            </Suspense>
-                        </Typography>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            onClick={handleClose}
-                            aria-label="close"
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                    </DialogTitle>
-                    <DialogContent>
-                        <Suspense fallback={<NStepperLoading steps={steps} />}>
-                            <NStepper steps={steps} />
-                        </Suspense>
-                    </DialogContent>
-                    {fullScreen?null:
-                        <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                                <Suspense fallback={<Skeleton><span>Cancel</span></Skeleton>}>
-                                    <Translation t='RahNeil_N3.Irus.Cancel' />
-                                </Suspense>
-                            </Button>
-                        </DialogActions>
-                    }
+                    <NDonateModalForm handleClose={handleClose} steps={steps} />
                 </Collapse>
                 <Collapse in={success} className={classes.successWrapper}>
                     <DialogContent className={classes.successContent}>
@@ -200,13 +171,6 @@ export function NDonateModal(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    titleTypography: {
-        flex: 1,
-    },
     successContent: {
         backgroundColor: theme.palette.success.main,
         height: '100vh',
