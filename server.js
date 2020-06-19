@@ -4,6 +4,14 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
+client.on('ready', () => {
+    console.log(`Discord bot logged in as ${client.user.tag}!`);
+});
+
+client.login('NzIzMjUyNzY4MDg0NTkwNjMz.XuvcfQ.siAjI04qNzXGEkHIU6MZ7G-6c-0');
 
 app.get('/ping', function (req, res) {
  return res.send('pong');
@@ -14,10 +22,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/api/createOrder/:amount', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+    request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
-            user: 'AaOAdi1D3pHsAO3dyIHc7r6tPVVbe5FGm6rqPn9h5iW0bu4dgaY6ogjb5kGXI3tAp-oG_JYTKPGYvMBQ',
-            password: 'EDL7yUldgNSkqRg6IsOIyOTc47VkF19P5Oq9CW894FiY2sT4GGombqE7rgcxXle2QMvSWsoaVADilb0b'
+            user: 'Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd',
+            password: 'EPYAPFjxNEmRa14e6QhvZvEXg9T2TmdlIG99xeR6dDs-ep8wKNSh0rWSfTRiSfMXAh-TT3QD2Zygny0g'
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -26,7 +34,7 @@ app.post('/api/createOrder/:amount', function(req, res) {
             return res.sendStatus(500);
         }
 
-        request.post('https://api.paypal.com/v2/checkout/orders', {
+        request.post('https://api.sandbox.paypal.com/v2/checkout/orders', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -56,11 +64,11 @@ app.post('/api/createOrder/:amount', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req, res) {
+    request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
-            user: 'AaOAdi1D3pHsAO3dyIHc7r6tPVVbe5FGm6rqPn9h5iW0bu4dgaY6ogjb5kGXI3tAp-oG_JYTKPGYvMBQ',
-            password: 'EDL7yUldgNSkqRg6IsOIyOTc47VkF19P5Oq9CW894FiY2sT4GGombqE7rgcxXle2QMvSWsoaVADilb0b'
+            user: 'Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd',
+            password: 'EPYAPFjxNEmRa14e6QhvZvEXg9T2TmdlIG99xeR6dDs-ep8wKNSh0rWSfTRiSfMXAh-TT3QD2Zygny0g'
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -69,7 +77,7 @@ app.post('/api/approveOrder/:orderId', function(req, res) {
             return res.sendStatus(500);
         }
         
-        request.post('https://api.sandbox.paypal.com/v2/checkout/orders/' + OrderID + '/capture', {
+        request.post('https://api.sandbox.paypal.com/v2/checkout/orders/' + req.params.orderId + '/capture', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -80,13 +88,28 @@ app.post('/api/approveOrder/:orderId', function(req, res) {
                 return res.sendStatus(500);
             }
 
-            res.json({
-                status: 'success'
-            });
+            if (JSON.parse(body).status==='COMPLETED') {
+                if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
+                    var guild = client.guilds.cache.get('719527687000948797');
+                    guild.members.fetch({query: req.params.discordUsername, limit: 1}).then(users => {
+                        guild.roles.fetch('723308537710772265').then(role => {
+                            if (users.first().user.tag===req.params.discordUsername+'#'+req.params.discordTag) {
+                                users.first().roles.add(role, 'made a donation');
+                            }
+                        });
+                    });
+                }
+
+                res.json({
+                    status: 'success'
+                });
+            }else{
+                res.json({
+                    status: 'error'
+                });
+            }
         });
     });
-
-    var OrderID = req.params.id;
 });
 
 app.listen(process.env.PORT || 8080);

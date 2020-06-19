@@ -275,12 +275,22 @@ export function NDonateModal(props) {
                             });
                         }}
                         onApprove={function(data, actions) {
-                            return fetch('/api/approveOrder/' + data.orderID, {
+                            return fetch('/api/approveOrder/'+data.orderID+'/'
+                                +(discordUsername===''?'null':discordUsername)
+                                +'/'+(discordTag===''?'null':discordTag),
+                            {
                                 method: 'post'
                             }).then(function(res) {
                                 return res.json();
-                            }).then(function(details) {
-                                alert('Transaction completed');
+                            }).then(function(data) {
+                                if (data.status==='success') {
+                                    alert('Transaction completed');
+                                }else{
+                                    enqueueSnackbar(
+                                        <Translation t='RahNeil_N3.Irus.Error.General' />
+                                    , {variant: 'error'});
+                                    history.push('/');
+                                }
                             });
                         }}
                         catchError={(error) => {
@@ -299,7 +309,7 @@ export function NDonateModal(props) {
                             , {variant: 'warning'});
                         }}
                         options={{
-                            clientId: "AaOAdi1D3pHsAO3dyIHc7r6tPVVbe5FGm6rqPn9h5iW0bu4dgaY6ogjb5kGXI3tAp-oG_JYTKPGYvMBQ"
+                            clientId: "Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd"
                         }}
                     />
                 ),
