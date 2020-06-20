@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-import { Fade, Typography, DialogContent } from '@material-ui/core';
+import { Fade, Typography, DialogContent, useTheme, useMediaQuery } from '@material-ui/core';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -12,6 +12,7 @@ function Translation(props) {
 
 export function NDonateModalSuccess(props) {
     const classes = useStyles();
+    const fullScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
 
     return (
         <DialogContent className={classes.successContent}>
@@ -31,7 +32,7 @@ export function NDonateModalSuccess(props) {
                     </svg>
                     <Fade in={props.successStep>1} timeout={1500}>
                         <Typography gutterbottom variant="h4" component="h2" className={classes.successTitle}>
-                            <Translation t='RahNeil_N3.Irus.Donations.Success.Title' />
+                            <Translation t={'RahNeil_N3.Irus.Donations.Success.Title.'+(fullScreen?'Short':'Full')} />
                         </Typography>
                     </Fade>
                     <Fade in={props.successStep>2} timeout={1500}>
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        textAlign: 'center',
         [theme.breakpoints.up('sm')]: {
             height: '75vh',
         },

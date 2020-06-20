@@ -52,8 +52,11 @@
           }
         },
         "Success": {
-          "Title": "Thank you for your donation !",
-          "Description": "You should receive your rewards soon ;)"
+          "Title": {
+            "Full": "Thank you for your donation !",
+            "Short": "Thank you !"
+          },
+          "Description": "You will receive your rewards soon ;)"
         },
         "Title": "Donations"
       },

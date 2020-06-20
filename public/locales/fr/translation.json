@@ -52,8 +52,11 @@
           }
         },
         "Success": {
-          "Title": "Merci pour votre don !",
-          "Description": "Vous devriez recevoir vos récompenses bientôt ;)"
+          "Title": {
+            "Full": "Merci pour votre don !",
+            "Short": "Merci pour votre don !"
+          },
+          "Description": "Vous allez bientôt recevoir vos récompenses ;)"
         },
         "Title": "Dons"
       },
