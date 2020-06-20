@@ -41,12 +41,13 @@ export function NDiscordStep(props) {
                 </Alert>
             </Collapse>
 
-            <Grid container>
-                <Grid item>
+            <Grid container direction='row'>
+                <Grid item style={{flex: 1}}>
                     <TextField
                         label={t('RahNeil_N3.Irus.Donations.Discord.Username')}
                         value={props.username}
                         onChange={(event) => props.setUsername(event.target.value)}
+                        style={{width: 'auto'}}
                     />
                 </Grid>
                 <Grid item>
