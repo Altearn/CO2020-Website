@@ -6,12 +6,13 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 const Discord = require('discord.js');
 const client = new Discord.Client();
+require('dotenv').config();
 
 client.on('ready', () => {
     console.log(`Discord bot logged in as ${client.user.tag}!`);
 });
 
-client.login('NzIzMjUyNzY4MDg0NTkwNjMz.XuvcfQ.siAjI04qNzXGEkHIU6MZ7G-6c-0');
+client.login(process.env.DISCORD_TOKEN);
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -20,8 +21,8 @@ app.get('/', function (req, res) {
 app.post('/api/createOrder/:amount', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
-            user: 'Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd',
-            password: 'EPYAPFjxNEmRa14e6QhvZvEXg9T2TmdlIG99xeR6dDs-ep8wKNSh0rWSfTRiSfMXAh-TT3QD2Zygny0g'
+            user: process.env.PAYPAL_CLIENT,
+            password: process.env.PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -63,8 +64,8 @@ app.post('/api/createOrder/:amount', function(req, res) {
 app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
-            user: 'Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd',
-            password: 'EPYAPFjxNEmRa14e6QhvZvEXg9T2TmdlIG99xeR6dDs-ep8wKNSh0rWSfTRiSfMXAh-TT3QD2Zygny0g'
+            user: process.env.PAYPAL_CLIENT,
+            password: process.env.PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
