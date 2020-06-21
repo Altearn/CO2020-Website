@@ -94,9 +94,13 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
             }
 
             if (JSON.parse(body).status==='COMPLETED') {
+                var discordId = null;
                 if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
                     var guild = client.guilds.cache.get('719527687000948797');
                     guild.members.fetch({query: req.params.discordUsername, limit: 1}).then(users => {
+                        
+                        discordId = users.first().user.id;
+
                         guild.roles.fetch('723308537710772265').then(role => {
                             if (users.first().user.tag===req.params.discordUsername+'#'+req.params.discordTag) {
                                 users.first().roles.add(role, 'made a donation');
@@ -109,14 +113,16 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
                     INSERT INTO don_co2020.Donations
                     (
                         amount,
-                        currency
-                        `+(req.params.uuid==='null'?null:', uuid')+`
+                        currency`+
+                        (req.params.uuid==='null'?null:', uuid')+
+                        (req.params.uuid==='null'?null:', discordId')+`
                     )
                     VALUES
                     (
                         `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
                         `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
                         (req.params.uuid==='null'?null:', '+req.param.uuid)+
+                        (discordId===null?null:', '+discordId)+
                     `);`;
                 
                 db.query(sql, function (err, result) {
