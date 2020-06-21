@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 import { useHistory } from "react-router-dom";
 
 export function NCheckoutStep(props) {
+
     const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
@@ -12,7 +13,7 @@ export function NCheckoutStep(props) {
     return (
         <PayPalButton
             createOrder={function(data, actions) {
-                return fetch('/api/createOrder/5.00', {
+                return fetch('/api/createOrder/' + props.amount, {
                     method: 'post'
                 }).then(function(res) {
                     return res.json();

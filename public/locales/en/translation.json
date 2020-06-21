@@ -10,6 +10,9 @@
           },
           "Title": "Checkout"
         },
+        "Amount": {
+          "Title": "Choose donation amount"
+        },
         "Discord": {
           "Info": {
             "0": "Be sure to",

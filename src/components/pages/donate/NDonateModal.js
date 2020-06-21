@@ -8,6 +8,7 @@ import { Skeleton } from '@material-ui/lab';
 
 import { NMinecraftStep, NMinecraftStepLoading } from './NMinecraftStep.js';
 import { NDiscordStep } from './NDiscordStep.js';
+import { NAmountStep } from "./NAmountStep";
 import { NCheckoutStep } from './NCheckoutStep.js';
 import { NDonateModalForm } from './NDonateModalForm.js';
 import { NDonateModalSuccess } from './NDonateModalSuccess.js';
@@ -30,6 +31,7 @@ export function NDonateModal(props) {
     const [uuid, setUuid] = React.useState(null);
     const [discordUsername, setDiscordUsername] = React.useState('');
     const [discordTag, setDiscordTag] = React.useState('');
+    const [amount, setAmount] = React.useState(5);
 
     const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
@@ -71,6 +73,20 @@ export function NDonateModal(props) {
         },
         {
             label: {
+                placeholder: "Choose donation amount",
+                translation: "RahNeil_N3.Irus.Donations.Amount.Title",
+            },
+            content: {
+                translation: (
+                    <NAmountStep
+                        amount={amount}
+                        setAmount={setAmount}
+                    />
+                ),
+            }
+        },
+        {
+            label: {
                 placeholder: "Checkout",
                 translation: "RahNeil_N3.Irus.Donations.Checkout.Title",
             },
@@ -79,9 +95,9 @@ export function NDonateModal(props) {
                     <NCheckoutStep
                         discordUsername={discordUsername}
                         discordTag={discordTag}
+                        amount={amount}
                         onSuccess={() => {
                             setSuccess(true);
-
                             const timeoutID = window.setTimeout(() => {
                                 setSuccessStep(1);
                                 window.clearTimeout(timeoutID);
