@@ -79,6 +79,7 @@ export function NDonateModal(props) {
                     <NCheckoutStep
                         discordUsername={discordUsername}
                         discordTag={discordTag}
+                        uuid={uuid}
                         onSuccess={() => {
                             setSuccess(true);
 

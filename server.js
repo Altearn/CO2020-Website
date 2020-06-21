@@ -69,7 +69,7 @@ app.post('/api/createOrder/:amount', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req, res) {
+app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
@@ -105,7 +105,20 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
                     });
                 }
 
-                var sql = "INSERT INTO don_co2020.Donations (amount, currency) VALUES ("+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+", "+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+");";
+                var sql = `
+                    INSERT INTO don_co2020.Donations
+                    (
+                        amount,
+                        currency
+                        `+(req.params.uuid==='null'?null:', uuid')+`
+                    )
+                    VALUES
+                    (
+                        `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
+                        `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
+                        (req.params.uuid==='null'?null:', '+req.param.uuid)+
+                    `);`;
+                
                 db.query(sql, function (err, result) {
                     if (err) console.log(err);
                 });
