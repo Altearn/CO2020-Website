@@ -18,7 +18,7 @@ client.on('ready', () => {
 client.login(process.env.DISCORD_TOKEN);
 
 db.connect(function(err) {
-    if (err) throw err;
+    if (err) console.log(err);
     console.log("Connected to database!");
 });
 
@@ -93,6 +93,8 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
                 return res.sendStatus(500);
             }
 
+            console.log(JSON.parse(body).purchase_units[0].payments.captures[0].amount);
+
             if (JSON.parse(body).status==='COMPLETED') {
                 if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
                     var guild = client.guilds.cache.get('719527687000948797');
@@ -104,6 +106,11 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
                         });
                     });
                 }
+
+                var sql = "INSERT INTO don_co2020.Donations (amount, currency) VALUES ("+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+", "+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+");";
+                db.query(sql, function (err, result) {
+                    if (err) console.log(err);
+                });
 
                 res.json({
                     status: 'success'
