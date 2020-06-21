@@ -93,8 +93,6 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
                 return res.sendStatus(500);
             }
 
-            console.log(JSON.parse(body).purchase_units[0].payments.captures[0].amount);
-
             if (JSON.parse(body).status==='COMPLETED') {
                 if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
                     var guild = client.guilds.cache.get('719527687000948797');
