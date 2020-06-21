@@ -23,7 +23,8 @@ export function NCheckoutStep(props) {
             onApprove={function(data, actions) {
                 return fetch('/api/approveOrder/'+data.orderID+'/'
                     +(props.discordUsername===''?'null':props.discordUsername)
-                    +'/'+(props.discordTag===''?'null':props.discordTag),
+                    +'/'+(props.discordTag===''?'null':props.discordTag)
+                    +'/'+(props.uuid===null?'null':props.uuid),
                 {
                     method: 'post'
                 }).then(function(res) {
