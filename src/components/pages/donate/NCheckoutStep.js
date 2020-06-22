@@ -13,7 +13,7 @@ export function NCheckoutStep(props) {
     return (
         <PayPalButton
             createOrder={function(data, actions) {
-                return fetch('/api/createOrder/' + props.amount, {
+                return fetch('/api/createOrder/' + Number(props.amount).toFixed(2) + '/' + props.currency, {
                     method: 'post'
                 }).then(function(res) {
                     return res.json();

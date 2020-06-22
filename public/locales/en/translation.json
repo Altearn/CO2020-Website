@@ -11,7 +11,8 @@
           "Title": "Checkout"
         },
         "Amount": {
-          "Title": "Choose donation amount"
+          "Title": "Choose donation amount",
+          "Label": "Donation amount"
         },
         "Discord": {
           "Info": {

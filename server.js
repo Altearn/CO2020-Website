@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.post('/api/createOrder/:amount', function(req, res) {
+app.post('/api/createOrder/:amount/:currency', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
@@ -41,7 +41,7 @@ app.post('/api/createOrder/:amount', function(req, res) {
                 "purchase_units": [
                     {
                         "amount": {
-                            "currency_code": "USD",
+                            "currency_code": 'USD', //TODO: replace with req.params.currency, but paypal needs to accept it
                             "value": req.params.amount
                         },
                     }

@@ -32,6 +32,7 @@ export function NDonateModal(props) {
     const [discordUsername, setDiscordUsername] = React.useState('');
     const [discordTag, setDiscordTag] = React.useState('');
     const [amount, setAmount] = React.useState(5);
+    const [currency, setCurrency] = React.useState('USD');
 
     const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
@@ -81,6 +82,8 @@ export function NDonateModal(props) {
                     <NAmountStep
                         amount={amount}
                         setAmount={setAmount}
+                        currency={currency}
+                        setCurrency={setCurrency}
                     />
                 ),
             }
@@ -96,6 +99,7 @@ export function NDonateModal(props) {
                         discordUsername={discordUsername}
                         discordTag={discordTag}
                         amount={amount}
+                        currency={currency}
                         onSuccess={() => {
                             setSuccess(true);
                             const timeoutID = window.setTimeout(() => {
