@@ -29,15 +29,6 @@ export function NAmountStep(props) {
     };
 
     const handleSliderChange = (event, newValue) => props.setAmount(newValue);
-    const handleInputChange = (event) => props.setAmount(event.target.value);
-    const handleInputBlur = (event) => {
-        let newval = 5;
-        let input = parseFloat(event.target.value);
-        if (! isNaN(input)) newval = input;
-        if (newval < 1) newval = 1;
-        newval = Math.round(newval*100)/100;
-        props.setAmount(newval);
-    };
 
     let marks = [];
     const updateMarks = () => {
@@ -56,8 +47,13 @@ export function NAmountStep(props) {
                     <Input
                         className={classes.amount}
                         value={props.amount}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
+                        onChange={(event) => {
+                            if ((/^\d+(|\.|,)\d{0,2}$/.test(event.target.value))||event.target.value==='')
+                                props.setAmount(event.target.value.split(',').join('.'));
+                        }}
+                        onBlur={(event) => {
+                            if (event.target.value==='') props.setAmount(5);
+                        }}
                     />
                     <TextField
                         className={classes.currency}
