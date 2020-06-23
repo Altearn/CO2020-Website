@@ -10,6 +10,11 @@
           },
           "Title": "Checkout"
         },
+        "Amount": {
+          "Title": "Choose donation amount",
+          "Label": "Donation amount",
+          "Default-Currency": "USD"
+        },
         "Discord": {
           "Info": {
             "0": "Be sure to",

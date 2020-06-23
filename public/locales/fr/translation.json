@@ -10,6 +10,11 @@
           },
           "Title": "Payer"
         },
+        "Amount": {
+          "Title": "Choisissez le montant du don",
+          "Label": "Montant",
+          "Default-Currency": "EUR"
+        },
         "Discord": {
           "Info": {
             "0": "Vérifiez bien qu'il n'y a pas de",
