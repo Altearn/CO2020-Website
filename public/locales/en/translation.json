@@ -4,16 +4,16 @@
       "Back": "Back",
       "Cancel": "Cancel",
       "Donations": {
+        "Amount": {
+          "Title": "Choose donation amount",
+          "Label": "Donation amount",
+          "Default-Currency": "USD"
+        },
         "Checkout": {
           "Snackbar": {
             "Cancelled": "Transaction cancelled"
           },
           "Title": "Checkout"
-        },
-        "Amount": {
-          "Title": "Choose donation amount",
-          "Label": "Donation amount",
-          "Default-Currency": "USD"
         },
         "Discord": {
           "Info": {
