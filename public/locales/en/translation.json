@@ -12,7 +12,8 @@
         },
         "Amount": {
           "Title": "Choose donation amount",
-          "Label": "Donation amount"
+          "Label": "Donation amount",
+          "Default-Currency": "USD"
         },
         "Discord": {
           "Info": {

@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 import Input from '@material-ui/core/Input';
-import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -13,13 +12,16 @@ export function NAmountStep(props) {
     const {t} = useTranslation();
     const classes = useStyles();
 
+    if(! props.currency)
+        props.setCurrency(t('RahNeil_N3.Irus.Donations.Amount.Default-Currency'));
+
     const currencies = [
         { value: 'USD', label: '$' },
         { value: 'EUR', label: '€' },
         { value: 'GBP', label: '£' },
     ];
     const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
-    let currencyLabel = labelFromCurrencyCode(props.currency);
+    let currencyLabel = labelFromCurrencyCode(props.currency || 'USD');
     const handleChangeCurrency = (event) => {
         props.setCurrency(event.target.value);
         currencyLabel = labelFromCurrencyCode(event.target.value);

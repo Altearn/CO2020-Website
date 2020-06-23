@@ -32,7 +32,7 @@ export function NDonateModal(props) {
     const [discordUsername, setDiscordUsername] = React.useState('');
     const [discordTag, setDiscordTag] = React.useState('');
     const [amount, setAmount] = React.useState(5);
-    const [currency, setCurrency] = React.useState('USD');
+    const [currency, setCurrency] = React.useState(null);
 
     const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
