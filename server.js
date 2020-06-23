@@ -3,16 +3,24 @@ const request = require('request');
 const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
+const mysql = require('mysql');
 app.use(express.static(path.join(__dirname, 'build')));
 const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
+
+const db = mysql.createConnection({host: "localhost", user: process.env.DB_USER, password: process.env.DB_PWD});
 
 client.on('ready', () => {
     console.log(`Discord bot logged in as ${client.user.tag}!`);
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+db.connect(function(err) {
+    if (err) console.log(err);
+    console.log("Connected to database!");
+});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -61,7 +69,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req, res) {
+app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
@@ -86,9 +94,13 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
             }
 
             if (JSON.parse(body).status==='COMPLETED') {
+                var discordId = null;
                 if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
                     var guild = client.guilds.cache.get('719527687000948797');
                     guild.members.fetch({query: req.params.discordUsername, limit: 1}).then(users => {
+                        
+                        discordId = users.first().user.id;
+
                         guild.roles.fetch('723308537710772265').then(role => {
                             if (users.first().user.tag===req.params.discordUsername+'#'+req.params.discordTag) {
                                 users.first().roles.add(role, 'made a donation');
@@ -96,6 +108,26 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag', function(req
                         });
                     });
                 }
+
+                var sql = `
+                    INSERT INTO don_co2020.Donations
+                    (
+                        amount,
+                        currency`+
+                        (req.params.uuid==='null'?null:', uuid')+
+                        (req.params.uuid==='null'?null:', discordId')+`
+                    )
+                    VALUES
+                    (
+                        `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
+                        `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
+                        (req.params.uuid==='null'?null:', '+req.param.uuid)+
+                        (discordId===null?null:', '+discordId)+
+                    `);`;
+                
+                db.query(sql, function (err, result) {
+                    if (err) console.log(err);
+                });
 
                 res.json({
                     status: 'success'

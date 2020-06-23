@@ -100,6 +100,7 @@ export function NDonateModal(props) {
                         discordTag={discordTag}
                         amount={amount}
                         currency={currency}
+                        uuid={uuid}
                         onSuccess={() => {
                             setSuccess(true);
                             const timeoutID = window.setTimeout(() => {
