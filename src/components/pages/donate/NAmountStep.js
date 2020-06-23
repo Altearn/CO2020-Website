@@ -16,6 +16,7 @@ export function NAmountStep(props) {
     const currencies = [
         { value: 'USD', label: '$' },
         { value: 'EUR', label: '€' },
+        { value: 'GBP', label: '£' },
     ];
     const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
     let currencyLabel = labelFromCurrencyCode(props.currency);

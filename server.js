@@ -41,7 +41,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
                 "purchase_units": [
                     {
                         "amount": {
-                            "currency_code": 'USD', //TODO: replace with req.params.currency, but paypal needs to accept it
+                            "currency_code": req.params.currency,
                             "value": req.params.amount
                         },
                     }
