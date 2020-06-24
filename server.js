@@ -27,17 +27,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/whitelisted', function (req, res) {
+    var finalValue = "";
     db.query("SELECT uuid FROM don_co2020.Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
         if (err) console.log(err);
 
-        var finalValue = "";
         for (var i = 0; i < result.length; i++) {
             finalValue+=result.uuid+"<br>";
         }
-
-        console.log(finalValue);
     });
-    res.send("hey<br>hey");
+    res.send(finalValue);
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
