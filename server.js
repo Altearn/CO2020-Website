@@ -18,7 +18,7 @@ client.on('ready', () => {
 client.login(process.env.DISCORD_TOKEN);
 
 db.connect(function(err) {
-    if (err) console.log(err);
+    if (err) throw err;
     console.log("Connected to database!");
 });
 
@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 app.get('/api/whitelisted', function (req, res) {
     var finalValue = "";
     db.query("SELECT uuid FROM don_co2020.Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
-        if (err) console.log(err);
+        if (err) throw err;
 
         for (var i = 0; i < result.length; i++) {
             finalValue+=result.uuid+"<br>";
@@ -138,7 +138,7 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
                     `);`;
                 
                 db.query(sql, function (err, result) {
-                    if (err) console.log(err);
+                    if (err) throw err;
                 });
 
                 res.json({
