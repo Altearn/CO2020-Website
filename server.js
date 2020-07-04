@@ -28,14 +28,14 @@ app.get('/', function (req, res) {
 
 app.get('/api/whitelisted', function (req, res) {
     var finalValue = "";
-    db.query("SELECT uuid FROM don_co2020.Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
+    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
         if (err) throw err;
 
         for (var i = 0; i < result.length; i++) {
-            finalValue+=result.uuid+"<br>";
+            finalValue+=result[i].uuid+"<br>";
         }
+        res.send(finalValue);
     });
-    res.send(finalValue);
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
@@ -121,23 +121,14 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
                     });
                 }
 
-                var sql = `
-                    INSERT INTO don_co2020.Donations
-                    (
-                        amount,
-                        currency`+
-                        (req.params.uuid==='null'?null:', uuid')+
-                        (req.params.uuid==='null'?null:', discordId')+`
-                    )
-                    VALUES
-                    (
-                        `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
-                        `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
-                        (req.params.uuid==='null'?null:', '+req.param.uuid)+
-                        (discordId===null?null:', '+discordId)+
-                    `);`;
-                
-                db.query(sql, function (err, result) {
+                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, uuid, discordId) VALUES (?, ?, ?, ?);',
+                    [
+                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
+                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
+                        req.params.uuid==='null'?null:req.params.uuid,
+                        discordId
+                    ], function (err, results)
+                {
                     if (err) throw err;
                 });
 
