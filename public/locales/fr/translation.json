@@ -29,6 +29,16 @@
             "2": "mais vous ne recevrez pas le",
             "3": "rôle de donateur",
             "4": "si vous ne liez pas votre compte Discord."
+          },
+          "Error": {
+            "0": "Nous n'avons pas pu trouver",
+            "1": ". Assurez vous que votre nom et tag sont bien écrits, et que vous êtes sur le serveur Discord",
+            "2": "Creative Olympics",
+            "3": "."
+          },
+          "Success": {
+            "0": "Hey",
+            "1": " ! Vous obtiendrez votre rôle dès que la transaction sera terminée !"
           }
         },
         "Donate_Now": {

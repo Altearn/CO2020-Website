@@ -81,7 +81,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', function(req, res) {
+app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
@@ -107,16 +107,11 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
 
             if (JSON.parse(body).status==='COMPLETED') {
                 var discordId = null;
-                if (req.params.discordUsername!=='null'&&req.params.discordTag!=='null'&&req.params.discordTag.length===4) {
+                if (req.params.discordId!=='null' && req.params.discordId!=='') {
                     var guild = client.guilds.cache.get('719527687000948797');
-                    guild.members.fetch({query: req.params.discordUsername, limit: 1}).then(users => {
-                        
-                        discordId = users.first().user.id;
-
+                    guild.members.fetch(req.params.discordId).then(user => {
                         guild.roles.fetch('723308537710772265').then(role => {
-                            if (users.first().user.tag===req.params.discordUsername+'#'+req.params.discordTag) {
-                                users.first().roles.add(role, 'made a donation');
-                            }
+                            user.roles.add(role, 'made a donation');
                         });
                     });
                 }
@@ -151,6 +146,52 @@ app.post('/api/approveOrder/:orderId/:discordUsername/:discordTag/:uuid', functi
             }
         });
     });
+});
+
+app.get('/api/discordprofile/:username/:tag', function(req, res) {
+
+    const username = req.params.username;
+    const tag = req.params.tag;
+
+    function error(msg) {
+        console.error('Error: ' + req.originalUrl + '\nFailed with:');
+        console.error(msg);
+        res.json({status: 'error'});
+    }
+
+    if (username!=='null'&&tag!=='null'&&tag.length===4) {
+        // Gets all the users with that username
+        const guild = client.guilds.cache.get('719527687000948797');
+        guild.members.fetch({query: username})
+            .then(members => {
+                if(members.array().length === 0) {
+                    error("Couldn't find user");
+                    return;
+                }
+                // Gets the user with the right tag
+                let member = undefined;
+                for(let m of members.array()) {
+                    if (m.user.username === username && m.user.discriminator === tag)
+                        member = m;
+                }
+                if(member === undefined) {
+                    error("Couldn't find user");
+                    return;
+                }
+                // Gets the user information
+                res.send(JSON.stringify({
+                    id: member.user.id,
+                    avatarURL: member.user.avatarURL(),
+                    nickname: member.nickname,
+                    username: username,
+                    tag: tag,
+                    status: 'success',
+                }));
+            })
+            .catch(err => error("Error while processing users list\n"+err));
+    }
+    else
+        error("Malformatted request");
 });
 
 app.listen(process.env.PORT || 8080);
