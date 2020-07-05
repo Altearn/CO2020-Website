@@ -22,7 +22,7 @@ export function NDonatorCard(props) {
         <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
             <CardContent className={classes.content}>
                 <Typography gutterBottom variant="subtitle1">
-                    neil3000
+                    {props.username}
                 </Typography>
                 <Typography gutterBottom component="h5" variant="h4">
                     {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
@@ -40,11 +40,13 @@ export function NDonatorCard(props) {
                     </Grid>
                 </Tooltip>
             </CardContent>
-            <CardMedia
-                className={classes.cover}
-                image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                title="neil3000"
-            />
+            <Tooltip title={props.username} arrow>
+                <CardMedia
+                    className={classes.cover}
+                    image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                    title="neil3000"
+                />
+            </Tooltip>
         </NCard>
     );
 }

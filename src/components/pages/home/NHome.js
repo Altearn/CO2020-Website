@@ -51,6 +51,7 @@ export function NHome(props) {
                                     amount={50}
                                     currency='USD'
                                     uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
                                     latest
                                 />
@@ -59,6 +60,7 @@ export function NHome(props) {
                                     amount={50}
                                     currency='USD'
                                     uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
                                     latest
                                 />
