@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
@@ -59,6 +59,9 @@ export default function App() {
                         </Route>
                         <Route path="/donate">
                             <NDonateModal opened />
+                        </Route>
+                        <Route path="*">
+                            <Redirect to="/" />
                         </Route>
                     </Switch>
                 </BrowserRouter>

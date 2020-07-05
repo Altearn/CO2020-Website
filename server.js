@@ -23,7 +23,9 @@ db.connect(function(err) {
 });
 
 app.get('/:page', function (req, res) {
-    if (req.params.page!=='api') res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    if (req.params.page!=='api') {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    }
 });
 
 app.get('/api/whitelisted', function (req, res) {
@@ -35,6 +37,36 @@ app.get('/api/whitelisted', function (req, res) {
             finalValue+=result[i].uuid+"<br>";
         }
         res.send(finalValue);
+    });
+});
+
+app.get('/api/cards', function (req, res) {
+    var finalValue = {
+        first: null,
+        second: null,
+        third: null,
+        latest: null
+    }
+    db.query(
+        "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount DESC LIMIT 3;",
+        function (err, result, fields)
+    {
+        if (err) throw err;
+
+        finalValue.first = result.length>0?result[0]:null;
+        finalValue.second = result.length>1?result[1]:null;
+        finalValue.third = result.length>2?result[2]:null;
+
+        db.query(
+            "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
+            function (err, result, fields)
+        {
+            if (err) throw err;
+    
+            if (result.length===1) finalValue.latest = result[0];
+    
+            res.json(finalValue);
+        });
     });
 });
 
