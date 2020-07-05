@@ -27,20 +27,68 @@ export function NHome(props) {
                 <Grid item xs={12} sm={12} md={4} lg={6}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6} md={12} lg={6}>
-                            <Suspense fallback={<NDonatorCardLoading first isDarkTheme={props.isDarkTheme} />}>
-                                <NDonatorCard first isDarkTheme={props.isDarkTheme} />
+                            <Suspense fallback={
+                                <NDonatorCardLoading
+                                    amount={50}
+                                    currency='USD'
+                                    uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
+                                    isDarkTheme={props.isDarkTheme}
+                                    top
+                                />
+                            }>
+                                <NDonatorCard
+                                    amount={50}
+                                    currency='USD'
+                                    uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
+                                    isDarkTheme={props.isDarkTheme}
+                                    top
+                                />
                             </Suspense>
                         </Grid>
                         {isScreenLarge?
                             <>
                                 <Grid item xs={12} sm={6} md={12} lg={6}>
-                                    <Suspense fallback={<NDonatorCardLoading second isDarkTheme={props.isDarkTheme} />}>
-                                        <NDonatorCard second isDarkTheme={props.isDarkTheme} />
+                                    <Suspense fallback={
+                                        <NDonatorCardLoading
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            second
+                                        />
+                                    }>
+                                        <NDonatorCard
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            second
+                                        />
                                     </Suspense>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={12} lg={6}>
-                                    <Suspense fallback={<NDonatorCardLoading third isDarkTheme={props.isDarkTheme} />}>
-                                        <NDonatorCard third isDarkTheme={props.isDarkTheme} />
+                                    <Suspense fallback={
+                                        <NDonatorCardLoading
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            third
+                                        />
+                                    }>
+                                        <NDonatorCard
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            third
+                                        />
                                     </Suspense>
                                 </Grid>
                             </>
@@ -51,6 +99,7 @@ export function NHome(props) {
                                     amount={50}
                                     currency='USD'
                                     uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
                                     latest
                                 />
@@ -59,6 +108,7 @@ export function NHome(props) {
                                     amount={50}
                                     currency='USD'
                                     uuid='08831584f28940e0b572d1ae7363ec96'
+                                    username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
                                     latest
                                 />
