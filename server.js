@@ -22,8 +22,8 @@ db.connect(function(err) {
     console.log("Connected to database!");
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get('/:page', function (req, res) {
+    if (req.params.page!=='api') res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get('/api/whitelisted', function (req, res) {
