@@ -7,6 +7,10 @@
         "Latest": {
           "Long": "Most recent donator",
           "Short": "Latest"
+        },
+        "Third": {
+          "Long": "Third best donator",
+          "Short": "Third"
         }
       },
       "Donations": {
