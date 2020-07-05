@@ -22,7 +22,7 @@ export function NDonatorCard(props) {
 
     function NDonatorCardIconLabel() {
         return (
-            <Grid container wrap="nowrap">
+            <>
                 <Grid item className={classes.icon}>
                     {props.latest?<HistoryIcon color="action" />:null}
                     {props.top?
@@ -48,14 +48,21 @@ export function NDonatorCard(props) {
                 <Grid item>
                     <Typography variant="subtitle1" color="textSecondary" noWrap>
                         {props.latest?t('RahNeil_N3.Irus.Cards.Latest.Short'):null}
-                        {props.top?t('RahNeil_N3.Irus.Cards.Top'):null}
+                        {props.top?t('RahNeil_N3.Irus.Cards.Top.Short'):null}
                         {props.second?t('RahNeil_N3.Irus.Cards.Second.Short'):null}
                         {props.third?t('RahNeil_N3.Irus.Cards.Third.Short'):null}
                     </Typography>
                 </Grid>
-            </Grid>
+            </>
         );
     }
+
+    const longText = t('RahNeil_N3.Irus.Cards.'+
+        (props.top?'Top':'')+
+        (props.latest?'Latest':'')+
+        (props.second?'Second':'')+
+        (props.third?'Third':'')+
+        '.Long');
 
     return (
         <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
@@ -67,17 +74,15 @@ export function NDonatorCard(props) {
                     {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
                 </Typography>
 
-                {props.top?
-                    <NDonatorCardIconLabel />
-                :
-                    <Tooltip title={
-                        t('RahNeil_N3.Irus.Cards.'+
-                        (props.latest?'Latest':'')+
-                        (props.second?'Second':'')+
-                        (props.third?'Third':'')+
-                        '.Long')
-                    } arrow>
+                {longText===null?
+                    <Grid container wrap="nowrap">
                         <NDonatorCardIconLabel />
+                    </Grid>
+                :
+                    <Tooltip title={longText} arrow>
+                        <Grid container wrap="nowrap">
+                            <NDonatorCardIconLabel />
+                        </Grid>
                     </Tooltip>
                 }
             </CardContent>

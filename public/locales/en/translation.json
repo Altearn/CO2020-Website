@@ -5,7 +5,7 @@
       "Cancel": "Cancel",
       "Cards": {
         "Latest": {
-          "Long": "Most recent donator",
+          "Long": null,
           "Short": "Most recent"
         },
         "Second": {
@@ -16,7 +16,10 @@
           "Long": "Third best donator",
           "Short": "Third best"
         },
-        "Top": "Top donator"
+        "Top": {
+          "Long": null,
+          "Short": "Top donator"
+        }
       },
       "Donations": {
         "Amount": {
