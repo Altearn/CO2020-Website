@@ -38,6 +38,36 @@ app.get('/api/whitelisted', function (req, res) {
     });
 });
 
+app.get('/api/cards', function (req, res) {
+    var finalValue = {
+        first: null,
+        second: null,
+        third: null,
+        latest: null
+    }
+    db.query(
+        "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount DESC LIMIT 3;",
+        function (err, result, fields)
+    {
+        if (err) throw err;
+
+        finalValue.first = result.length>0?result[0]:null;
+        finalValue.second = result.length>1?result[1]:null;
+        finalValue.third = result.length>2?result[2]:null;
+
+        db.query(
+            "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
+            function (err, result, fields)
+        {
+            if (err) throw err;
+    
+            if (result.length===1) finalValue.latest = result[0];
+    
+            res.json(finalValue);
+        });
+    });
+});
+
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
     request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
         auth: {
