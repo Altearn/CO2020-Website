@@ -3,6 +3,12 @@
     "Irus": {
       "Back": "Retour",
       "Cancel": "Annuler",
+      "Cards": {
+        "Latest": {
+          "Long": "Donateur le plus récent",
+          "Short": "Récent"
+        }
+      },
       "Donations": {
         "Checkout": {
           "Snackbar": {
