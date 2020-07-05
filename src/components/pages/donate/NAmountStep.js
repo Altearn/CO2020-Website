@@ -12,7 +12,7 @@ export function NAmountStep(props) {
     const {t} = useTranslation();
     const classes = useStyles();
 
-    if(! props.currency)
+    if(!props.currency)
         props.setCurrency(t('RahNeil_N3.Irus.Donations.Amount.Default-Currency'));
 
     const currencies = [
