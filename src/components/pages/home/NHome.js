@@ -34,7 +34,7 @@ export function NHome(props) {
                                     uuid='08831584f28940e0b572d1ae7363ec96'
                                     username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
-                                    first
+                                    top
                                 />
                             }>
                                 <NDonatorCard
@@ -43,15 +43,31 @@ export function NHome(props) {
                                     uuid='08831584f28940e0b572d1ae7363ec96'
                                     username='neil3000'
                                     isDarkTheme={props.isDarkTheme}
-                                    first
+                                    top
                                 />
                             </Suspense>
                         </Grid>
                         {isScreenLarge?
                             <>
                                 <Grid item xs={12} sm={6} md={12} lg={6}>
-                                    <Suspense fallback={<NDonatorCardLoading second isDarkTheme={props.isDarkTheme} />}>
-                                        <NDonatorCard second isDarkTheme={props.isDarkTheme} />
+                                    <Suspense fallback={
+                                        <NDonatorCardLoading
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            second
+                                        />
+                                    }>
+                                        <NDonatorCard
+                                            amount={50}
+                                            currency='USD'
+                                            uuid='08831584f28940e0b572d1ae7363ec96'
+                                            username='neil3000'
+                                            isDarkTheme={props.isDarkTheme}
+                                            second
+                                        />
                                     </Suspense>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={12} lg={6}>

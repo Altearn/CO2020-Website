@@ -6,12 +6,17 @@
       "Cards": {
         "Latest": {
           "Long": "Most recent donator",
-          "Short": "Latest"
+          "Short": "Most recent"
+        },
+        "Second": {
+          "Long": "Second best donator",
+          "Short": "Second best"
         },
         "Third": {
           "Long": "Third best donator",
-          "Short": "Third"
-        }
+          "Short": "Third best"
+        },
+        "Top": "Top donator"
       },
       "Donations": {
         "Amount": {
