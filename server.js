@@ -23,7 +23,9 @@ db.connect(function(err) {
 });
 
 app.get('/:page', function (req, res) {
-    if (req.params.page!=='api') res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    if (req.params.page!=='api') {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    }
 });
 
 app.get('/api/whitelisted', function (req, res) {
