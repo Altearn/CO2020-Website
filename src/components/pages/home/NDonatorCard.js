@@ -155,15 +155,15 @@ export function NDonatorCardLoading(props) {
                         </span>
                     </Skeleton>
                 </Typography>
-                <Grid container>
+                <Grid container alignItems='center' wrap='nowrap'>
                     <Grid item className={classes.icon}>
                         {props.latest?<HistoryIcon className={classes.smallIcon} color="action" />:null}
                         {props.top?isScreenLarge?<PodiumTopIcon/>:<CrownIcon/>:null}
                         {props.second?<PodiumSecondIcon/>:null}
                         {props.third?<PodiumThirdIcon/>:null}
                     </Grid>
-                    <Grid item>
-                        <Typography variant="subtitle1" color="textSecondary">
+                    <Grid item className={classes.labelWrap}>
+                        <Typography variant="subtitle1" noWrap>
                             <Skeleton className={classes.inline}>
                                 <span>
                                     {props.latest?'Most recent':null}
