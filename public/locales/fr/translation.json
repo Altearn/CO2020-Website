@@ -94,6 +94,10 @@
         "Title": "Dons"
       },
       "Error": {
+        "Display": {
+          "Server": "Nous ne pouvons pas joindre nos serveurs, des éléments peuvent ne pas s'afficher correctement",
+          "Server_External": "Nous ne pouvons pas joindre un serveur tiers, des éléments peuvent ne pas s'afficher correctement"
+        },
         "General": "Une erreur s'est produite, veuillez réessayer plus tard",
         "Language": "Une erreur est survenue lors du chargement de"
       },
