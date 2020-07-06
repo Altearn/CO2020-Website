@@ -12,9 +12,15 @@ export function NDonateCard(props) {
     const { t } = useTranslation();
     const history = useHistory();
     const classes = useStyles();
+    const [loading, setLoading] = React.useState(true);
 
     return (
-        <>
+        loading?
+            <>
+                <img style={{display: 'none'}} src="/NDonateCardBackground.jpg" onLoad={() => setLoading(false)} alt='Loading...'/>
+                <NDonateCardLoading {...props} />
+            </>
+        :
             <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
                 <CardActionArea className={classes.actionArea} onClick={() => history.push("/donate")}>
                     <CardMedia
@@ -34,7 +40,6 @@ export function NDonateCard(props) {
                     </CardMedia>
                 </CardActionArea>
             </NCard>
-        </>
     );
 }
 

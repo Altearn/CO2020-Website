@@ -60,6 +60,7 @@ export function NDonatorCard(props) {
         { value: 'GBP', label: '£' },
     ];
     const [username, setUsername] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
     const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
 
     useEffect(() => {
@@ -99,8 +100,16 @@ export function NDonatorCard(props) {
         '.Long');
 
     return (
-        username==null?
-            <NDonatorCardLoading {...props} />
+        username==null||loading?
+            <>
+                <img
+                    style={{display: 'none'}}
+                    src={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                    onLoad={() => setLoading(false)}
+                    alt='Loading...'
+                />
+                <NDonatorCardLoading {...props} />
+            </>
         :
             <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
                 <CardContent className={classes.content}>
@@ -127,7 +136,7 @@ export function NDonatorCard(props) {
                     <CardMedia
                         className={classes.cover}
                         image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                        title="neil3000"
+                        title={username}
                     />
                 </Tooltip>
             </NCard>
