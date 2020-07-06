@@ -45,7 +45,7 @@ app.get('/api/whitelisted', function (req, res) {
 
 app.get('/api/cards', function (req, res) {
     var finalValue = {
-        first: null,
+        top: null,
         second: null,
         third: null,
         latest: null
@@ -56,7 +56,7 @@ app.get('/api/cards', function (req, res) {
     {
         if (err) throw err;
 
-        finalValue.first = result.length>0?result[0]:null;
+        finalValue.top = result.length>0?result[0]:null;
         finalValue.second = result.length>1?result[1]:null;
         finalValue.third = result.length>2?result[2]:null;
 

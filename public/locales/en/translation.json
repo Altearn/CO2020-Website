@@ -94,6 +94,10 @@
         "Title": "Donations"
       },
       "Error": {
+        "Display": {
+          "Server": "We're unable to reach our servers, some things may not display properly",
+          "Server_External": "We're unable to reach a third-party server, some things may not display properly"
+        },
         "General": "An error occured, please try again later",
         "Language": "An error occured while loading"
       },

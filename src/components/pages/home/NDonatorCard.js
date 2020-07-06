@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import { CardContent, CardMedia, Typography, Grid, Tooltip, SvgIcon, useMediaQuery } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
@@ -51,13 +52,23 @@ function PodiumThirdIcon() {
 export function NDonatorCard(props) {
     const { t } = useTranslation();
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
     const isScreenLarge = useMediaQuery(useTheme().breakpoints.up("lg"));
     const currencies = [
         { value: 'USD', label: '$' },
         { value: 'EUR', label: '€' },
         { value: 'GBP', label: '£' },
     ];
+    const [username, setUsername] = React.useState(null);
     const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
+
+    useEffect(() => {
+        fetch("https://api.minetools.eu/uuid/"+props.uuid, {crossDomain: true, method: 'GET'}).then((res) => {
+            res.json().then((json) => {
+                setUsername(json.name);
+            }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+        }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+    }, [props.uuid])            
 
     function NDonatorCardIconLabel() {
         return (
@@ -88,35 +99,38 @@ export function NDonatorCard(props) {
         '.Long');
 
     return (
-        <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
-            <CardContent className={classes.content}>
-                <Typography gutterBottom variant="subtitle1" noWrap>
-                    {props.username}
-                </Typography>
-                <Typography gutterBottom component="h5" variant="h4">
-                    {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
-                </Typography>
+        username==null?
+            <NDonatorCardLoading {...props} />
+        :
+            <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                <CardContent className={classes.content}>
+                    <Typography gutterBottom variant="subtitle1" noWrap>
+                        {username}
+                    </Typography>
+                    <Typography gutterBottom component="h5" variant="h4">
+                        {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
+                    </Typography>
 
-                {longText===null?
-                    <Grid container alignItems='center' wrap='nowrap'>
-                        <NDonatorCardIconLabel />
-                    </Grid>
-                :
-                    <Tooltip title={longText} arrow>
+                    {longText===null?
                         <Grid container alignItems='center' wrap='nowrap'>
                             <NDonatorCardIconLabel />
                         </Grid>
-                    </Tooltip>
-                }
-            </CardContent>
-            <Tooltip title={props.username} arrow>
-                <CardMedia
-                    className={classes.cover}
-                    image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                    title="neil3000"
-                />
-            </Tooltip>
-        </NCard>
+                    :
+                        <Tooltip title={longText} arrow>
+                            <Grid container alignItems='center' wrap='nowrap'>
+                                <NDonatorCardIconLabel />
+                            </Grid>
+                        </Tooltip>
+                    }
+                </CardContent>
+                <Tooltip title={username} arrow>
+                    <CardMedia
+                        className={classes.cover}
+                        image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                        title="neil3000"
+                    />
+                </Tooltip>
+            </NCard>
     );
 }
 
@@ -150,9 +164,12 @@ export function NDonatorCardLoading(props) {
                     </Grid>
                     <Grid item>
                         <Typography variant="subtitle1" color="textSecondary">
-                            <Skeleton>
+                            <Skeleton className={classes.inline}>
                                 <span>
-                                    {props.latest?'Latest':'First'}
+                                    {props.latest?'Most recent':null}
+                                    {props.top?'Top donator':null}
+                                    {props.second?'Second best':null}
+                                    {props.third?'Third best':null}
                                 </span>
                             </Skeleton>
                         </Typography>
@@ -163,7 +180,7 @@ export function NDonatorCardLoading(props) {
                 <CardMedia
                     className={classes.cover}
                     image="https://crafatar.com/renders/body/08831584-f289-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_Steve"
-                    title={props.username}
+                    title='Loading...'
                 />
             </Skeleton>
         </NCard>
@@ -200,5 +217,8 @@ const useStyles = makeStyles((theme) => ({
     },
     labelWrap: {
         width: '85%',
+    },
+    inline: {
+        maxWidth: 'none',
     }
 }));
