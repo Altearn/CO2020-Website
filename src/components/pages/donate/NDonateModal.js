@@ -29,9 +29,13 @@ export function NDonateModal(props) {
     const classes = useStyles();
 
     const [uuid, setUuid] = React.useState(null);
-    const [discordUsername, setDiscordUsername] = React.useState('');
-    const [discordTag, setDiscordTag] = React.useState('');
+
+    const [discordId, setDiscordId] = React.useState('');
+    const [discordPfpUrl, setDiscordPfpUrl] = React.useState(null);
+    const [discordNickname, setDiscordNickname] = React.useState(null);
+
     const [amount, setAmount] = React.useState(5);
+
     const [currency, setCurrency] = React.useState(null);
 
     const [success, setSuccess] = React.useState(false);
@@ -64,10 +68,12 @@ export function NDonateModal(props) {
             content: {
                 translation: (
                     <NDiscordStep
-                        username={discordUsername}
-                        setUsername={setDiscordUsername}
-                        tag={discordTag}
-                        setTag={setDiscordTag}
+                        discordId={discordId}
+                        setDiscordId={setDiscordId}
+                        discordPfpUrl={discordPfpUrl}
+                        setDiscordPfpUrl={setDiscordPfpUrl}
+                        discordNickname={discordNickname}
+                        setDiscordNickname={setDiscordNickname}
                     />
                 ),
             }
@@ -96,8 +102,7 @@ export function NDonateModal(props) {
             content: {
                 translation: (
                     <NCheckoutStep
-                        discordUsername={discordUsername}
-                        discordTag={discordTag}
+                        discordId={discordId}
                         amount={amount}
                         currency={currency}
                         uuid={uuid}

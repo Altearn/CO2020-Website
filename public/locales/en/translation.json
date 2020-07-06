@@ -47,6 +47,16 @@
             "2": "but you won't receive the",
             "3": "donator role",
             "4": "if you don't link your Discord account."
+          },
+          "Error": {
+            "0": "Couldn't find",
+            "1": ". Make sure you spelled your name and tag correctly and you are in the",
+            "2": "Creative Olympics",
+            "3": " Discord server."
+          },
+          "Success": {
+            "0": "Hey",
+            "1": "! You will get your role as soon as the transaction is completed!"
           }
         },
         "Donate_Now": {
