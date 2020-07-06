@@ -9,16 +9,16 @@
           "Short": "Most recent"
         },
         "Second": {
-          "Long": "Second best donator",
+          "Long": "Second best donor",
           "Short": "Second best"
         },
         "Third": {
-          "Long": "Third best donator",
+          "Long": "Third best donor",
           "Short": "Third best"
         },
         "Top": {
           "Long": null,
-          "Short": "Top donator"
+          "Short": "Top donor"
         }
       },
       "Donations": {
@@ -45,7 +45,7 @@
             "0": "This step is",
             "1": "optional",
             "2": "but you won't receive the",
-            "3": "donator role",
+            "3": "donor role",
             "4": "if you don't link your Discord account."
           },
           "Error": {

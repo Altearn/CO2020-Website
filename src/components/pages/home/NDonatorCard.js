@@ -68,7 +68,7 @@ export function NDonatorCard(props) {
                 setUsername(json.name);
             }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
         }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
-    }, [props.uuid])            
+    }, [props.uuid, enqueueSnackbar, t])            
 
     function NDonatorCardIconLabel() {
         return (

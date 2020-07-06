@@ -27,26 +27,26 @@ export function NHome(props) {
         third: null,
         latest: null
     });
-    const reloadCards = () => {
-        fetch('/api/cards/').then(res => {
-            res.json().then(res => {
-                setCards(res);
-            })
-            .catch(err => enqueueSnackbar(
+
+    useEffect(() => {
+        const reloadCards = () => {
+            fetch('/api/cards/').then(res => {
+                res.json().then(res => {
+                    setCards(res);
+                })
+                .catch(err => enqueueSnackbar(
+                    <Suspense fallback="We're unable to reach our server, some things may not display properly">
+                        <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
+                    </Suspense>,
+                    {variant: 'error'}));
+            }).catch(err => enqueueSnackbar(
                 <Suspense fallback="We're unable to reach our server, some things may not display properly">
                     <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
                 </Suspense>,
                 {variant: 'error'}));
-        }).catch(err => enqueueSnackbar(
-            <Suspense fallback="We're unable to reach our server, some things may not display properly">
-                <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
-            </Suspense>,
-            {variant: 'error'}));
-    }
-
-    useEffect(() => {
+        }
         reloadCards();
-    }, [])
+    }, [enqueueSnackbar])
 
     return (
         <div className={classes.root}>
