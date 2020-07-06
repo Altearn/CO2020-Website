@@ -9,6 +9,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
 
+const GUILD_ID = '719527687000948797';
+const DONATOR_ROLE_ID = '723308537710772265';
+
 const db = mysql.createConnection({host: "localhost", user: process.env.DB_USER, password: process.env.DB_PWD});
 
 client.on('ready', () => {
@@ -106,11 +109,10 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             }
 
             if (JSON.parse(body).status==='COMPLETED') {
-                var discordId = null;
                 if (req.params.discordId!=='null' && req.params.discordId!=='') {
-                    var guild = client.guilds.cache.get('719527687000948797');
+                    var guild = client.guilds.cache.get(GUILD_ID);
                     guild.members.fetch(req.params.discordId).then(user => {
-                        guild.roles.fetch('723308537710772265').then(role => {
+                        guild.roles.fetch(DONATOR_ROLE_ID).then(role => {
                             user.roles.add(role, 'made a donation');
                         });
                     });
@@ -129,7 +131,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
                         `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
                         (req.params.uuid==='null'?null:', '+req.param.uuid)+
-                        (discordId===null?null:', '+discordId)+
+                        (req.params.discordId===null?null:', '+req.params.discordId)+
                     `);`;
                 
                 db.query(sql, function (err, result) {
@@ -161,11 +163,11 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
 
     if (username!=='null'&&tag!=='null'&&tag.length===4) {
         // Gets all the users with that username
-        const guild = client.guilds.cache.get('719527687000948797');
+        const guild = client.guilds.cache.get(GUILD_ID);
         guild.members.fetch({query: username})
             .then(members => {
                 if(members.array().length === 0) {
-                    error("Couldn't find user");
+                    error("Couldn't find user: No user with that name");
                     return;
                 }
                 // Gets the user with the right tag
@@ -175,7 +177,7 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                         member = m;
                 }
                 if(member === undefined) {
-                    error("Couldn't find user");
+                    error("Couldn't find user: No users with that name and tag");
                     return;
                 }
                 // Gets the user information
