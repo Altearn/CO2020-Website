@@ -3,6 +3,24 @@
     "Irus": {
       "Back": "Back",
       "Cancel": "Cancel",
+      "Cards": {
+        "Latest": {
+          "Long": null,
+          "Short": "Most recent"
+        },
+        "Second": {
+          "Long": "Second best donator",
+          "Short": "Second best"
+        },
+        "Third": {
+          "Long": "Third best donator",
+          "Short": "Third best"
+        },
+        "Top": {
+          "Long": null,
+          "Short": "Top donator"
+        }
+      },
       "Donations": {
         "Amount": {
           "Title": "Choose donation amount",

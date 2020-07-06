@@ -25,20 +25,52 @@ db.connect(function(err) {
     console.log("Connected to database!");
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get('/:page', function (req, res) {
+    if (req.params.page!=='api') {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    }
 });
 
 app.get('/api/whitelisted', function (req, res) {
     var finalValue = "";
-    db.query("SELECT uuid FROM don_co2020.Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
+    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
         if (err) throw err;
 
         for (var i = 0; i < result.length; i++) {
-            finalValue+=result.uuid+"<br>";
+            finalValue+=result[i].uuid+"<br>";
         }
+        res.send(finalValue);
     });
-    res.send(finalValue);
+});
+
+app.get('/api/cards', function (req, res) {
+    var finalValue = {
+        first: null,
+        second: null,
+        third: null,
+        latest: null
+    }
+    db.query(
+        "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount DESC LIMIT 3;",
+        function (err, result, fields)
+    {
+        if (err) throw err;
+
+        finalValue.first = result.length>0?result[0]:null;
+        finalValue.second = result.length>1?result[1]:null;
+        finalValue.third = result.length>2?result[2]:null;
+
+        db.query(
+            "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
+            function (err, result, fields)
+        {
+            if (err) throw err;
+    
+            if (result.length===1) finalValue.latest = result[0];
+    
+            res.json(finalValue);
+        });
+    });
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
@@ -118,23 +150,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                     });
                 }
 
-                var sql = `
-                    INSERT INTO don_co2020.Donations
-                    (
-                        amount,
-                        currency`+
-                        (req.params.uuid==='null'?null:', uuid')+
-                        (req.params.uuid==='null'?null:', discordId')+`
-                    )
-                    VALUES
-                    (
-                        `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.value+
-                        `, `+JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code+
-                        (req.params.uuid==='null'?null:', '+req.param.uuid)+
-                        (req.params.discordId===null?null:', '+req.params.discordId)+
-                    `);`;
-                
-                db.query(sql, function (err, result) {
+                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, uuid, discordId) VALUES (?, ?, ?, ?);',
+                    [
+                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
+                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
+                        req.params.uuid==='null'?null:req.params.uuid,
+                        discordId
+                    ], function (err, results)
+                {
                     if (err) throw err;
                 });
 
