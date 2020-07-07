@@ -100,46 +100,51 @@ export function NDonatorCard(props) {
         '.Long');
 
     return (
-        username==null||loading?
-            <>
-                <img
-                    style={{display: 'none'}}
-                    src={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                    onLoad={() => setLoading(false)}
-                    alt='Loading...'
-                />
-                <NDonatorCardLoading {...props} />
-            </>
-        :
-            <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
-                <CardContent className={classes.content}>
-                    <Typography gutterBottom variant="subtitle1" noWrap>
-                        {username}
-                    </Typography>
-                    <Typography gutterBottom component="h5" variant="h4">
-                        {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
-                    </Typography>
+        <>
+            <img
+                style={{display: 'none'}}
+                src={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                onLoad={() => setLoading(false)}
+                alt='Loading...'
+            />
 
-                    {longText===null?
-                        <Grid container alignItems='center' wrap='nowrap'>
-                            <NDonatorCardIconLabel />
-                        </Grid>
-                    :
-                        <Tooltip title={longText} arrow>
+            {username==null||loading?
+                <>
+                    
+                    <NDonatorCardLoading {...props} />
+                </>
+            :
+                <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                    <CardContent className={classes.content}>
+                        <Typography gutterBottom variant="subtitle1" noWrap>
+                            {username}
+                        </Typography>
+                        <Typography gutterBottom component="h5" variant="h4">
+                            {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
+                        </Typography>
+
+                        {longText===null?
                             <Grid container alignItems='center' wrap='nowrap'>
                                 <NDonatorCardIconLabel />
                             </Grid>
-                        </Tooltip>
-                    }
-                </CardContent>
-                <Tooltip title={username} arrow>
-                    <CardMedia
-                        className={classes.cover}
-                        image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                        title={username}
-                    />
-                </Tooltip>
-            </NCard>
+                        :
+                            <Tooltip title={longText} arrow>
+                                <Grid container alignItems='center' wrap='nowrap'>
+                                    <NDonatorCardIconLabel />
+                                </Grid>
+                            </Tooltip>
+                        }
+                    </CardContent>
+                    <Tooltip title={username} arrow>
+                        <CardMedia
+                            className={classes.cover}
+                            image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                            title={username}
+                        />
+                    </Tooltip>
+                </NCard>
+            }
+        </>
     );
 }
 

@@ -46,7 +46,7 @@ export function NHome(props) {
                 {variant: 'error'}));
         }
         reloadCards();
-    }, [enqueueSnackbar])
+    }, [enqueueSnackbar]);
 
     return (
         <div className={classes.root}>

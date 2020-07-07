@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,31 +15,33 @@ export function NDonateCard(props) {
     const [loading, setLoading] = React.useState(true);
 
     return (
-        loading?
-            <>
-                <img style={{display: 'none'}} src="/NDonateCardBackground.jpg" onLoad={() => setLoading(false)} alt='Loading...'/>
+        <>
+            <img style={{display: 'none'}} src="/NDonateCardBackground.jpg" onLoad={() => setLoading(false)} alt='Loading...'/>
+
+            {loading?
                 <NDonateCardLoading {...props} />
-            </>
-        :
-            <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
-                <CardActionArea className={classes.actionArea} onClick={() => history.push("/donate")}>
-                    <CardMedia
-                        className={classes.media}
-                        image="/NDonateCardBackground.jpg"
-                        title={t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
-                    >
-                        <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
-                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
-                        </Typography>
-                        <Typography variant="body2" component="p" className={classes.description}>
-                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Description')}
-                        </Typography>
-                        <Button size="large" tabIndex="-1" disableRipple className={classes.whiteColorMargin} variant='outlined'>
-                            {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
-                        </Button>
-                    </CardMedia>
-                </CardActionArea>
-            </NCard>
+            :
+                <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                    <CardActionArea className={classes.actionArea} onClick={() => history.push("/donate")}>
+                        <CardMedia
+                            className={classes.media}
+                            image="/NDonateCardBackground.jpg"
+                            title={t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                        >
+                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
+                                {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                            </Typography>
+                            <Typography variant="body2" component="p" className={classes.description}>
+                                {t('RahNeil_N3.Irus.Donations.Donate_Now.Description')}
+                            </Typography>
+                            <Button size="large" tabIndex="-1" disableRipple className={classes.whiteColorMargin} variant='outlined'>
+                                {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
+                            </Button>
+                        </CardMedia>
+                    </CardActionArea>
+                </NCard>
+            }
+        </>
     );
 }
 
