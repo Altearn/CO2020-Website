@@ -15,7 +15,7 @@ export function NAppBar(props) {
     return(
         <div className={classes.root}>
             <Slide appear={false} direction="down" in={!trigger}>
-                <AppBar style={{backgroundColor: props.isDarkTheme?fade('#fff', 0.05):'#f44336'}}>
+                <AppBar style={{backgroundColor: props.isDarkTheme?'#1e1e1e':'#f44336'}}>
                     <Toolbar>
                         <Suspense fallback={<NAppBarTitleLoading />}>
                             <NAppBarTitle />
