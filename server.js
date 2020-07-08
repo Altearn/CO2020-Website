@@ -207,7 +207,6 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                 res.send(JSON.stringify({
                     id: member.user.id,
                     avatarURL: member.user.avatarURL(),
-                    nickname: member.nickname,
                     username: username,
                     tag: tag,
                     status: 'success',

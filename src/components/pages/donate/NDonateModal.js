@@ -30,9 +30,7 @@ export function NDonateModal(props) {
 
     const [uuid, setUuid] = React.useState(null);
 
-    const [discordId, setDiscordId] = React.useState('');
-    const [discordPfpUrl, setDiscordPfpUrl] = React.useState(null);
-    const [discordNickname, setDiscordNickname] = React.useState(null);
+    const [discordId, setDiscordId] = React.useState(null);
 
     const [amount, setAmount] = React.useState(5);
 
@@ -70,10 +68,6 @@ export function NDonateModal(props) {
                     <NDiscordStep
                         discordId={discordId}
                         setDiscordId={setDiscordId}
-                        discordPfpUrl={discordPfpUrl}
-                        setDiscordPfpUrl={setDiscordPfpUrl}
-                        discordNickname={discordNickname}
-                        setDiscordNickname={setDiscordNickname}
                     />
                 ),
             }
