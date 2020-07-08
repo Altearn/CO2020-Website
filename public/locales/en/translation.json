@@ -40,7 +40,7 @@
             "2": "as you won't receive the role if you made a mistake !"
           },
           "Title": "Link Discord account",
-          "Username": "Discord username",
+          "Username": "Username",
           "Warning": {
             "0": "This step is",
             "1": "optional",
@@ -51,8 +51,8 @@
           "Error": {
             "0": "Couldn't find",
             "1": ". Make sure you spelled your name and tag correctly and you are in the",
-            "2": "Creative Olympics",
-            "3": " Discord server."
+            "2": "Creative Olympics Discord server",
+            "3": "."
           },
           "Success": {
             "0": "Hey",

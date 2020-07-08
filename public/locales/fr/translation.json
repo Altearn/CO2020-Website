@@ -40,7 +40,7 @@
             "2": "ou vous pourriez ne pas recevoir le rôle !"
           },
           "Title": "Lier au compte Discord",
-          "Username": "Pseudonyme Discord",
+          "Username": "Pseudonyme",
           "Warning": {
             "0": "Cette étape est",
             "1": "facultative",
@@ -50,8 +50,8 @@
           },
           "Error": {
             "0": "Nous n'avons pas pu trouver",
-            "1": ". Assurez vous que votre nom et tag sont bien écrits, et que vous êtes sur le serveur Discord",
-            "2": "Creative Olympics",
+            "1": ". Assurez vous que votre nom et tag sont bien écrits, et que vous êtes sur le",
+            "2": "serveur Discord Creative Olympics",
             "3": "."
           },
           "Success": {

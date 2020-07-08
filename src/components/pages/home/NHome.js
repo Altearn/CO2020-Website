@@ -35,12 +35,12 @@ export function NHome(props) {
                     setCards(res);
                 })
                 .catch(err => enqueueSnackbar(
-                    <Suspense fallback="We're unable to reach our server, some things may not display properly">
+                    <Suspense fallback="We're unable to reach our servers, some things may not display properly">
                         <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
                     </Suspense>,
                     {variant: 'error'}));
             }).catch(err => enqueueSnackbar(
-                <Suspense fallback="We're unable to reach our server, some things may not display properly">
+                <Suspense fallback="We're unable to reach our servers, some things may not display properly">
                     <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
                 </Suspense>,
                 {variant: 'error'}));

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
 import { Collapse, Grid, Tooltip, TextField, Button, useTheme, useMediaQuery } from '@material-ui/core';
 import { Skeleton, Alert } from '@material-ui/lab';
@@ -11,6 +12,7 @@ export function NMinecraftStep(props) {
     const [username, setUsername] = React.useState('');
     const [usernameLinked, setUsernameLinked] = React.useState(null);
     const { t } = useTranslation();
+    const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const fullScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
 
@@ -29,12 +31,8 @@ export function NMinecraftStep(props) {
                     res.json().then((json) => {
                         props.setUuid(json.id==null?'a2b8d2c37729406888d3d569d4e23375':json.id);
                         setUsernameLinked(username);
-                    }).catch( e => {
-                        console.log(e);
-                    });
-                }).catch( e => {
-                    console.log(e);
-                });
+                    }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+                }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
         }
     }
 

@@ -16,6 +16,10 @@ export default function App() {
 
     const renderDark = isDarkTheme===null?prefersDark:isDarkTheme;
 
+    const toggleTheme = () => {
+        setDarkTheme(isDarkTheme => isDarkTheme===null?!prefersDark:!isDarkTheme);
+    }
+
     const themeLight = createMuiTheme({
         palette: {
             primary: red,
@@ -24,6 +28,8 @@ export default function App() {
             }
         },
     });
+
+    //WARNING: change thoses values in NDiscordStep as well !
     const themeDark = createMuiTheme({
         palette: {
             type: 'dark',
@@ -39,10 +45,6 @@ export default function App() {
             },
         },
     });
-
-    const toggleTheme = () => {
-        setDarkTheme(isDarkTheme => isDarkTheme===null?!prefersDark:!isDarkTheme);
-    }
 
     return (
         <ThemeProvider theme={renderDark?themeDark:themeLight}>
