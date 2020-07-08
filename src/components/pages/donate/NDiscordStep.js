@@ -51,7 +51,7 @@ export function NDiscordStep(props) {
                 if(res.status === 'success') {
                     props.setDiscordId(res.id);
                     setTagLinked(res.tag);
-                    setUsernameLinked(res.nickname);
+                    setUsernameLinked(res.username);
                     setDiscordPfpUrl(res.avatarURL);
                     setError(false);
                 }else {
