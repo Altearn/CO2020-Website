@@ -155,7 +155,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
                         req.params.uuid==='null'?null:req.params.uuid,
-                        discordId
+                        req.params.discordId
                     ], function (err, results)
                 {
                     if (err) throw err;
