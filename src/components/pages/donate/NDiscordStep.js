@@ -123,13 +123,13 @@ export function NDiscordStep(props) {
                 <NCard isDarkTheme className={classes.fullWidth}>
                     <Grid container className={classes.content} spacing={3}>
                         <Grid item>
-                            <Collapse in={discordPfpUrl===null}>
+                            <Collapse in={props.discordId===null}>
                                 <Avatar
                                     className={classes.avatar}
                                     src={'https://discord.com/assets/1cbd08c76f8af6dddce02c5138971129.png'}
                                 />
                             </Collapse>
-                            <Collapse in={discordPfpUrl!==null}>
+                            <Collapse in={props.discordId!==null}>
                                 <Avatar
                                     className={classes.avatar}
                                     src={discordPfpUrl}
