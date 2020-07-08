@@ -155,7 +155,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
                         req.params.uuid==='null'?null:req.params.uuid,
-                        discordId
+                        req.params.discordId
                     ], function (err, results)
                 {
                     if (err) throw err;
@@ -178,19 +178,13 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
     const username = req.params.username;
     const tag = req.params.tag;
 
-    function error(msg) {
-        console.error('Error: ' + req.originalUrl + '\nFailed with:');
-        console.error(msg);
-        res.json({status: 'error'});
-    }
-
     if (username!=='null'&&tag!=='null'&&tag.length===4) {
         // Gets all the users with that username
         const guild = client.guilds.cache.get(GUILD_ID);
         guild.members.fetch({query: username})
             .then(members => {
                 if(members.array().length === 0) {
-                    error("Couldn't find user: No user with that name");
+                    res.json({status: 'error'});
                     return;
                 }
                 // Gets the user with the right tag
@@ -200,7 +194,7 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                         member = m;
                 }
                 if(member === undefined) {
-                    error("Couldn't find user: No users with that name and tag");
+                    res.json({status: 'error'});
                     return;
                 }
                 // Gets the user information
@@ -211,11 +205,8 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                     tag: tag,
                     status: 'success',
                 }));
-            })
-            .catch(err => error("Error while processing users list\n"+err));
-    }
-    else
-        error("Malformatted request");
+            }).catch(err => res.json({status: 'error'}));
+    }else res.json({status: 'error'});
 });
 
 app.listen(process.env.PORT || 8080);
