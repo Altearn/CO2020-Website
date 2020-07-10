@@ -13,6 +13,7 @@ export function NCheckoutStep(props) {
     return (
         <PayPalButton
             createOrder={function(data, actions) {
+                props.setProcessing(true);
                 return fetch('/api/createOrder/' + Number(props.amount).toFixed(2) + '/' + props.currency, {
                     method: 'post'
                 }).then(function(res) {
@@ -30,6 +31,7 @@ export function NCheckoutStep(props) {
                 }).then(function(res) {
                     return res.json();
                 }).then(function(data) {
+                    props.setProcessing(false);
                     if (data.status==='success') {
                         props.onSuccess();
                     }else{
@@ -39,14 +41,17 @@ export function NCheckoutStep(props) {
                 });
             }}
             catchError={(error) => {
+                props.setProcessing(false);
                 enqueueSnackbar(error, {variant: 'error'});
                 history.push('/');
             }}
             onError={() => {
+                props.setProcessing(false);
                 enqueueSnackbar(t('RahNeil_N3.Irus.Error.General'), {variant: 'error'});
                 history.push('/');
             }}
             onCancel={() => {
+                props.setProcessing(false);
                 enqueueSnackbar(t('RahNeil_N3.Irus.Donations.Checkout.Snackbar.Cancelled'), {variant: 'warning'});
             }}
             options={{
