@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
-import { Dialog, Collapse, Slide, useTheme, useMediaQuery } from '@material-ui/core';
+import { Dialog, Collapse, Slide, useTheme, useMediaQuery, Backdrop, CircularProgress } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
 import { NMinecraftStep, NMinecraftStepLoading } from './NMinecraftStep.js';
@@ -39,6 +39,8 @@ export function NDonateModal(props) {
     const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
 
+    const [processing, setProcessing] = React.useState(false);
+
     const handleClose = () => {
         history.push('/');
     }
@@ -68,6 +70,8 @@ export function NDonateModal(props) {
                     <NDiscordStep
                         discordId={discordId}
                         setDiscordId={setDiscordId}
+                        processing={processing}
+                        setProcessing={setProcessing}
                     />
                 ),
             }
@@ -153,6 +157,9 @@ export function NDonateModal(props) {
                 fullWidth
                 scroll='body'
             >
+                <Backdrop className={classes.backdrop} open={processing}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 <Collapse in={!success}>
                     <NDonateModalForm handleClose={handleClose} steps={steps} />
                 </Collapse>
@@ -168,4 +175,8 @@ const useStyles = makeStyles((theme) => ({
     successWrapper: {
         overflow: 'hidden',
     },
+    backdrop: {
+        zIndex: theme.zIndex.modal + 1,
+        color: '#fff',
+    }
 }));
