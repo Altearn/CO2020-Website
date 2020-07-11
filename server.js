@@ -9,6 +9,33 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
 
+const currencies = [
+    {code: 'AUD', label: 'A$', value: 1.6247},
+    {code: 'BRL', label: 'R$', value: 6.0691},
+    {code: 'CAD', label: 'C$', value: 1.5336},
+    {code: 'CZK', label: 'Kč', value: 26.691},
+    {code: 'DKK', label: 'Kr. (DKK)', value: 7.4483},
+    {code: 'EUR', label: '€', value: 1},
+    {code: 'HKD', label: 'HK$', value: 8.7396},
+    {code: 'HUF', label: 'Ft', value: 353.7},
+    {code: 'INR', label: '₹', value: 84.841},
+    {code: 'ILS', label: '₪', value: 3.9006},
+    {code: 'JPY', label: '¥', value: 120.48},
+    {code: 'MYR', label: 'RM', value: 4.8109},
+    {code: 'MXN', label: 'Mex$', value: 25.6953},
+    {code: 'NZD', label: 'NZ$', value: 1.7189},
+    {code: 'NOK', label: 'kr (NOK)', value: 10.7163},
+    {code: 'PHP', label: '₱', value: 55.794},
+    {code: 'PLN', label: 'zł', value: 4.4743},
+    {code: 'GBP', label: '£', value: 0.8957},
+    {code: 'RUB', label: '₽', value: 80.2104},
+    {code: 'SGD', label: 'S$', value: 1.5703},
+    {code: 'SEK', label: 'kr (SEK)', value: 10.398},
+    {code: 'CHF', label: 'CHf', value: 1.0625},
+    {code: 'THB', label: '฿', value: 35.316},
+    {code: 'USD', label: '$', value: 1.1276}
+];
+
 const GUILD_ID = '719527687000948797';
 const DONATOR_ROLE_ID = '723308537710772265';
 
