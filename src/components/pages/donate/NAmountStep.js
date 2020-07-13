@@ -7,24 +7,20 @@ import Input from '@material-ui/core/Input';
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
+import { currencies, getCurrencyLabel, hasCurrencyDecimals } from '../../NCurrencies';
+
 export function NAmountStep(props) {
     
     const {t} = useTranslation();
     const classes = useStyles();
 
     if(!props.currency)
-        props.setCurrency(t('RahNeil_N3.Irus.Donations.Amount.Default-Currency'));
+        props.setCurrency(t('RahNeil_N3.Irus.Currency.Default.Code'));
 
-    const currencies = [
-        { value: 'USD', label: '$' },
-        { value: 'EUR', label: '€' },
-        { value: 'GBP', label: '£' },
-    ];
-    const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
-    let currencyLabel = labelFromCurrencyCode(props.currency || 'USD');
+    let currencyLabel = getCurrencyLabel(props.currency || 'USD');
     const handleChangeCurrency = (event) => {
         props.setCurrency(event.target.value);
-        currencyLabel = labelFromCurrencyCode(event.target.value);
+        currencyLabel = getCurrencyLabel(event.target.value);
         updateMarks();
     };
 
@@ -33,7 +29,7 @@ export function NAmountStep(props) {
     let marks = [];
     const updateMarks = () => {
         marks = ([1,5,10,20,30,40,50]
-            .map(n => ({ value: n, label: n+currencyLabel })));
+            .map(n => ({ value: n, label: (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===true?'':currencyLabel)+n+(t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?'':currencyLabel) })));
     };
     updateMarks();
 
@@ -48,7 +44,7 @@ export function NAmountStep(props) {
                         className={classes.amount}
                         value={props.amount}
                         onChange={(event) => {
-                            if ((/^\d+(|\.|,)\d{0,2}$/.test(event.target.value))||event.target.value==='')
+                            if (((hasCurrencyDecimals(props.currency||'USD')?/^\d+(|\.|,)\d{0,2}$/:/^\d+$/).test(event.target.value))||event.target.value==='')
                                 props.setAmount(event.target.value.split(',').join('.'));
                         }}
                         onBlur={(event) => {
@@ -63,8 +59,8 @@ export function NAmountStep(props) {
                         onChange={handleChangeCurrency}
                     >
                         {currencies.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
+                            <MenuItem key={option.code} value={option.code}>
+                                {option.label+' – '+option.code}
                             </MenuItem>
                         ))}
                     </TextField>

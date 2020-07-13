@@ -9,31 +9,29 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
 
+//WARNING -- Also modify NCurrencies.js
 const currencies = [
-    {code: 'AUD', label: 'A$', value: 1.6247},
-    {code: 'BRL', label: 'R$', value: 6.0691},
-    {code: 'CAD', label: 'C$', value: 1.5336},
-    {code: 'CZK', label: 'Kč', value: 26.691},
-    {code: 'DKK', label: 'Kr. (DKK)', value: 7.4483},
-    {code: 'EUR', label: '€', value: 1},
-    {code: 'HKD', label: 'HK$', value: 8.7396},
-    {code: 'HUF', label: 'Ft', value: 353.7},
-    {code: 'INR', label: '₹', value: 84.841},
-    {code: 'ILS', label: '₪', value: 3.9006},
-    {code: 'JPY', label: '¥', value: 120.48},
-    {code: 'MYR', label: 'RM', value: 4.8109},
-    {code: 'MXN', label: 'Mex$', value: 25.6953},
-    {code: 'NZD', label: 'NZ$', value: 1.7189},
-    {code: 'NOK', label: 'kr (NOK)', value: 10.7163},
-    {code: 'PHP', label: '₱', value: 55.794},
-    {code: 'PLN', label: 'zł', value: 4.4743},
-    {code: 'GBP', label: '£', value: 0.8957},
-    {code: 'RUB', label: '₽', value: 80.2104},
-    {code: 'SGD', label: 'S$', value: 1.5703},
-    {code: 'SEK', label: 'kr (SEK)', value: 10.398},
-    {code: 'CHF', label: 'CHf', value: 1.0625},
-    {code: 'THB', label: '฿', value: 35.316},
-    {code: 'USD', label: '$', value: 1.1276}
+    {code: 'AUD', label: 'A$', value: 1.6247, decimals: true},
+    {code: 'CAD', label: 'C$', value: 1.5336, decimals: true},
+    {code: 'CZK', label: 'Kč', value: 26.691, decimals: true},
+    {code: 'DKK', label: 'Kr. (DKK)', value: 7.4483, decimals: true},
+    {code: 'EUR', label: '€', value: 1, decimals: true},
+    {code: 'HKD', label: 'HK$', value: 8.7396, decimals: true},
+    {code: 'HUF', label: 'Ft', value: 353.7, decimals: false},
+    {code: 'ILS', label: '₪', value: 3.9006, decimals: true},
+    {code: 'JPY', label: '¥', value: 120.48, decimals: false},
+    {code: 'MXN', label: 'Mex$', value: 25.6953, decimals: true},
+    {code: 'NZD', label: 'NZ$', value: 1.7189, decimals: true},
+    {code: 'NOK', label: 'kr (NOK)', value: 10.7163, decimals: true},
+    {code: 'PHP', label: '₱', value: 55.794, decimals: true},
+    {code: 'PLN', label: 'zł', value: 4.4743, decimals: true},
+    {code: 'GBP', label: '£', value: 0.8957, decimals: true},
+    {code: 'RUB', label: '₽', value: 80.2104, decimals: true},
+    {code: 'SGD', label: 'S$', value: 1.5703, decimals: true},
+    {code: 'SEK', label: 'kr (SEK)', value: 10.398, decimals: true},
+    {code: 'CHF', label: 'CHf', value: 1.0625, decimals: true},
+    {code: 'THB', label: '฿', value: 35.316, decimals: true},
+    {code: 'USD', label: '$', value: 1.1276, decimals: true}
 ];
 
 const GUILD_ID = '719527687000948797';
@@ -78,7 +76,7 @@ app.get('/api/cards', function (req, res) {
         latest: null
     }
     db.query(
-        "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount DESC LIMIT 3;",
+        "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount_global DESC LIMIT 3;",
         function (err, result, fields)
     {
         if (err) throw err;
@@ -88,7 +86,7 @@ app.get('/api/cards', function (req, res) {
         finalValue.third = result.length>2?result[2]:null;
 
         db.query(
-            "SELECT amount, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
+            "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
             function (err, result, fields)
         {
             if (err) throw err;
@@ -177,10 +175,11 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                     });
                 }
 
-                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, uuid, discordId) VALUES (?, ?, ?, ?);',
+                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
                     [
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
                         JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
+                        Number((JSON.parse(body).purchase_units[0].payments.captures[0].amount.value / currencies.find(c => c.code===JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code).value).toFixed(2)),
                         req.params.uuid==='null'?null:req.params.uuid,
                         req.params.discordId
                     ], function (err, results)

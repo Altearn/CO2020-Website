@@ -21,11 +21,41 @@
           "Short": "Top donor"
         }
       },
+      "Currency": {
+        "Name": {
+          "AUD": "Australian dollar",
+          "CAD": "Canadian dollar",
+          "CZK": "Czech koruna",
+          "DKK": "Danish krone",
+          "EUR": "Euro",
+          "HKD": "Hong Kong dollar",
+          "HUF": "Hungarian forint",
+          "ILS": "Israeli new shekel",
+          "JPY": "Japanese yen",
+          "MXN": "Mexican peso",
+          "TWD": "New Taiwan dollar",
+          "NZD": "New Zealand dollar",
+          "NOK": "Norwegian krone",
+          "PHP": "Philippine peso",
+          "PLN": "Polish złoty",
+          "GBP": "Pound sterling",
+          "RUB": "Russian ruble",
+          "SGD": "Singapore dollar",
+          "SEK": "Swedish krona",
+          "CHF": "Swiss franc",
+          "THB": "Thai baht",
+          "USD": "United States dollar"
+        },
+        "Default": {
+          "Code": "USD",
+          "Name": "United States dollar"
+        },
+        "IsPlacedAfter": false
+      },
       "Donations": {
         "Amount": {
           "Title": "Choose donation amount",
-          "Label": "Donation amount",
-          "Default-Currency": "USD"
+          "Label": "Donation amount"
         },
         "Checkout": {
           "Snackbar": {

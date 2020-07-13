@@ -1,9 +1,10 @@
 {
   "RahNeil_N3": {
     "Irus": {
-      "Donations": {
-        "Amount": {
-          "Default-Currency": "GBP"
+      "Currency": {
+        "Default": {
+          "Code": "GBP",
+          "Name": "Pound sterling"
         }
       }
     }

@@ -8,6 +8,7 @@ import { Skeleton } from '@material-ui/lab';
 import HistoryIcon from '@material-ui/icons/History';
 
 import { NCard } from '../../NCard';
+import { getCurrencyLabel, getCurrencyValue, hasCurrencyDecimals } from '../../NCurrencies';
 
 function CrownIcon() {
     const classes = useStyles();
@@ -54,14 +55,8 @@ export function NDonatorCard(props) {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const isScreenLarge = useMediaQuery(useTheme().breakpoints.up("lg"));
-    const currencies = [
-        { value: 'USD', label: '$' },
-        { value: 'EUR', label: '€' },
-        { value: 'GBP', label: '£' },
-    ];
     const [username, setUsername] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
-    const labelFromCurrencyCode = (code) => currencies.find(c => c.value === code).label;
 
     useEffect(() => {
         fetch("https://api.minetools.eu/uuid/"+props.uuid, {crossDomain: true, method: 'GET'}).then((res) => {
@@ -119,9 +114,23 @@ export function NDonatorCard(props) {
                         <Typography gutterBottom variant="subtitle1" noWrap>
                             {username}
                         </Typography>
-                        <Typography gutterBottom component="h5" variant="h4">
-                            {props.amount}{labelFromCurrencyCode(props.currency || 'USD')}
-                        </Typography>
+                        <Tooltip title={
+                            props.amount+' '+t('RahNeil_N3.Irus.Currency.Name.'+(props.currency || 'USD'))+
+                            ((props.currency || 'USD')===(t('RahNeil_N3.Irus.Currency.Default.Code') || 'USD')?
+                            '':
+                            ' ≈ '+(hasCurrencyDecimals(t('RahNeil_N3.Irus.Currency.Default.Code'))?(Math.round(props.amountGlobal*getCurrencyValue(t('RahNeil_N3.Irus.Currency.Default.Code') || 'USD')*100)/100):Math.round(props.amountGlobal*getCurrencyValue(t('RahNeil_N3.Irus.Currency.Default.Code') || 'USD')))+' '+t('RahNeil_N3.Irus.Currency.Default.Name'))
+                        } arrow>
+                            <Grid container wrap='nowrap'>
+                                <Typography gutterBottom component="h5" variant="h4">
+                                    {t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===true?null:getCurrencyLabel(props.currency || 'USD')}
+                                    {props.amount}
+                                    {t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?null:getCurrencyLabel(props.currency || 'USD')}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary" noWrap>
+                                    {props.currency || 'USD'}
+                                </Typography>
+                            </Grid>
+                        </Tooltip>
 
                         {longText===null?
                             <Grid container alignItems='center' wrap='nowrap'>
@@ -162,13 +171,22 @@ export function NDonatorCardLoading(props) {
                         </span>
                     </Skeleton>
                 </Typography>
-                <Typography gutterBottom component="h5" variant="h4">
-                    <Skeleton>
-                        <span>
-                            50$
-                        </span>
-                    </Skeleton>
-                </Typography>
+                <Grid container wrap='nowrap'>
+                    <Typography gutterBottom component="h5" variant="h4">
+                        <Skeleton>
+                            <span>
+                                50$
+                            </span>
+                        </Skeleton>
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary" noWrap>
+                        <Skeleton>
+                            <span>
+                                USD
+                            </span>
+                        </Skeleton>
+                    </Typography>
+                </Grid>
                 <Grid container alignItems='center' wrap='nowrap'>
                     <Grid item className={classes.icon}>
                         {props.latest?<HistoryIcon className={classes.smallIcon} color="action" />:null}
