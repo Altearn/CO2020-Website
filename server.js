@@ -73,7 +73,8 @@ app.get('/api/cards', function (req, res) {
         top: null,
         second: null,
         third: null,
-        latest: null
+        latest: null,
+        total: null,
     }
     db.query(
         "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount_global DESC LIMIT 3;",
@@ -92,8 +93,17 @@ app.get('/api/cards', function (req, res) {
             if (err) throw err;
     
             if (result.length===1) finalValue.latest = result[0];
-    
-            res.json(finalValue);
+
+            db.query(
+                "SELECT SUM(amount_global) FROM "+process.env.DB_NAME+".Donations;",
+                function (err, result, fields)
+            {
+                if (err) throw err;
+        
+                if (result.length===1) finalValue.total = result[0];
+        
+                res.json(finalValue);
+            });
         });
     });
 });

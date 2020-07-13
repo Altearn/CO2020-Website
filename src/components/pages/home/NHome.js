@@ -7,6 +7,7 @@ import { Grid, useMediaQuery } from '@material-ui/core';
 
 import { NDonateCard, NDonateCardLoading } from './NDonateCard';
 import { NDonatorCard, NDonatorCardLoading } from './NDonatorCard';
+import { NGoalCard, NGoalCardLoading } from './NGoalCard';
 import { NHeader, NHeaderLoading } from '../../NHeader';
 
 function Translation(props) {
@@ -25,7 +26,8 @@ export function NHome(props) {
         top: null,
         second: null,
         third: null,
-        latest: null
+        latest: null,
+        total: null
     });
 
     useEffect(() => {
@@ -55,9 +57,17 @@ export function NHome(props) {
             </Suspense>
 
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={8} lg={6}>
+                <Grid item xs={12} sm={12} md={8} lg={6} style={{display: 'flex', flexDirection: 'column'}}>
                     <Suspense fallback={<NDonateCardLoading isDarkTheme={props.isDarkTheme} />}>
                         <NDonateCard isDarkTheme={props.isDarkTheme}/>
+                    </Suspense>
+
+                    <Suspense fallback={<NGoalCardLoading isDarkTheme={props.isDarkTheme} />}>
+                        {cards.total===null?
+                            <NGoalCardLoading isDarkTheme={props.isDarkTheme}/>
+                        :
+                            <NGoalCard amount={cards.total} isDarkTheme={props.isDarkTheme}/>
+                        }
                     </Suspense>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={6}>
