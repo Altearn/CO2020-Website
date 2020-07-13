@@ -28,7 +28,7 @@ export function NDonateCard(props) {
                             image="/NDonateCardBackground.jpg"
                             title={t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
                         >
-                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
+                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColor}>
                                 {t('RahNeil_N3.Irus.Donations.Donate_Now.Title')}
                             </Typography>
                             <Typography variant="body2" component="p" className={classes.description}>
@@ -54,7 +54,7 @@ export function NDonateCardLoading(props) {
                 <CardActionArea>
                     <CardMedia className={classes.media} title="Donate now">
                         <div>
-                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColorMargin}>
+                            <Typography gutterBottom variant="h4" component="h2" className={classes.whiteColor}>
                                 Donate now
                             </Typography>
                             <Typography variant="body2" component="p" className={classes.description}>
@@ -75,19 +75,24 @@ export function NDonateCardLoading(props) {
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        height: '100%',
+        flex: 1,
+        marginBottom: theme.spacing(2),
     },
     actionArea: {
         height: '100%',
     },
     media: {
-        padding: theme.spacing(6),
+        padding: theme.spacing(5),
         height: '100%',
     },
     whiteColorMargin: {
         color: theme.palette.common.white,
         borderColor: '#fff',
         marginTop: theme.spacing(2),
+    },
+    whiteColor: {
+        color: theme.palette.common.white,
+        borderColor: '#fff',
     },
     description: {
         color: theme.palette.common.white,
