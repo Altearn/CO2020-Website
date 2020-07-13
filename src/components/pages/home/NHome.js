@@ -71,6 +71,7 @@ export function NHome(props) {
                                 :
                                     <NDonatorCard
                                         amount={cards.top.amount}
+                                        amountGlobal={cards.top.amount_global}
                                         currency={cards.top.currency}
                                         uuid={cards.top.uuid}
                                         isDarkTheme={props.isDarkTheme}
@@ -90,6 +91,7 @@ export function NHome(props) {
                                         :
                                             <NDonatorCard
                                                 amount={cards.second.amount}
+                                                amountGlobal={cards.second.amount_global}
                                                 currency={cards.second.currency}
                                                 uuid={cards.second.uuid}
                                                 isDarkTheme={props.isDarkTheme}
@@ -107,6 +109,7 @@ export function NHome(props) {
                                         :
                                             <NDonatorCard
                                                 amount={cards.third.amount}
+                                                amountGlobal={cards.third.amount_global}
                                                 currency={cards.third.currency}
                                                 uuid={cards.third.uuid}
                                                 isDarkTheme={props.isDarkTheme}
@@ -126,6 +129,7 @@ export function NHome(props) {
                                 :
                                     <NDonatorCard
                                         amount={cards.latest.amount}
+                                        amountGlobal={cards.latest.amount_global}
                                         currency={cards.latest.currency}
                                         uuid={cards.latest.uuid}
                                         isDarkTheme={props.isDarkTheme}
