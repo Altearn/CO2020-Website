@@ -19,11 +19,7 @@ export function NDiscordStep(props) {
 
     const fullScreen = useMediaQuery(useTheme().breakpoints.up('md'));
     const phoneScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
-    const [discordPfpUrl, setDiscordPfpUrl] = React.useState(null);
-    const [tag, setTag] = React.useState('');
-    const [tagLinked, setTagLinked] = React.useState(null);
-    const [username, setUsername] = React.useState('');
-    const [usernameLinked, setUsernameLinked] = React.useState(null);
+
     const [usernameFocused, setUsernameFocused] = React.useState(false);
     const usernameRef = React.useRef(null);
     const [error, setError] = React.useState(false);
@@ -47,18 +43,18 @@ export function NDiscordStep(props) {
 
     const handleDiscordLink = () => {
         props.setProcessing(true);
-        fetch('/api/discordprofile/'+username+'/'+tag).then(res => {
+        fetch('/api/discordprofile/'+props.username+'/'+props.tag).then(res => {
             res.json().then(res => {
                 if(res.status === 'success') {
                     props.setDiscordId(res.id);
-                    setTagLinked(res.tag);
-                    setUsernameLinked(res.username);
-                    setDiscordPfpUrl(res.avatarURL);
+                    props.setTagLinked(res.tag);
+                    props.setUsernameLinked(res.username);
+                    props.setDiscordPfpUrl(res.avatarURL);
                     setError(false);
                 }else {
                     props.setDiscordId(null);
-                    setTagLinked(tag);
-                    setUsernameLinked(username);
+                    props.setTagLinked(props.tag);
+                    props.setUsernameLinked(props.username);
                     setError(true);
                 }
                 props.setProcessing(false);
@@ -96,7 +92,7 @@ export function NDiscordStep(props) {
             <Collapse in={props.discordId!==null}>
                 <Alert severity="success" className={classes.alert}>
                     {t('RahNeil_N3.Irus.Donations.Discord.Success.0')}
-                    &nbsp;<strong>{usernameLinked}</strong>
+                    &nbsp;<strong>{props.usernameLinked}</strong>
                     {t('RahNeil_N3.Irus.Donations.Discord.Success.1')}
                 </Alert>
             </Collapse>
@@ -106,7 +102,7 @@ export function NDiscordStep(props) {
                     {t('RahNeil_N3.Irus.Donations.Discord.Error.0')}
                     &nbsp;
                     <strong>
-                        {usernameLinked+'#'+tagLinked}
+                        {props.usernameLinked+'#'+props.tagLinked}
                     </strong>
                     {t('RahNeil_N3.Irus.Donations.Discord.Error.1')}
                     &nbsp;
@@ -129,21 +125,21 @@ export function NDiscordStep(props) {
                             <Collapse in={props.discordId!==null}>
                                 <Avatar
                                     className={classes.avatar}
-                                    src={discordPfpUrl}
+                                    src={props.discordPfpUrl}
                                 />
                             </Collapse>
                         </Grid>
                         <Grid item style={{flex: 1}} ref={usernameRef}>
                             <Grid container>
-                                <Grid item style={{flex: phoneScreen?1:0}}>
+                                <Grid item style={{flex: phoneScreen?1:0, display: phoneScreen?'flex':'block'}}>
                                     <TextField
                                         placeholder={t('RahNeil_N3.Irus.Donations.Discord.Username')}
-                                        value={username}
-                                        onChange={(event) => setUsername(event.target.value)}
+                                        value={props.username}
+                                        onChange={(event) => props.setUsername(event.target.value)}
                                         onFocus={() => setUsernameFocused(true)}
                                         onBlur={() => setUsernameFocused(false)}
                                         style={{
-                                            width: phoneScreen?'auto':(fullScreen?(usernameFocused?(usernameRef.current.offsetWidth-128)+"px":Math.min((username===''?(t('RahNeil_N3.Irus.Donations.Discord.Username').length+2.2):username.length+1.2),20.2)+"ch"):'10.2ch')
+                                            width: phoneScreen?'auto':(fullScreen?(usernameFocused?(usernameRef.current.offsetWidth-128)+"px":Math.min((props.username===''?(t('RahNeil_N3.Irus.Donations.Discord.Username').length+2.2):props.username.length+1.2),20.2)+"ch"):'10.2ch')
                                         }}
                                         className={classes.usernameInput}
                                     />
@@ -151,7 +147,7 @@ export function NDiscordStep(props) {
                                 <Grid item>
                                     <TextField
                                         placeholder='1234'
-                                        value={tag}
+                                        value={props.tag}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -162,7 +158,7 @@ export function NDiscordStep(props) {
                                         style={{width: '64px'}}
                                         onChange={(event) => {
                                             if ((event.target.value.length<=4 && /^\d+$/.test(event.target.value))
-                                                ||event.target.value==='') setTag(event.target.value);
+                                                ||event.target.value==='') props.setTag(event.target.value);
                                         }}
                                     />
                                     <Zoom in={!usernameFocused&&fullScreen}>
@@ -179,7 +175,7 @@ export function NDiscordStep(props) {
                                             color="primary"
                                             onClick={handleDiscordLink}
                                             disableElevation
-                                            disabled={ (username===usernameLinked&&tag===tagLinked) || username==='' || tag.length<4 || props.processing }
+                                            disabled={ (props.username===props.usernameLinked&&props.tag===props.tagLinked) || props.username==='' || props.tag.length<4 || props.processing }
                                         >
                                             {t('RahNeil_N3.Irus.Donations.Minecraft.Link_Action')}
                                         </Button>
@@ -196,7 +192,7 @@ export function NDiscordStep(props) {
                                 disableElevation
                                 className={classes.fullWidth}
                                 startIcon={<LinkIcon />}
-                                disabled={ (username===usernameLinked&&tag===tagLinked) || username==='' || tag.length<4 || props.processing }
+                                disabled={ (props.username===props.usernameLinked&&props.tag===props.tagLinked) || props.username==='' || props.tag.length<4 || props.processing }
                             >
                                 {t('RahNeil_N3.Irus.Donations.Minecraft.Link_Action')}
                             </Button>
@@ -235,6 +231,7 @@ const useStyles = makeStyles((theme) => ({
     },
     usernameInput: {
         transition: theme.transitions.create('width'),
+        flex: 1,
         width: 0,
     },
     editIcon: {
