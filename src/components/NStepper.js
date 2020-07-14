@@ -221,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(1),
     },
     mobileStepper: {
-        flexGrow: 1,
+        flex: 1,
     },
     mobileStep: {
         overflow: 'hidden',

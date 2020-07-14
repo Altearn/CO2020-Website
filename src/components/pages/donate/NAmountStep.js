@@ -73,6 +73,7 @@ export function NAmountStep(props) {
                 step={1}
                 min={1}
                 max={50}
+                className={classes.slider}
             />
         </div>
     );
@@ -90,5 +91,8 @@ const useStyles = makeStyles((theme) => ({
     },
     amount: {
        width: '75%',
+    },
+    slider: {
+       margin: theme.spacing(0, 2),
     }
 }));
