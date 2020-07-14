@@ -50,6 +50,7 @@ export default function App() {
         <ThemeProvider theme={renderDark?themeDark:themeLight}>
             <SnackbarProvider maxSnack={3}>
                 <CssBaseline/>
+                <meta name="theme-color" content={renderDark?"#000000":"#f44336"} />
 
                 <BrowserRouter>
                     <NAppBar toggleTheme={toggleTheme} isDarkTheme={renderDark} />
