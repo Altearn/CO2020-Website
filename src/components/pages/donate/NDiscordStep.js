@@ -135,7 +135,7 @@ export function NDiscordStep(props) {
                         </Grid>
                         <Grid item style={{flex: 1}} ref={usernameRef}>
                             <Grid container>
-                                <Grid item style={{flex: phoneScreen?1:0}}>
+                                <Grid item style={{flex: phoneScreen?1:0, display: phoneScreen?'flex':'block'}}>
                                     <TextField
                                         placeholder={t('RahNeil_N3.Irus.Donations.Discord.Username')}
                                         value={username}
@@ -235,6 +235,7 @@ const useStyles = makeStyles((theme) => ({
     },
     usernameInput: {
         transition: theme.transitions.create('width'),
+        flex: 1,
         width: 0,
     },
     editIcon: {
