@@ -67,6 +67,8 @@ export function NDonateModal(props) {
                         setUsername={MS_setUsername}
                         usernameLinked={MS_usernameLinked}
                         setUsernameLinked={MS_setUsernameLinked}
+                        processing={processing}
+                        setProcessing={setProcessing}
                     />
                 ),
             }

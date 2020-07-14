@@ -24,13 +24,21 @@ export function NMinecraftStep(props) {
             props.setUuid(null);
             props.setUsernameLinked(null);
         }else{
+            props.setProcessing(true);
             fetch("https://api.minetools.eu/uuid/"+props.username,
                 { crossDomain: true, method: 'GET'}).then((res) => {
                     res.json().then((json) => {
                         props.setUuid(json.id==null?'a2b8d2c37729406888d3d569d4e23375':json.id);
                         props.setUsernameLinked(props.username);
-                    }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
-                }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+                        props.setProcessing(false);
+                    }).catch(err => {
+                        props.setProcessing(false);
+                        enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'});
+                    });
+                }).catch(err => {
+                    props.setProcessing(false);
+                    enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'});
+                });
         }
     }
 
@@ -99,7 +107,7 @@ export function NMinecraftStep(props) {
                         variant="outlined"
                         color="primary"
                         onClick={handleMinecraftLink}
-                        disabled={props.username===props.usernameLinked||props.username===''}
+                        disabled={props.processing||props.username===props.usernameLinked||props.username===''}
                     >
                         {t('RahNeil_N3.Irus.Donations.Minecraft.Link_Action')}
                     </Button>
