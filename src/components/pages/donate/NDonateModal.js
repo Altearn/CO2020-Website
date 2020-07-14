@@ -29,17 +29,21 @@ export function NDonateModal(props) {
     const classes = useStyles();
 
     const [uuid, setUuid] = React.useState(null);
-
     const [discordId, setDiscordId] = React.useState(null);
-
     const [amount, setAmount] = React.useState(5);
-
     const [currency, setCurrency] = React.useState(null);
-
     const [success, setSuccess] = React.useState(false);
     const [successStep, setSuccessStep] = React.useState(0);
-
     const [processing, setProcessing] = React.useState(false);
+
+    const [DS_discordPfpUrl, DS_setDiscordPfpUrl] = React.useState(null);
+    const [DS_tag, DS_setTag] = React.useState('');
+    const [DS_tagLinked, DS_setTagLinked] = React.useState(null);
+    const [DS_username, DS_setUsername] = React.useState('');
+    const [DS_usernameLinked, DS_setUsernameLinked] = React.useState(null);
+
+    const [MS_username, MS_setUsername] = React.useState('');
+    const [MS_usernameLinked, MS_setUsernameLinked] = React.useState(null);
 
     const handleClose = () => {
         history.push('/');
@@ -56,7 +60,14 @@ export function NDonateModal(props) {
                     <NMinecraftStepLoading />
                 ),
                 translation: (
-                    <NMinecraftStep uuid={uuid} setUuid={setUuid} />
+                    <NMinecraftStep
+                        uuid={uuid}
+                        setUuid={setUuid}
+                        username={MS_username}
+                        setUsername={MS_setUsername}
+                        usernameLinked={MS_usernameLinked}
+                        setUsernameLinked={MS_setUsernameLinked}
+                    />
                 ),
             }
         },
@@ -70,6 +81,16 @@ export function NDonateModal(props) {
                     <NDiscordStep
                         discordId={discordId}
                         setDiscordId={setDiscordId}
+                        discordPfpUrl={DS_discordPfpUrl}
+                        setDiscordPfpUrl={DS_setDiscordPfpUrl}
+                        tag={DS_tag}
+                        setTag={DS_setTag}
+                        tagLinked={DS_tagLinked}
+                        setTagLinked={DS_setTagLinked}
+                        username={DS_username}
+                        setUsername={DS_setUsername}
+                        usernameLinked={DS_usernameLinked}
+                        setUsernameLinked={DS_setUsernameLinked}
                         processing={processing}
                         setProcessing={setProcessing}
                     />

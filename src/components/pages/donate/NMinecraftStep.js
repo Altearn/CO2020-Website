@@ -9,8 +9,6 @@ import { Skeleton, Alert } from '@material-ui/lab';
 import { NMinecraftHead } from './NMinecraftHead'
 
 export function NMinecraftStep(props) {
-    const [username, setUsername] = React.useState('');
-    const [usernameLinked, setUsernameLinked] = React.useState(null);
     const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
@@ -18,19 +16,19 @@ export function NMinecraftStep(props) {
 
     const handleUsernameChange = (event) => {
         var value = event.target.value;
-        setUsername(value);
+        props.setUsername(value);
     }
 
     const handleMinecraftLink = (event) => {
-        if (username==='') {
+        if (props.username==='') {
             props.setUuid(null);
-            setUsernameLinked(null);
+            props.setUsernameLinked(null);
         }else{
-            fetch("https://api.minetools.eu/uuid/"+username,
+            fetch("https://api.minetools.eu/uuid/"+props.username,
                 { crossDomain: true, method: 'GET'}).then((res) => {
                     res.json().then((json) => {
                         props.setUuid(json.id==null?'a2b8d2c37729406888d3d569d4e23375':json.id);
-                        setUsernameLinked(username);
+                        props.setUsernameLinked(props.username);
                     }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
                 }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
         }
@@ -70,7 +68,7 @@ export function NMinecraftStep(props) {
                     {t('RahNeil_N3.Irus.Donations.Minecraft.Success.0')}
                     &nbsp;
                     <strong>
-                        {usernameLinked}
+                        {props.usernameLinked}
                     </strong>
                     {t('RahNeil_N3.Irus.Donations.Minecraft.Success.1')}
                 </Alert>
@@ -78,20 +76,20 @@ export function NMinecraftStep(props) {
 
             <Grid container spacing={1} alignItems="center">
                 {props.uuid!=='a2b8d2c37729406888d3d569d4e23375'&&props.uuid!==null?
-                    <Tooltip title={usernameLinked} arrow>
+                    <Tooltip title={props.usernameLinked} arrow>
                         <Grid item>
-                            <NMinecraftHead uuid={props.uuid} username={username} />
+                            <NMinecraftHead uuid={props.uuid} username={props.username} />
                         </Grid>
                     </Tooltip>
                 :
                     <Grid item>
-                        <NMinecraftHead uuid={props.uuid} username={username} />
+                        <NMinecraftHead uuid={props.uuid} username={props.username} />
                     </Grid>
                 }
                 <Grid item style={{flex: fullScreen?1:'inherit'}}>
                     <TextField
                         label={t('RahNeil_N3.Irus.Donations.Minecraft.Username')}
-                        value={username}
+                        value={props.username}
                         fullWidth={fullScreen}
                         onChange={handleUsernameChange}
                     />
@@ -101,7 +99,7 @@ export function NMinecraftStep(props) {
                         variant="outlined"
                         color="primary"
                         onClick={handleMinecraftLink}
-                        disabled={username===usernameLinked||username===''}
+                        disabled={props.username===props.usernameLinked||props.username===''}
                     >
                         {t('RahNeil_N3.Irus.Donations.Minecraft.Link_Action')}
                     </Button>
