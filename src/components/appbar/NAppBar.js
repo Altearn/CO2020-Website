@@ -10,34 +10,43 @@ import { NAppbarActions, NAppbarActionsLoading } from './NAppbarActions';
 
 export function NAppBar(props) {
     const classes = useStyles();
-    const trigger = useScrollTrigger();
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0
+    });
+    const trigger2 = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 150
+    });
 
     return(
         <div className={classes.root}>
-            <Slide appear={false} direction="down" in={!trigger}>
-                <AppBar className={props.isDarkTheme?classes.dark:classes.light}>
-                    <Toolbar>
-                        <Suspense fallback={<NAppBarTitleLoading />}>
-                            <NAppBarTitle />
-                        </Suspense>
-
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <Suspense fallback={<NSearchInputBaseLoading />}>
-                                <NSearchInputBase />
+            <AppBar elevation={trigger?4:0}>
+                <Toolbar>
+                    <Slide direction="down" in={trigger2}>
+                        <div style={{flex: 1}}>
+                            <Suspense fallback={<NAppBarTitleLoading />}>
+                                <NAppBarTitle />
                             </Suspense>
                         </div>
+                    </Slide>
 
-                        <Suspense fallback={
-                            <NAppbarActionsLoading toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
-                        }>
-                            <NAppbarActions toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <Suspense fallback={<NSearchInputBaseLoading />}>
+                            <NSearchInputBase />
                         </Suspense>
-                    </Toolbar>
-                </AppBar>
-            </Slide>
+                    </div>
+
+                    <Suspense fallback={
+                        <NAppbarActionsLoading toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                    }>
+                        <NAppbarActions toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                    </Suspense>
+                </Toolbar>
+            </AppBar>
         </div>
     )
 }
@@ -45,7 +54,8 @@ export function NAppBar(props) {
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginBottom: theme.spacing(6),
+        paddingBottom: theme.spacing(6),
+        backgroundColor: theme.palette.primary.main,
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -73,11 +83,5 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    light: {
-        backgroundColor: theme.palette.primary.main,
-    },
-    dark: {
-        backgroundColor: '#1e1e1e',
     }
 }));
