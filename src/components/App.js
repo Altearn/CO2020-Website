@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
-import { useMediaQuery, CssBaseline } from '@material-ui/core';
+import purple from '@material-ui/core/colors/purple';
+import { useMediaQuery, CssBaseline, colors } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 
 import { NAppBar } from './appbar/NAppBar';
@@ -22,9 +22,9 @@ export default function App() {
 
     const themeLight = createMuiTheme({
         palette: {
-            primary: red,
+            primary: purple,
             secondary: {
-                main: '#f44336',
+                main: '#6B54B6',
             }
         },
     });
@@ -33,9 +33,9 @@ export default function App() {
     const themeDark = createMuiTheme({
         palette: {
             type: 'dark',
-            primary: red,
+            primary: purple,
             secondary: {
-                main: '#f44336',
+                main: '#6B54B6',
             },
             background: {
                 default: '#121212'

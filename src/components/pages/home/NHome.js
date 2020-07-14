@@ -8,6 +8,7 @@ import { Grid, useMediaQuery } from '@material-ui/core';
 import { NDonateCard, NDonateCardLoading } from './NDonateCard';
 import { NDonatorCard, NDonatorCardLoading } from './NDonatorCard';
 import { NGoalCard, NGoalCardLoading } from './NGoalCard';
+import { NLanding, NLandingLoading } from './NLanding';
 import { NHeader, NHeaderLoading } from '../../NHeader';
 
 function Translation(props) {
@@ -51,107 +52,113 @@ export function NHome(props) {
     }, [enqueueSnackbar]);
 
     return (
-        <div className={classes.root}>
-            <Suspense fallback={<NHeaderLoading placeholder="Donations" />}>
-                <NHeader translation="RahNeil_N3.Irus.Donations.Title" />
+        <>
+            <Suspense fallback={<NLandingLoading />}>
+                <NLanding />
             </Suspense>
 
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={8} lg={6} style={{display: 'flex', flexDirection: 'column'}}>
-                    <Suspense fallback={<NDonateCardLoading isDarkTheme={props.isDarkTheme} />}>
-                        <NDonateCard isDarkTheme={props.isDarkTheme}/>
-                    </Suspense>
+            <div className={classes.root}>
+                <Suspense fallback={<NHeaderLoading placeholder="Donations" />}>
+                    <NHeader translation="RahNeil_N3.Irus.Donations.Title" />
+                </Suspense>
 
-                    <Suspense fallback={<NGoalCardLoading isDarkTheme={props.isDarkTheme} />}>
-                        {cards.total===null?
-                            <NGoalCardLoading isDarkTheme={props.isDarkTheme}/>
-                        :
-                            <NGoalCard amount={cards.total} isDarkTheme={props.isDarkTheme}/>
-                        }
-                    </Suspense>
-                </Grid>
-                <Grid item xs={12} sm={12} md={4} lg={6}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6} md={12} lg={6}>
-                            <Suspense fallback={
-                                <NDonatorCardLoading isDarkTheme={props.isDarkTheme} top />
-                            }>
-                                {cards.top==null?
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={12} md={8} lg={6} style={{display: 'flex', flexDirection: 'column'}}>
+                        <Suspense fallback={<NDonateCardLoading isDarkTheme={props.isDarkTheme} />}>
+                            <NDonateCard isDarkTheme={props.isDarkTheme}/>
+                        </Suspense>
+
+                        <Suspense fallback={<NGoalCardLoading isDarkTheme={props.isDarkTheme} />}>
+                            {cards.total===null?
+                                <NGoalCardLoading isDarkTheme={props.isDarkTheme}/>
+                            :
+                                <NGoalCard amount={cards.total} isDarkTheme={props.isDarkTheme}/>
+                            }
+                        </Suspense>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={6}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} md={12} lg={6}>
+                                <Suspense fallback={
                                     <NDonatorCardLoading isDarkTheme={props.isDarkTheme} top />
-                                :
-                                    <NDonatorCard
-                                        amount={cards.top.amount}
-                                        amountGlobal={cards.top.amount_global}
-                                        currency={cards.top.currency}
-                                        uuid={cards.top.uuid}
-                                        isDarkTheme={props.isDarkTheme}
-                                        top
-                                    />
-                                }
-                            </Suspense>
-                        </Grid>
-                        {isScreenLarge?
-                            <>
-                                <Grid item xs={12} sm={6} md={12} lg={6}>
-                                    <Suspense fallback={
-                                        <NDonatorCardLoading isDarkTheme={props.isDarkTheme} second />
-                                    }>
-                                        {cards.second==null?
+                                }>
+                                    {cards.top==null?
+                                        <NDonatorCardLoading isDarkTheme={props.isDarkTheme} top />
+                                    :
+                                        <NDonatorCard
+                                            amount={cards.top.amount}
+                                            amountGlobal={cards.top.amount_global}
+                                            currency={cards.top.currency}
+                                            uuid={cards.top.uuid}
+                                            isDarkTheme={props.isDarkTheme}
+                                            top
+                                        />
+                                    }
+                                </Suspense>
+                            </Grid>
+                            {isScreenLarge?
+                                <>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <Suspense fallback={
                                             <NDonatorCardLoading isDarkTheme={props.isDarkTheme} second />
-                                        :
-                                            <NDonatorCard
-                                                amount={cards.second.amount}
-                                                amountGlobal={cards.second.amount_global}
-                                                currency={cards.second.currency}
-                                                uuid={cards.second.uuid}
-                                                isDarkTheme={props.isDarkTheme}
-                                                second
-                                            />
-                                        }
-                                    </Suspense>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={12} lg={6}>
-                                    <Suspense fallback={
-                                        <NDonatorCardLoading isDarkTheme={props.isDarkTheme} third />
-                                    }>
-                                        {cards.third==null?
+                                        }>
+                                            {cards.second==null?
+                                                <NDonatorCardLoading isDarkTheme={props.isDarkTheme} second />
+                                            :
+                                                <NDonatorCard
+                                                    amount={cards.second.amount}
+                                                    amountGlobal={cards.second.amount_global}
+                                                    currency={cards.second.currency}
+                                                    uuid={cards.second.uuid}
+                                                    isDarkTheme={props.isDarkTheme}
+                                                    second
+                                                />
+                                            }
+                                        </Suspense>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <Suspense fallback={
                                             <NDonatorCardLoading isDarkTheme={props.isDarkTheme} third />
-                                        :
-                                            <NDonatorCard
-                                                amount={cards.third.amount}
-                                                amountGlobal={cards.third.amount_global}
-                                                currency={cards.third.currency}
-                                                uuid={cards.third.uuid}
-                                                isDarkTheme={props.isDarkTheme}
-                                                third
-                                            />
-                                        }
-                                    </Suspense>
-                                </Grid>
-                            </>
-                        :null}
-                        <Grid item xs={12} sm={6} md={12} lg={6}>
-                            <Suspense fallback={
-                                <NDonatorCardLoading isDarkTheme={props.isDarkTheme} latest />
-                            }>
-                                {cards.latest==null?
+                                        }>
+                                            {cards.third==null?
+                                                <NDonatorCardLoading isDarkTheme={props.isDarkTheme} third />
+                                            :
+                                                <NDonatorCard
+                                                    amount={cards.third.amount}
+                                                    amountGlobal={cards.third.amount_global}
+                                                    currency={cards.third.currency}
+                                                    uuid={cards.third.uuid}
+                                                    isDarkTheme={props.isDarkTheme}
+                                                    third
+                                                />
+                                            }
+                                        </Suspense>
+                                    </Grid>
+                                </>
+                            :null}
+                            <Grid item xs={12} sm={6} md={12} lg={6}>
+                                <Suspense fallback={
                                     <NDonatorCardLoading isDarkTheme={props.isDarkTheme} latest />
-                                :
-                                    <NDonatorCard
-                                        amount={cards.latest.amount}
-                                        amountGlobal={cards.latest.amount_global}
-                                        currency={cards.latest.currency}
-                                        uuid={cards.latest.uuid}
-                                        isDarkTheme={props.isDarkTheme}
-                                        latest
-                                    />
-                                }
-                            </Suspense>
+                                }>
+                                    {cards.latest==null?
+                                        <NDonatorCardLoading isDarkTheme={props.isDarkTheme} latest />
+                                    :
+                                        <NDonatorCard
+                                            amount={cards.latest.amount}
+                                            amountGlobal={cards.latest.amount_global}
+                                            currency={cards.latest.currency}
+                                            uuid={cards.latest.uuid}
+                                            isDarkTheme={props.isDarkTheme}
+                                            latest
+                                        />
+                                    }
+                                </Suspense>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </div>
+            </div>
+        </>
     );
 }
 

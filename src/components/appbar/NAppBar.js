@@ -15,7 +15,7 @@ export function NAppBar(props) {
     return(
         <div className={classes.root}>
             <Slide appear={false} direction="down" in={!trigger}>
-                <AppBar style={{backgroundColor: props.isDarkTheme?'#1e1e1e':'#f44336'}}>
+                <AppBar className={props.isDarkTheme?classes.dark:classes.light}>
                     <Toolbar>
                         <Suspense fallback={<NAppBarTitleLoading />}>
                             <NAppBarTitle />
@@ -74,4 +74,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    light: {
+        backgroundColor: theme.palette.primary.main,
+    },
+    dark: {
+        backgroundColor: '#1e1e1e',
+    }
 }));
