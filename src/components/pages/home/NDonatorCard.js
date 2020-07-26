@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
 
-import { CardContent, CardMedia, Typography, Grid, Tooltip, SvgIcon, useMediaQuery } from '@material-ui/core';
+import { CardContent, Card, CardMedia, Typography, Grid, Tooltip, SvgIcon, useMediaQuery } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import HistoryIcon from '@material-ui/icons/History';
 
-import { NCard } from '../../NCard';
 import { getCurrencyLabel, getCurrencyValue, hasCurrencyDecimals } from '../../NCurrencies';
 
 function CrownIcon() {
@@ -109,7 +108,7 @@ export function NDonatorCard(props) {
                     <NDonatorCardLoading {...props} />
                 </>
             :
-                <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                <Card className={classes.root}>
                     <CardContent className={classes.content}>
                         <Typography gutterBottom variant="subtitle1" noWrap>
                             {username}
@@ -151,7 +150,7 @@ export function NDonatorCard(props) {
                             title={username}
                         />
                     </Tooltip>
-                </NCard>
+                </Card>
             }
         </>
     );
@@ -162,7 +161,7 @@ export function NDonatorCardLoading(props) {
     const isScreenLarge = useMediaQuery(useTheme().breakpoints.up("lg"));
 
     return (
-        <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+        <Card className={classes.root}>
             <CardContent className={classes.content}>
                 <Typography variant="subtitle1">
                     <Skeleton>
@@ -215,7 +214,7 @@ export function NDonatorCardLoading(props) {
                     title='Loading...'
                 />
             </Skeleton>
-        </NCard>
+        </Card>
     );
 }
 

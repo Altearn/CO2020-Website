@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
-import { AppBar, Toolbar, Slide, useScrollTrigger } from '@material-ui/core';
+import { AppBar, Toolbar, Slide, useScrollTrigger, useMediaQuery } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { NAppBarTitle, NAppBarTitleLoading } from "./NAppBarTitle";
 import { NSearchInputBase, NSearchInputBaseLoading } from "./NSearchInputBase";
@@ -10,6 +10,8 @@ import { NAppbarActions, NAppbarActionsLoading } from './NAppbarActions';
 
 export function NAppBar(props) {
     const classes = useStyles();
+    const theme = useTheme();
+    const showTitle = useMediaQuery(theme.breakpoints.down("md"));
     const trigger = useScrollTrigger({
         disableHysteresis: true,
         threshold: 0
@@ -21,9 +23,9 @@ export function NAppBar(props) {
 
     return(
         <div className={classes.root}>
-            <AppBar elevation={trigger?4:0}>
+            <AppBar elevation={trigger?4:0} style={{backgroundColor: props.isDarkTheme?'#08040a':theme.palette.secondary.main}}>
                 <Toolbar>
-                    <Slide direction="down" in={trigger2}>
+                    <Slide direction="down" in={trigger2&&showTitle}>
                         <div style={{flex: 1}}>
                             <Suspense fallback={<NAppBarTitleLoading />}>
                                 <NAppBarTitle />

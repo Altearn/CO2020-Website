@@ -132,3 +132,7 @@ code {
   -webkit-animation: 0.3s linear 0.9s both fadeIn;
           animation: 0.3s linear 0.9s both fadeIn;
 }
+.ytbFull {
+  width: 100%;
+  height: 100%;
+}

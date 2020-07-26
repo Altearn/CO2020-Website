@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import { useMediaQuery, CssBaseline, colors } from '@material-ui/core';
+import { useMediaQuery, CssBaseline } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 
 import { NAppBar } from './appbar/NAppBar';
 import { NHome } from './pages/home/NHome';
 import { NDonateModal } from './pages/donate/NDonateModal';
+import { NTrailerModal } from './pages/trailer/NTrailerModal';
 
-export default function App() {
+export default function App(props) {
     var prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
     const [isDarkTheme, setDarkTheme] = useState(null);
 
@@ -22,9 +22,11 @@ export default function App() {
 
     const themeLight = createMuiTheme({
         palette: {
-            primary: purple,
+            primary: {
+                main: '#6b54b6',
+            },
             secondary: {
-                main: '#6B54B6',
+                main: '#120a17',
             }
         },
     });
@@ -33,15 +35,15 @@ export default function App() {
     const themeDark = createMuiTheme({
         palette: {
             type: 'dark',
-            primary: purple,
+            primary: {
+                main: '#6b54b6',
+            },
             secondary: {
-                main: '#6B54B6',
+                main: '#120a17',
             },
             background: {
-                default: '#121212'
-            },
-            card: {
-                backgroundColor: '#ff6600',
+                default: '#1b0f23',
+                paper: '#1e1e1e',
             },
         },
     });
@@ -59,11 +61,17 @@ export default function App() {
                     <Switch>
                         <Route exact path="/">
                             <NDonateModal />
+                            <NTrailerModal />
                         </Route>
                         <Route path="/donate">
                             <NDonateModal opened />
+                            <NTrailerModal />
                         </Route>
-                        <Route path="*">
+                        <Route path="/trailer">
+                            <NDonateModal />
+                            <NTrailerModal opened />
+                        </Route>
+                        <Route>
                             <Redirect to="/" />
                         </Route>
                     </Switch>
