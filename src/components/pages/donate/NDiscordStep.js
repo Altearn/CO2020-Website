@@ -3,14 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 
-import { Collapse, Grid, TextField, InputAdornment, Button, Avatar, Zoom, useTheme, Link, useMediaQuery } from '@material-ui/core';
+import { Collapse, Grid, TextField, InputAdornment, Button, Avatar, Zoom, useTheme, Link, useMediaQuery, Card } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
-import red from '@material-ui/core/colors/red';
 import EditIcon from '@material-ui/icons/Edit';
 import LinkIcon from '@material-ui/icons/Link';
-
-import { NCard } from '../../NCard';
 
 export function NDiscordStep(props) {
     const { t } = useTranslation();
@@ -28,15 +25,11 @@ export function NDiscordStep(props) {
     const themeDark = createMuiTheme({
         palette: {
             type: 'dark',
-            primary: red,
+            primary: {
+                main: '#6b54b6',
+            },
             secondary: {
-                main: '#f44336',
-            },
-            background: {
-                default: '#121212'
-            },
-            card: {
-                backgroundColor: '#ff6600',
+                main: '#120a17',
             },
         },
     });
@@ -113,7 +106,7 @@ export function NDiscordStep(props) {
                 </Alert>
             </Collapse>
             <ThemeProvider theme={themeDark}>
-                <NCard isDarkTheme className={classes.fullWidth}>
+                <Card className={classes.fullWidth}>
                     <Grid container className={classes.content} spacing={3}>
                         <Grid item>
                             <Collapse in={props.discordId===null}>
@@ -198,7 +191,7 @@ export function NDiscordStep(props) {
                             </Button>
                         </div>
                     :null}
-                </NCard>
+                </Card>
             </ThemeProvider>
         </>
     );

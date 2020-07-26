@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { LinearProgress, Typography, Grid, Tooltip } from '@material-ui/core';
+import { LinearProgress, Card, Typography, Grid, Tooltip } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
-
-import { NCard } from '../../NCard';
 
 export function NGoalCard(props) {
     const classes = useStyles();
@@ -38,7 +36,7 @@ export function NGoalCard(props) {
     }, [props.amount]);
 
     return (
-        <NCard isDarkTheme={props.isDarkTheme}>
+        <Card isDarkTheme={props.isDarkTheme}>
             <Grid container alignItems="center">
                 <Grid item className={classes.titleContainer}>
                     <Typography variant="subtitle1">
@@ -65,7 +63,7 @@ export function NGoalCard(props) {
                     </Typography>
                 </Grid>
             </Grid>
-        </NCard>
+        </Card>
     );
 }
 
@@ -73,7 +71,7 @@ export function NGoalCardLoading(props) {
     const classes = useStyles();
 
     return (
-        <NCard isDarkTheme={props.isDarkTheme}>
+        <Card isDarkTheme={props.isDarkTheme}>
             <Grid container alignItems="center">
                 <Grid item className={classes.titleContainer}>
                     <Typography variant="subtitle1">
@@ -97,7 +95,7 @@ export function NGoalCardLoading(props) {
                     </Typography>
                 </Grid>
             </Grid>
-        </NCard>
+        </Card>
     );
 }
 

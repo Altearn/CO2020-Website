@@ -3,10 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardActionArea, CardMedia, Button, Typography } from '@material-ui/core';
+import { CardActionArea, CardMedia, Button, Typography, Card } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
-
-import { NCard } from '../../NCard';
 
 export function NDonateCard(props) {
     const { t } = useTranslation();
@@ -21,7 +19,7 @@ export function NDonateCard(props) {
             {loading?
                 <NDonateCardLoading {...props} />
             :
-                <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+                <Card className={classes.root}>
                     <CardActionArea className={classes.actionArea} onClick={() => history.push("/donate")}>
                         <CardMedia
                             className={classes.media}
@@ -39,7 +37,7 @@ export function NDonateCard(props) {
                             </Button>
                         </CardMedia>
                     </CardActionArea>
-                </NCard>
+                </Card>
             }
         </>
     );
@@ -49,7 +47,7 @@ export function NDonateCardLoading(props) {
     const classes = useStyles();
 
     return (
-        <NCard className={classes.root} isDarkTheme={props.isDarkTheme}>
+        <Card className={classes.root}>
             <Skeleton variant="rect" className={classes.actionArea}>
                 <CardActionArea>
                     <CardMedia className={classes.media} title="Donate now">
@@ -68,7 +66,7 @@ export function NDonateCardLoading(props) {
                     </CardMedia>
                 </CardActionArea>
             </Skeleton>
-        </NCard>
+        </Card>
     );
 }
 

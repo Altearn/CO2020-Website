@@ -132,18 +132,29 @@
         "Language": "An error occured while loading"
       },
       "Home_Page": "Home page",
+      "Landing": {
+        "Headline": {
+          "Title": "Stand against",
+          "Deforestation": "deforestation",
+          "Poverty": "poverty",
+          "War": "war"
+        }
+      },
       "Language": {
         "Change": "Change language",
         "Current": "English"
       },
+      "Logo": "Creative Olympics's Logo",
       "More": "More",
       "Next": "Next",
       "Search": "Search",
+      "Scroll": "Scroll",
       "Theme": {
         "Dark": "Switch to dark theme",
         "Light": "Switch to light theme"
       },
-      "Title": "Irus"
+      "Title": "Creative Olympics",
+      "Trailer": "Trailer"
     }
   }
 }

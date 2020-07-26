@@ -10,7 +10,7 @@ export function NHeader(props) {
     const classes = useStyles();
     
     return (
-        <Typography className={classes.title} variant="h5">
+        <Typography className={props.className||classes.title} variant={props.size||"h5"}>
             {t(props.translation)}
         </Typography>
     )
@@ -20,7 +20,7 @@ export function NHeaderLoading(props) {
     const classes = useStyles();
 
     return (
-        <Typography className={classes.title} variant="h5">
+        <Typography className={props.className||classes.title} variant={props.size||"h5"}>
             <Skeleton>
                 <span>
                     {props.placeholder}
@@ -32,6 +32,6 @@ export function NHeaderLoading(props) {
 
 const useStyles = makeStyles((theme) => ({
     title: {
-        paddingBottom: theme.spacing(2)
-    },
+        paddingBottom: theme.spacing(2),
+    }
 }));

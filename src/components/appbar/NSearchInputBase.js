@@ -14,7 +14,8 @@ export function NSearchInputBase() {
 
     const tools = [
         { title: t('RahNeil_N3.Irus.Home_Page'), url: '/' },
-        { title: t('RahNeil_N3.Irus.Donations.Donate_Now.Short'), url: '/donate' }
+        { title: t('RahNeil_N3.Irus.Donations.Donate_Now.Short'), url: '/donate' },
+        { title: t('RahNeil_N3.Irus.Trailer'), url: '/trailer' }
     ];
 
     const pendingValue = [];
@@ -50,7 +51,6 @@ export function NSearchInputBase() {
                     </>
                 ):option.title
             )}
-            
             autoHighlight
             inputValue={searchString}
             disablePortal
