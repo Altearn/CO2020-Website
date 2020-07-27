@@ -53,22 +53,17 @@
         "IsPlacedAfter": true
       },
       "Donations": {
+        "Amount": {
+          "Title": "Choisissez le montant du don",
+          "Label": "Montant"
+        },
         "Checkout": {
           "Snackbar": {
             "Cancelled": "Transaction abandonnée"
           },
           "Title": "Payer"
         },
-        "Amount": {
-          "Title": "Choisissez le montant du don",
-          "Label": "Montant"
-        },
         "Discord": {
-          "Info": {
-            "0": "Vérifiez bien qu'il n'y a pas de",
-            "1": "fautes de frappe",
-            "2": "ou vous pourriez ne pas recevoir le rôle !"
-          },
           "Title": "Lier au compte Discord",
           "Username": "Pseudonyme",
           "Warning": {
@@ -132,18 +127,29 @@
         "Language": "Une erreur est survenue lors du chargement de"
       },
       "Home_Page": "Page d'accueil",
+      "Landing": {
+        "Headline": {
+          "Title": "Lutte contre la",
+          "Deforestation": "déforestation",
+          "Poverty": "pauvreté",
+          "War": "guerre"
+        }
+      },
       "Language": {
         "Change": "Changer de langue",
         "Current": "Français"
       },
+      "Logo": "Logo de Creative Olympics",
       "More": "Plus",
       "Next": "Suivant",
       "Search": "Rechercher",
+      "Scroll": "Défiler",
       "Theme": {
         "Dark": "Passer au thème sombre",
         "Light": "Passer au thème clair"
       },
-      "Title": "Creative Olympics"
+      "Title": "Creative Olympics",
+      "Trailer": "Bande-annonce"
     }
   }
 }

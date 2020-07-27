@@ -64,11 +64,6 @@
           "Title": "Checkout"
         },
         "Discord": {
-          "Info": {
-            "0": "Be sure to",
-            "1": "double-check for typos",
-            "2": "as you won't receive the role if you made a mistake !"
-          },
           "Title": "Link Discord account",
           "Username": "Username",
           "Warning": {
@@ -128,8 +123,8 @@
           "Server": "We're unable to reach our servers, some things may not display properly",
           "Server_External": "We're unable to reach a third-party server, some things may not display properly"
         },
-        "General": "An error occured, please try again later",
-        "Language": "An error occured while loading"
+        "General": "An error occurred, please try again later",
+        "Language": "An error occurred while loading"
       },
       "Home_Page": "Home page",
       "Landing": {
