@@ -50,7 +50,7 @@ export function NGoalCard(props) {
                         (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':'€')+
                         props.amount+
                         (!t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':'€')
-                    } arrow>
+                    } PopperProps={{style: {zIndex: 1}}} arrow>
                         <div style={{position: 'absolute', left: 'calc('+Math.round((props.amount-lowValue)/(highValue-lowValue)*100)+'% - 1px)'}}/>
                     </Tooltip>
                     <MainLinearProgress variant="determinate" value={Math.round((props.amount-lowValue)/(highValue-lowValue)*100)} />
