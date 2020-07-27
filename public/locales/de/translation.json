@@ -1,0 +1,155 @@
+{
+  "RahNeil_N3": {
+    "Irus": {
+      "Back": "Zurück",
+      "Cancel": "Abbrechen",
+      "Cards": {
+        "Latest": {
+          "Long": null,
+          "Short": "Letzter"
+        },
+        "Second": {
+          "Long": "Zweit höchster Spender",
+          "Short": "Zweiter"
+        },
+        "Third": {
+          "Long": "Dritt höchster Spender",
+          "Short": "Dritter"
+        },
+        "Top": {
+          "Long": null,
+          "Short": "Top Spender"
+        }
+      },
+      "Currency": {
+        "Name": {
+          "AUD": "Australischer Dollar",
+          "CAD": "Kanadischer Dollar",
+          "CZK": "Tschechischer Koruna",
+          "DKK": "Dänische Krone",
+          "EUR": "Euro",
+          "HKD": "Hong Kong Dollar",
+          "HUF": "Ungarische Forint",
+          "ILS": "Israelischer neuer Shekel",
+          "JPY": "Japanischer Yen",
+          "MXN": "Mexikanischer Peso",
+          "TWD": "Neu taiwanischer Dollar",
+          "NZD": "Neuseeländischer Dollar",
+          "NOK": "Norwegische Krone",
+          "PHP": "Philippine peso",
+          "PLN": "Polnischer Złoty",
+          "GBP": "Pfund",
+          "RUB": "Russische Ruble",
+          "SGD": "Singapurischer Dollar",
+          "SEK": "Schwedische Krone",
+          "CHF": "Schweizer Franken",
+          "THB": "Thailändischer Baht",
+          "USD": "Vereinigte Staaten Dollar"
+        },
+        "Default": {
+          "Code": "EUR",
+          "Name": "Euro"
+        },
+        "IsPlacedAfter": false
+      },
+      "Donations": {
+        "Amount": {
+          "Title": "Wählen Sie den Betrag Ihrer Spende",
+          "Label": "Spenden Betrag"
+        },
+        "Checkout": {
+          "Snackbar": {
+            "Cancelled": "Spende Abgebrochen"
+          },
+          "Title": "Auschecken"
+        },
+        "Discord": {
+          "Title": "Link zum Discord Account",
+          "Username": "Nutzername",
+          "Warning": {
+            "0": "Dieser Schritt ist",
+            "1": "Optional",
+            "2": "Aber Sie werden nicht die",
+            "3": "Spender Rolle bekommen",
+            "4": "Wenn Sie ihren Account nicht verlinken."
+          },
+          "Error": {
+            "0": "Wurde nicht gefunden",
+            "1": ". Stellen Sie sicher, dass Ihr Name und Ihr Tag richtig sind und dass Sie im Creative Olympics Discord Server sind",
+            "2": "Creative Olympics Discord Server",
+            "3": "."
+          },
+          "Success": {
+            "0": "Hey",
+            "1": "! Sie werden die Rolle bekommen sobald das Geld überwiesen ist!"
+          }
+        },
+        "Donate_Now": {
+          "Description": "Spenden Sie, um eine Sache Ihrer Wahl zu unterstützen :D\nDer Betrag Ihrer Spende ist nicht vorgegeben",
+          "Short": "Spende",
+          "Title": "Jetzt Spenden"
+        },
+        "Minecraft": {
+          "Error": {
+            "0": "Ungültiger Nutzername",
+            "1": ", Bitte achten Sie auf Tippfehler und versuchen Sie es erneut."
+          },
+          "Link_Action": "Link",
+          "Success": {
+            "0": "Hey",
+            "1": "! Wir hoffen Sie bald auf unserem server zu sehen :D"
+          },
+          "Title": "Link Minecraft Account",
+          "Username": "Minecraft Nutzername",
+          "Warning": {
+            "0": "Dieser Schritt ist",
+            "1": "Optional",
+            "2": "Aber Sie werden",
+            "3": "nicht Whitelisted",
+            "4": "Wenn du deinen Minecraft Account nicht verlinkst."
+          }
+        },
+        "Success": {
+          "Title": {
+            "Full": "Vielen Dank für ihre Spende !",
+            "Short": "Vielen Dank !"
+          },
+          "Description": "Sie werden bald eine Belohnung bekommen ;)"
+        },
+        "Title": "Spenden"
+      },
+      "Error": {
+        "Display": {
+          "Server": "Wir sind nicht in der Lage unsere Server zu erreichen, irgendwas könnte falsch angezeigt werden",
+          "Server_External": "Wir sind nicht in der Lage unseren third-party server zu erreichen,irgendwas könnte falsch angezeigt werden"
+        },
+        "General": "Es ist ein Fehler aufgetreten, bitte versuchen sie es später erneut",
+        "Language": "Ein Fehler ist während des Ladens aufgetreten"
+      },
+      "Home_Page": "Home page",
+      "Landing": {
+        "Headline": {
+          "Title": "Sei gegen",
+          "Deforestation": "Abholzung",
+          "Poverty": "Armut",
+          "War": "Krieg"
+        }
+      },
+      "Language": {
+        "Change": "Sprache ändern",
+        "Current": "Deutsch"
+      },
+      "Logo": "Creative Olympics's Logo",
+      "More": "Mehr",
+      "Next": "Nächste",
+      "Search": "Suchen",
+      "Scroll": "Scrollen",
+      "Theme": {
+        "Dark": "Zum dark Theme ändern",
+        "Light": "Zum light Theme ändern"
+      },
+      "Title": "Creative Olympics",
+      "Trailer": "Trailer"
+    }
+  }
+}

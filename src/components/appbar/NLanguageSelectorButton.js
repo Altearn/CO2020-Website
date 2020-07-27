@@ -76,6 +76,7 @@ export function NLanguageSelectorButton(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleCloseLanguageSelect}
             >
+                <NLanguageSelectItem text="Deutsch" code="de-DE" country="de" close={handleCloseLanguageSelect} />
                 <NLanguageSelectItem text="English" code="en-US" country="us" close={handleCloseLanguageSelect} />
                 <NLanguageSelectItem text="English" code="en-GB" country="gb" close={handleCloseLanguageSelect} />
                 <NLanguageSelectItem text="Français" code="fr-FR" country="fr" close={handleCloseLanguageSelect} />
