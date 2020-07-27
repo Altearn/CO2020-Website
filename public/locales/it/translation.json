@@ -50,7 +50,7 @@
           "Code": "EUR",
           "Name": "Euro"
         },
-        "IsPlacedAfter": false
+        "IsPlacedAfter": true
       },
       "Donations": {
         "Amount": {

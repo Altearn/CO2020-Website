@@ -95,12 +95,12 @@ app.get('/api/cards', function (req, res) {
             if (result.length===1) finalValue.latest = result[0];
 
             db.query(
-                "SELECT SUM(amount_global) FROM "+process.env.DB_NAME+".Donations;",
+                "SELECT SUM(amount_global) AS total FROM "+process.env.DB_NAME+".Donations;",
                 function (err, result, fields)
             {
                 if (err) throw err;
         
-                if (result.length===1) finalValue.total = result[0];
+                if (result.length===1) finalValue.total = result[0].total;
         
                 res.json(finalValue);
             });

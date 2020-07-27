@@ -81,7 +81,7 @@ export function NHome(props) {
                                     {cards.total===null?
                                         <NGoalCardLoading/>
                                     :
-                                        <NGoalCard amount={cards.total}/>
+                                        <NGoalCard amount={cards.total} />
                                     }
                                 </Suspense>
                             </Grid>
