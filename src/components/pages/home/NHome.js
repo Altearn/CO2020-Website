@@ -31,6 +31,8 @@ export function NHome(props) {
         total: null
     });
 
+    const xs = useMediaQuery(theme.breakpoints.down("xs"));
+
     useEffect(() => {
         const reloadCards = () => {
             fetch('/api/cards/').then(res => {
@@ -59,11 +61,13 @@ export function NHome(props) {
 
             
             <div className={classes.root}>
-                <div className={classes.waveTopContainer}>
-                    <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
-                        <path className={classes.waveTopPath} d="M0,288L1440,128L1440,320L0,320Z" />
-                    </svg>
-                </div>
+                {xs?null:
+                    <div className={classes.waveTopContainer}>
+                        <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
+                            <path className={classes.waveTopPath} d="M0,288L1440,128L1440,320L0,320Z" />
+                        </svg>
+                    </div>
+                }
 
                 <ScrollableAnchor id='donate'>
                     <div>
@@ -170,7 +174,6 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(4),
-        paddingTop: 0,
 
         [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(6),
@@ -199,5 +202,9 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         width: '100%',
         textAlign: 'center',
+    },
+    gridRoot: {
+        width: 'auto',
+        margin: 0,
     }
 }));

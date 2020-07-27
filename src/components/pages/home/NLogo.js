@@ -19,13 +19,13 @@ export function NLogo(props) {
     const md = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
-        <>
-            <div className={classes.waveTopContainer}>
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className={classes.waveTopSvg}>
-                    <path d="M0,192L1440,0L1440,0L0,0Z" className={classes.waveTopPath} style={{fill: props.isDarkTheme?'#08040a':theme.palette.secondary.main}} />
-                </svg>
-            </div>
-            {xs?null:
+        xs?null:
+            <>
+                <div className={classes.waveTopContainer}>
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className={classes.waveTopSvg}>
+                        <path d="M0,192L1440,0L1440,0L0,0Z" className={classes.waveTopPath} style={{fill: props.isDarkTheme?'#08040a':theme.palette.secondary.main}} />
+                    </svg>
+                </div>
                 <Grid container alignItems='center' className={classes.header} style={{position: md?'absolute':'fixed'}}>
                     <div className={trigger?classes.logoContainerAnimated:classes.logoContainer}>
                         <img alt={t('RahNeil_N3.Irus.Logo')} src='logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
@@ -38,8 +38,7 @@ export function NLogo(props) {
                         </div>
                     :null}
                 </Grid>
-            }
-        </>
+            </>
     );
 }
 
@@ -56,13 +55,13 @@ export function NLogoLoading(props) {
     const md = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
-        <>
-            <div className={classes.waveTopContainer}>
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className={classes.waveTopSvg}>
-                    <path d="M0,192L1440,0L1440,0L0,0Z" className={classes.waveTopPath} style={{fill: props.isDarkTheme?'#08040a':theme.palette.secondary.main}} />
-                </svg>
-            </div>
-            {xs?null:
+        xs?null:
+            <>
+                <div className={classes.waveTopContainer}>
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className={classes.waveTopSvg}>
+                        <path d="M0,192L1440,0L1440,0L0,0Z" className={classes.waveTopPath} style={{fill: props.isDarkTheme?'#08040a':theme.palette.secondary.main}} />
+                    </svg>
+                </div>
                 <Grid container alignItems='center' className={classes.header} style={{position: md?'absolute':'fixed'}}>
                     <div className={trigger?classes.logoContainerAnimated:classes.logoContainer}>
                         <img alt="Creative Olympics's Logo" src='logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
@@ -79,8 +78,7 @@ export function NLogoLoading(props) {
                         </div>
                     :null}
                 </Grid>
-            }
-        </>
+            </>
     );
 }
 
@@ -140,9 +138,6 @@ const useStyles = makeStyles((theme) => ({
         height: '160px',
         [theme.breakpoints.down('md')]: {
             height: '191px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            height: '160px',
         },
     },
     waveTopPath: {

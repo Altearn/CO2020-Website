@@ -20,6 +20,7 @@ export function NLanding(props) {
     const history = useHistory();
     
     const sm = useMediaQuery(theme.breakpoints.down("sm"));
+    const xs = useMediaQuery(theme.breakpoints.down("xs"));
 
     const [slideIndex, setSlideIndex] = React.useState(0);
 
@@ -51,17 +52,19 @@ export function NLanding(props) {
     
     return (
         <>
-            <Fab
-                variant="extended"
-                size="medium"
-                color={props.isDarkTheme?"primary":"secondary"}
-                aria-label="Scroll"
-                className={classes.fab}
-                onClick={() => goToAnchor('donate')}
-            >
-                {t('RahNeil_N3.Irus.Scroll')}
-                <ExpandMoreIcon/>
-            </Fab>
+            {xs?null:
+                <Fab
+                    variant="extended"
+                    size="medium"
+                    color={props.isDarkTheme?"primary":"secondary"}
+                    aria-label="Scroll"
+                    className={classes.fab}
+                    onClick={() => goToAnchor('donate')}
+                >
+                    {t('RahNeil_N3.Irus.Scroll')}
+                    <ExpandMoreIcon/>
+                </Fab>
+            }
 
             <NLogo isDarkTheme={props.isDarkTheme} />
 
@@ -79,11 +82,11 @@ export function NLanding(props) {
             </div>
             <Grid container alignItems='center' justify='center' direction='column' className={classes.headlineContainer} spacing={5}>
                 <Grid item>
-                    <Typography variant="h2" className={classes.headline}>
+                    <Typography variant={xs?"h3":"h2"} className={classes.headline}>
                         <span>{t('RahNeil_N3.Irus.Landing.Headline.Title')}</span>
                     </Typography>
                     {sm?<br/>:null}
-                    <Typography variant="h2" className={classes.headline}>
+                    <Typography variant={xs?"h3":"h2"} className={classes.headline}>
                         &nbsp;<NRenderTypist/>&nbsp;
                     </Typography>
                 </Grid>
@@ -128,24 +131,27 @@ export function NLandingLoading(props) {
     const theme = useTheme();
     
     const sm = useMediaQuery(theme.breakpoints.down("sm"));
+    const xs = useMediaQuery(theme.breakpoints.down("xs"));
 
     return (
         <>
-            <Fab
-                variant="extended"
-                size="medium"
-                color={props.isDarkTheme?"primary":"secondary"}
-                aria-label="Scroll"
-                className={classes.fab}
-                onClick={() => goToAnchor('donate')}
-            >
-                <Skeleton>
-                    <span>
-                        Scroll
-                    </span>
-                </Skeleton>
-                <ExpandMoreIcon/>
-            </Fab>
+            {xs?null:
+                <Fab
+                    variant="extended"
+                    size="medium"
+                    color={props.isDarkTheme?"primary":"secondary"}
+                    aria-label="Scroll"
+                    className={classes.fab}
+                    onClick={() => goToAnchor('donate')}
+                >
+                    <Skeleton>
+                        <span>
+                            Scroll
+                        </span>
+                    </Skeleton>
+                    <ExpandMoreIcon/>
+                </Fab>
+            }
 
             <NLogoLoading isDarkTheme={props.isDarkTheme} />
 
@@ -243,9 +249,10 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         left: 0,
         top: 0,
-        width: '100%',
         height: '100%',
         textAlign: 'center',
+        width: '100%',
+        margin: 0,
         marginTop: theme.spacing(4),
     },
     headlineButtons: {

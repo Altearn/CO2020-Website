@@ -10,15 +10,15 @@
         },
         "Second": {
           "Long": "Secondo miglior donatore",
-          "Short": "Secondo migliore"
+          "Short": "Secondo"
         },
         "Third": {
           "Long": "Terzo miglior donatore",
-          "Short": "Terzo migliore"
+          "Short": "Terzo"
         },
         "Top": {
           "Long": null,
-          "Short": "Miglior donatore"
+          "Short": "Top donatore"
         }
       },
       "Currency": {
