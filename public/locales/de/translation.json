@@ -47,15 +47,15 @@
           "USD": "Vereinigte Staaten Dollar"
         },
         "Default": {
-          "Code": "EUR",
-          "Name": "Euro"
+          "Code": "USD",
+          "Name": "Vereinigte Staaten Dollar"
         },
         "IsPlacedAfter": false
       },
       "Donations": {
         "Amount": {
           "Title": "Wählen Sie den Betrag Ihrer Spende",
-          "Label": "Spenden Betrag"
+          "Label": "Betrag der Spende"
         },
         "Checkout": {
           "Snackbar": {
@@ -69,8 +69,8 @@
           "Warning": {
             "0": "Dieser Schritt ist",
             "1": "Optional",
-            "2": "Aber Sie werden nicht die",
-            "3": "Spender Rolle bekommen",
+            "2": "aber Sie werden die",
+            "3": "Spender Rolle nicht bekommen",
             "4": "Wenn Sie ihren Account nicht verlinken."
           },
           "Error": {
@@ -104,9 +104,9 @@
           "Warning": {
             "0": "Dieser Schritt ist",
             "1": "Optional",
-            "2": "Aber Sie werden",
-            "3": "nicht Whitelisted",
-            "4": "Wenn du deinen Minecraft Account nicht verlinkst."
+            "2": "aber Sie werden nicht",
+            "3": "gewhitelisted",
+            "4": "wenn Sie ihren Minecraft Account nicht verlinken."
           }
         },
         "Success": {
@@ -141,9 +141,9 @@
       },
       "Logo": "Creative Olympics's Logo",
       "More": "Mehr",
-      "Next": "Nächste",
+      "Next": "Nächster",
       "Search": "Suchen",
-      "Scroll": "Scrollen",
+      "Scroll": "Nach unten",
       "Theme": {
         "Dark": "Zum dark Theme ändern",
         "Light": "Zum light Theme ändern"

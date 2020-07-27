@@ -75,8 +75,8 @@
           },
           "Error": {
             "0": "Impossibile trovare l’utente",
-            "1": ". Assicuratevi di aver scritto correttamente il vostro nome, il vostro tag",
-            "2": "e di essere nel server Discord di Creative Olympics",
+            "1": ". Assicuratevi di aver scritto correttamente il vostro nome, il vostro tag e di essere nel",
+            "2": "server Discord di Creative Olympics",
             "3": "."
           },
           "Success": {
