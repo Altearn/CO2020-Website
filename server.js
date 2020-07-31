@@ -109,7 +109,7 @@ app.get('/api/cards', function (req, res) {
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
-    request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
+    request.post('https://api.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
             password: process.env.PAYPAL_SECRET
@@ -121,7 +121,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
             return res.sendStatus(500);
         }
 
-        request.post('https://api.sandbox.paypal.com/v2/checkout/orders', {
+        request.post('https://api.paypal.com/v2/checkout/orders', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -152,7 +152,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
 });
 
 app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
-    request.post('https://api.sandbox.paypal.com/v1/oauth2/token', {
+    request.post('https://api.paypal.com/v1/oauth2/token', {
         auth: {
             user: process.env.PAYPAL_CLIENT,
             password: process.env.PAYPAL_SECRET
@@ -164,7 +164,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             return res.sendStatus(500);
         }
         
-        request.post('https://api.sandbox.paypal.com/v2/checkout/orders/' + req.params.orderId + '/capture', {
+        request.post('https://api.paypal.com/v2/checkout/orders/' + req.params.orderId + '/capture', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,

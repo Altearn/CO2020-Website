@@ -57,6 +57,7 @@ export function NCheckoutStep(props) {
             options={{
                 clientId: "AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"
             }}
+            currency={props.currency}
         />
     );
 }
