@@ -22,6 +22,8 @@
         }
       },
       "Currency": {
+        "Title": "Currencies",
+        "Description": "Change payment currency",
         "Name": {
           "AUD": "Australian dollar",
           "CAD": "Canadian dollar",
