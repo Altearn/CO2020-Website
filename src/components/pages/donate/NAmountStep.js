@@ -74,7 +74,9 @@ export function NAmountStep(props) {
                 scroll="body"
                 open={dialogOpened}
             >
-                <DialogTitle id="dialogCurrencySelectorId">{t('RahNeil_N3.Irus.Currency.Title')}</DialogTitle>
+                <DialogTitle id="dialogCurrencySelectorId">
+                    {t('RahNeil_N3.Irus.Currency.Title')}
+                </DialogTitle>
                 <List>
                     {currencies.map((option) => (
                         <ListItem

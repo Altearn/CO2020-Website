@@ -55,7 +55,7 @@ export function NCheckoutStep(props) {
                 enqueueSnackbar(t('RahNeil_N3.Irus.Donations.Checkout.Snackbar.Cancelled'), {variant: 'warning'});
             }}
             options={{
-                clientId: "Aem1NU0lE5_WzawW0TOiHCj4RhxBWlbuR-oEv7khOF_m86E7hUpOhOtO8ioY_LYNMu61VJsAShTUxdSd"
+                clientId: "AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"
             }}
         />
     );
