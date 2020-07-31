@@ -9,6 +9,7 @@ import { NAppBar } from './appbar/NAppBar';
 import { NHome } from './pages/home/NHome';
 import { NDonateModal } from './pages/donate/NDonateModal';
 import { NTrailerModal } from './pages/trailer/NTrailerModal';
+import { NDonations } from './NConsts';
 
 export default function App(props) {
     var prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -64,6 +65,8 @@ export default function App(props) {
                             <NTrailerModal />
                         </Route>
                         <Route path="/donate">
+                            {NDonations()?null:<Redirect to="/" />}
+
                             <NDonateModal opened />
                             <NTrailerModal />
                         </Route>

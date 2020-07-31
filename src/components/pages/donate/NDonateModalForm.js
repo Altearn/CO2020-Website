@@ -23,7 +23,11 @@ export function NDonateModalForm(props) {
             <DialogTitle className={classes.title} disableTypography>
                 <Typography className={classes.titleTypography} variant="h5" component="span">
                     <Suspense fallback={<Skeleton><span>Donate now</span></Skeleton>}>
-                        <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
+                        {process.env.REACT_APP_LOADING?
+                            <Skeleton><span>Donate now</span></Skeleton>
+                        :
+                            <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
+                        }
                     </Suspense>
                 </Typography>
                 <IconButton
@@ -37,14 +41,22 @@ export function NDonateModalForm(props) {
             </DialogTitle>
             <DialogContent>
                 <Suspense fallback={<NStepperLoading steps={props.steps} />}>
-                    <NStepper steps={props.steps} />
+                    {process.env.REACT_APP_LOADING?
+                        <NStepperLoading steps={props.steps} />
+                    :
+                        <NStepper steps={props.steps} />
+                    }
                 </Suspense>
             </DialogContent>
             {fullScreen?null:
                 <DialogActions>
                     <Button onClick={props.handleClose} color="primary">
                         <Suspense fallback={<Skeleton><span>Cancel</span></Skeleton>}>
-                            <Translation t='RahNeil_N3.Irus.Cancel' />
+                            {process.env.REACT_APP_LOADING?
+                                <Skeleton><span>Cancel</span></Skeleton>
+                            :
+                                <Translation t='RahNeil_N3.Irus.Cancel' />
+                            }
                         </Suspense>
                     </Button>
                 </DialogActions>

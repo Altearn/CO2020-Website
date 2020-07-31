@@ -10,6 +10,7 @@ import { NDonateCard, NDonateCardLoading } from './NDonateCard';
 import { NDonatorCard, NDonatorCardLoading } from './NDonatorCard';
 import { NGoalCard, NGoalCardLoading } from './NGoalCard';
 import { NLanding, NLandingLoading } from './NLanding';
+import { NLoading, NDonations } from '../../NConsts';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -41,12 +42,20 @@ export function NHome(props) {
                 })
                 .catch(err => enqueueSnackbar(
                     <Suspense fallback="We're unable to reach our servers, some things may not display properly">
-                        <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
+                        {NLoading()?
+                            "We're unable to reach our servers, some things may not display properly"
+                        :
+                            <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
+                        }
                     </Suspense>,
                     {variant: 'error'}));
             }).catch(err => enqueueSnackbar(
                 <Suspense fallback="We're unable to reach our servers, some things may not display properly">
-                    <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
+                    {NLoading()?
+                        "We're unable to reach our servers, some things may not display properly"
+                    :
+                        <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
+                    }
                 </Suspense>,
                 {variant: 'error'}));
         }
@@ -56,7 +65,11 @@ export function NHome(props) {
     return (
         <>
             <Suspense fallback={<NLandingLoading isDarkTheme={props.isDarkTheme} />}>
-                <NLanding isDarkTheme={props.isDarkTheme} />
+                {NLoading()?
+                    <NLandingLoading isDarkTheme={props.isDarkTheme} />
+                :
+                    <NLanding isDarkTheme={props.isDarkTheme} />
+                }
             </Suspense>
 
             
@@ -74,11 +87,15 @@ export function NHome(props) {
                         <Grid container spacing={2} className={classes.gridRoot}>
                             <Grid item xs={12} sm={12} md={8} lg={6} style={{display: 'flex', flexDirection: 'column'}}>
                                 <Suspense fallback={<NDonateCardLoading/>}>
-                                    <NDonateCard/>
+                                    {NDonations()&&!NLoading()?
+                                        <NDonateCard/>
+                                    :
+                                        <NDonateCardLoading/>
+                                    }
                                 </Suspense>
 
                                 <Suspense fallback={<NGoalCardLoading/>}>
-                                    {cards.total===null?
+                                    {cards.total===null||NLoading()?
                                         <NGoalCardLoading/>
                                     :
                                         <NGoalCard amount={cards.total} />
@@ -91,7 +108,7 @@ export function NHome(props) {
                                         <Suspense fallback={
                                             <NDonatorCardLoading top />
                                         }>
-                                            {cards.top==null?
+                                            {cards.top==null||NLoading()?
                                                 <NDonatorCardLoading top />
                                             :
                                                 <NDonatorCard
@@ -110,7 +127,7 @@ export function NHome(props) {
                                                 <Suspense fallback={
                                                     <NDonatorCardLoading second />
                                                 }>
-                                                    {cards.second==null?
+                                                    {cards.second==null||NLoading()?
                                                         <NDonatorCardLoading second />
                                                     :
                                                         <NDonatorCard
@@ -127,7 +144,7 @@ export function NHome(props) {
                                                 <Suspense fallback={
                                                     <NDonatorCardLoading third />
                                                 }>
-                                                    {cards.third==null?
+                                                    {cards.third==null||NLoading()?
                                                         <NDonatorCardLoading third />
                                                     :
                                                         <NDonatorCard
@@ -146,7 +163,7 @@ export function NHome(props) {
                                         <Suspense fallback={
                                             <NDonatorCardLoading latest />
                                         }>
-                                            {cards.latest==null?
+                                            {cards.latest==null||NLoading()?
                                                 <NDonatorCardLoading latest />
                                             :
                                                 <NDonatorCard

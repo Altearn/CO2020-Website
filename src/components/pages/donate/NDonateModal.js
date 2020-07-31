@@ -166,12 +166,20 @@ export function NDonateModal(props) {
                 onClose={handleClose}
                 aria-labelledby={
                     <Suspense fallback={<Skeleton><span>Donate now</span></Skeleton>}>
-                        <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
+                        {process.env.REACT_APP_LOADING?
+                            <Skeleton><span>Donate now</span></Skeleton>
+                        :
+                            <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
+                        }
                     </Suspense>
                 }
                 aria-describedby={
                     <Suspense fallback={<Skeleton><span>Donate to support the charity of your choice :D\nThe donation amount isn't restricted</span></Skeleton>}>
-                        <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Description' />
+                        {process.env.REACT_APP_LOADING?
+                            <Skeleton><span>Donate to support the charity of your choice :D\nThe donation amount isn't restricted</span></Skeleton>
+                        :
+                            <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Description' />
+                        }
                     </Suspense>
                 }
                 fullScreen={fullScreen}

@@ -7,6 +7,7 @@ import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import { NAppBarTitle, NAppBarTitleLoading } from "./NAppBarTitle";
 import { NSearchInputBase, NSearchInputBaseLoading } from "./NSearchInputBase";
 import { NAppbarActions, NAppbarActionsLoading } from './NAppbarActions';
+import { NLoading } from '../NConsts';
 
 export function NAppBar(props) {
     const classes = useStyles();
@@ -28,7 +29,11 @@ export function NAppBar(props) {
                     <Slide direction="down" in={trigger2&&showTitle}>
                         <div style={{flex: 1}}>
                             <Suspense fallback={<NAppBarTitleLoading />}>
-                                <NAppBarTitle />
+                                {NLoading()?
+                                    <NAppBarTitleLoading />
+                                :
+                                    <NAppBarTitle />
+                                }
                             </Suspense>
                         </div>
                     </Slide>
@@ -38,14 +43,22 @@ export function NAppBar(props) {
                             <SearchIcon />
                         </div>
                         <Suspense fallback={<NSearchInputBaseLoading />}>
-                            <NSearchInputBase />
+                        {NLoading()?
+                                <NSearchInputBaseLoading />
+                            :
+                                <NSearchInputBase />
+                            }
                         </Suspense>
                     </div>
 
                     <Suspense fallback={
                         <NAppbarActionsLoading toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
                     }>
-                        <NAppbarActions toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                        {NLoading()?
+                            <NAppbarActionsLoading toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                        :
+                            <NAppbarActions toggleTheme={props.toggleTheme} isDarkTheme={props.isDarkTheme} />
+                        }
                     </Suspense>
                 </Toolbar>
             </AppBar>
