@@ -46,7 +46,10 @@ client.on('ready', () => {
 client.login(process.env.DISCORD_TOKEN);
 
 db.connect(function(err) {
-    if (err) throw err;
+    if (err) {
+        console.log("Error#3386");
+        throw err;
+    }
     console.log("Connected to database!");
 });
 
@@ -59,7 +62,10 @@ app.get('/:page', function (req, res) {
 app.get('/api/whitelisted', function (req, res) {
     var finalValue = "";
     db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
-        if (err) throw err;
+        if (err) {
+            console.log("Error#4073");
+            throw err;
+        }
 
         for (var i = 0; i < result.length; i++) {
             finalValue+=result[i].uuid+"<br>";
@@ -80,7 +86,10 @@ app.get('/api/cards', function (req, res) {
         "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount_global DESC LIMIT 3;",
         function (err, result, fields)
     {
-        if (err) throw err;
+        if (err) {
+            console.log("Error#1721");
+            throw err;
+        }
 
         finalValue.top = result.length>0?result[0]:null;
         finalValue.second = result.length>1?result[1]:null;
@@ -90,7 +99,10 @@ app.get('/api/cards', function (req, res) {
             "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
             function (err, result, fields)
         {
-            if (err) throw err;
+            if (err) {
+                console.log("Error#3333");
+                throw err;
+            }
     
             if (result.length===1) finalValue.latest = result[0];
 
@@ -98,7 +110,10 @@ app.get('/api/cards', function (req, res) {
                 "SELECT SUM(amount_global) AS total FROM "+process.env.DB_NAME+".Donations;",
                 function (err, result, fields)
             {
-                if (err) throw err;
+                if (err) {
+                    console.log("Error#8156");
+                    throw err;
+                }
         
                 if (result.length===1) finalValue.total = result[0].total;
         
@@ -117,6 +132,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
         if (err) {
+            console.error('Error#4415');
             console.error(err);
             return res.sendStatus(500);
         }
@@ -140,6 +156,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
             json: true
         }, function(err, response, body) {
             if (err) {
+                console.log("Error#7065");
                 console.error(err);
                 return res.sendStatus(500);
             }
@@ -160,6 +177,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
         if (err) {
+            console.log("Error#2993");
             console.error(err);
             return res.sendStatus(500);
         }
@@ -171,6 +189,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             }
         }, function(err, response, body) {
             if (err) {
+                console.log("Error#4724");
                 console.error(err);
                 return res.sendStatus(500);
             }
@@ -194,13 +213,17 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         req.params.discordId
                     ], function (err, results)
                 {
-                    if (err) throw err;
+                    if (err) {
+                        console.log("Error#4806");
+                        throw err;
+                    }
                 });
 
                 res.json({
                     status: 'success'
                 });
             }else{
+                console.log("Error#6716");
                 res.json({
                     status: 'error'
                 });
@@ -220,6 +243,7 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
         guild.members.fetch({query: username})
             .then(members => {
                 if(members.array().length === 0) {
+                    console.log("Error#4215");
                     res.json({status: 'error'});
                     return;
                 }
@@ -230,6 +254,7 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                         member = m;
                 }
                 if(member === undefined) {
+                    console.log("Error#9030");
                     res.json({status: 'error'});
                     return;
                 }
@@ -241,8 +266,14 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
                     tag: tag,
                     status: 'success',
                 }));
-            }).catch(err => res.json({status: 'error'}));
-    }else res.json({status: 'error'});
+            }).catch(err => {
+                console.log("Error#6036");
+                res.json({status: 'error'});
+            });
+    }else{
+        console.log("Error#2300");
+        res.json({status: 'error'});
+    }
 });
 
 app.listen(process.env.PORT || 8080);

@@ -47,8 +47,8 @@
           "USD": "Vereinigte Staaten Dollar"
         },
         "Default": {
-          "Code": "USD",
-          "Name": "Vereinigte Staaten Dollar"
+          "Code": "EUR",
+          "Name": "Euro"
         },
         "IsPlacedAfter": true
       },

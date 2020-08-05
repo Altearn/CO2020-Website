@@ -13,16 +13,13 @@ export function NAmountStep(props) {
     const [dialogOpened, setDialogOpened] = React.useState(false);
 
     const handleChangeCurrency = (value) => {
+        if (document.querySelector('script[src="https://www.paypal.com/sdk/js?currency='+(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+'&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"]')!==null) document.body.querySelector('script[src="https://www.paypal.com/sdk/js?currency='+(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+'&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"]').src = "https://www.paypal.com/sdk/js?currency="+(value||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+"&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8";
         props.setCurrency(value);
         setDialogOpened(false);
     }
     const handleSliderChange = (event, newValue) => props.setAmount(newValue);
 
-    let marks = [];
-    React.useEffect(() => {
-        marks = ([1,5,10,20,30,40,50]
-            .map(n => ({ value: n, label: (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'))+n+(t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')) })));
-    }, [props.currency]);
+    let marks = ([1,5,10,20,30,40,50].map(n => ({ value: n, label: (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'))+n+(t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')) })));
 
     return (
         <div className={classes.root}>
