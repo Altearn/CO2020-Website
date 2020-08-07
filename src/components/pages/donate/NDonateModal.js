@@ -12,6 +12,7 @@ import { NAmountStep } from "./NAmountStep";
 import { NCheckoutStep } from './NCheckoutStep.js';
 import { NDonateModalForm } from './NDonateModalForm.js';
 import { NDonateModalSuccess } from './NDonateModalSuccess.js';
+import { NLoading } from '../../NConsts';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -166,7 +167,7 @@ export function NDonateModal(props) {
                 onClose={handleClose}
                 aria-labelledby={
                     <Suspense fallback={<Skeleton><span>Donate now</span></Skeleton>}>
-                        {process.env.REACT_APP_LOADING?
+                        {NLoading()?
                             <Skeleton><span>Donate now</span></Skeleton>
                         :
                             <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
@@ -175,7 +176,7 @@ export function NDonateModal(props) {
                 }
                 aria-describedby={
                     <Suspense fallback={<Skeleton><span>Donate to support the charity of your choice :D\nThe donation amount isn't restricted</span></Skeleton>}>
-                        {process.env.REACT_APP_LOADING?
+                        {NLoading()?
                             <Skeleton><span>Donate to support the charity of your choice :D\nThe donation amount isn't restricted</span></Skeleton>
                         :
                             <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Description' />

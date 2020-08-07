@@ -21,7 +21,7 @@ export function NMainButtonLoading(props) {
 
     return (
         <Button className={classes.button} {...props}>
-            <Skeleton>
+            <Skeleton className={classes.inline}>
                 <span>
                     {props.placeholder}
                 </span>
@@ -39,5 +39,9 @@ const useStyles = makeStyles((theme) => ({
         height: 48,
         padding: '0 30px',
         boxShadow: '0 3px 5px 2px rgba(102, 23, 203, .3)',
+    },
+    inline: {
+        maxWidth: 'none',
+        display: 'inline',
     },
 }));

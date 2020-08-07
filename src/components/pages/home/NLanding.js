@@ -177,7 +177,7 @@ export function NLandingLoading(props) {
             <Grid container alignItems='center' justify='center' direction='column' className={classes.headlineContainer} spacing={5}>
                 <Grid item>
                     <Typography variant="h2" className={classes.headline}>
-                        <Skeleton>
+                        <Skeleton className={classes.inline}>
                             <span>
                                 Stand against
                             </span>
@@ -185,7 +185,7 @@ export function NLandingLoading(props) {
                     </Typography>
                     {sm?<br/>:null}
                     <Typography variant="h2" className={classes.headline}>
-                        <Skeleton>
+                        <Skeleton className={classes.inline}>
                             <span>
                                 &nbsp;poverty&nbsp;
                             </span>
@@ -297,5 +297,9 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 30px',
         borderRadius: 3,
         border: 0,
-    }
+    },
+    inline: {
+        maxWidth: 'none',
+        display: 'inline',
+    },
 }));

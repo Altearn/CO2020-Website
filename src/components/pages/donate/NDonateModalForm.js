@@ -7,6 +7,7 @@ import { Skeleton } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { NStepper, NStepperLoading } from '../../NStepper.js';
+import { NLoading } from '../../NConsts';
 
 function Translation(props) {
     const { t } = useTranslation();
@@ -23,7 +24,7 @@ export function NDonateModalForm(props) {
             <DialogTitle className={classes.title} disableTypography>
                 <Typography className={classes.titleTypography} variant="h5" component="span">
                     <Suspense fallback={<Skeleton><span>Donate now</span></Skeleton>}>
-                        {process.env.REACT_APP_LOADING?
+                        {NLoading()?
                             <Skeleton><span>Donate now</span></Skeleton>
                         :
                             <Translation t='RahNeil_N3.Irus.Donations.Donate_Now.Title' />
@@ -34,14 +35,22 @@ export function NDonateModalForm(props) {
                     edge="start"
                     color="inherit"
                     onClick={props.handleClose}
-                    aria-label="close"
+                    aria-label={
+                        <Suspense fallback="Close">
+                            {NLoading()?
+                                "Close"
+                            :
+                                <Translation t='RahNeil_N3.Irus.Close' />
+                            }
+                        </Suspense>
+                    }
                 >
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
             <DialogContent>
                 <Suspense fallback={<NStepperLoading steps={props.steps} />}>
-                    {process.env.REACT_APP_LOADING?
+                    {NLoading()?
                         <NStepperLoading steps={props.steps} />
                     :
                         <NStepper steps={props.steps} />
@@ -52,7 +61,7 @@ export function NDonateModalForm(props) {
                 <DialogActions>
                     <Button onClick={props.handleClose} color="primary">
                         <Suspense fallback={<Skeleton><span>Cancel</span></Skeleton>}>
-                            {process.env.REACT_APP_LOADING?
+                            {NLoading()?
                                 <Skeleton><span>Cancel</span></Skeleton>
                             :
                                 <Translation t='RahNeil_N3.Irus.Cancel' />

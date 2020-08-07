@@ -2,10 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, ListItemText, List, Tooltip } from '@material-ui/core';
+import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { currencies, getCurrencyLabel, hasCurrencyDecimals } from '../../NCurrencies';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export function NAmountStep(props) {
     const {t} = useTranslation();
@@ -70,6 +74,8 @@ export function NAmountStep(props) {
                 aria-labelledby={t('RahNeil_N3.Irus.Currency.Description')}
                 scroll="body"
                 open={dialogOpened}
+                keepMounted
+                TransitionComponent={Transition}
             >
                 <DialogTitle id="dialogCurrencySelectorId">
                     {t('RahNeil_N3.Irus.Currency.Title')}

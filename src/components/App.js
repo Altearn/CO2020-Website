@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { configureAnchors } from 'react-scrollable-anchor'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useMediaQuery, CssBaseline } from '@material-ui/core';
@@ -16,6 +17,7 @@ export default function App(props) {
     const [isDarkTheme, setDarkTheme] = useState(null);
 
     const renderDark = isDarkTheme===null?prefersDark:isDarkTheme;
+    configureAnchors({offset: -60})
 
     const toggleTheme = () => {
         setDarkTheme(isDarkTheme => isDarkTheme===null?!prefersDark:!isDarkTheme);

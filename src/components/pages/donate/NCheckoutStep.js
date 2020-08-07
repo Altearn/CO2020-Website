@@ -17,7 +17,7 @@ export function NCheckoutStep(props) {
 
     React.useEffect(() => {
         setCurrency(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD');
-    }, [props.currency]);
+    }, [props.currency, t]);
 
     return (
         <div className={classes.root}>

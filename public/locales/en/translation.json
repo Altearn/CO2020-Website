@@ -54,6 +54,22 @@
         },
         "IsPlacedAfter": false
       },
+      "Discord": {
+        "Members": "members",
+        "Online": "online",
+        "Sponsors": {
+          "Title": "Sponsors",
+          "All": "All sponsors",
+          "Account": {
+            "0": "Go to his/her",
+            "1": "account"
+          },
+          "Join_Now": {
+            "Short": "Join now",
+            "Long": "Join us on Discord now !"
+          }
+        }
+      },
       "Donations": {
         "Amount": {
           "Title": "Choose donation amount",
@@ -151,7 +167,8 @@
         "Light": "Switch to light theme"
       },
       "Title": "Creative Olympics",
-      "Trailer": "Trailer"
+      "Trailer": "Trailer",
+      "Close": "Close"
     }
   }
 }

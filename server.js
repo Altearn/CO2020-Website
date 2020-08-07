@@ -39,6 +39,12 @@ const DONATOR_ROLE_ID = '723308537710772265';
 
 const db = mysql.createConnection({host: "localhost", user: process.env.DB_USER, password: process.env.DB_PWD});
 
+var discordLastValues = {
+    onlineCount: null,
+    memberCount: null,
+    sponsors: [],
+}
+
 client.on('ready', () => {
     console.log(`Discord bot logged in as ${client.user.tag}!`);
 });
@@ -57,6 +63,34 @@ app.get('/:page', function (req, res) {
     if (req.params.page!=='api') {
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
     }
+});
+
+app.get('/api/discord', function (req, res) {
+    const guild = client.guilds.cache.get(GUILD_ID);
+
+    if (guild.available) {
+        if (guild.memberCount) discordLastValues.memberCount = guild.memberCount;
+
+        var tmpOnlineCount = guild.members.cache.filter(m =>
+            m.presence.status === 'online'
+        ).size;
+        if (tmpOnlineCount) discordLastValues.onlineCount = tmpOnlineCount;
+
+        var tmpSponsors = [];
+        guild.members.cache.filter(m =>
+            m.roles.cache.has('720224860919431269')
+        ).forEach(data => {
+            tmpSponsors.push({
+                username: data.user.username,
+                online: data.user.presence.status==='online',
+                avatarURL: data.user.avatarURL(),
+                partner: data.roles.cache.has('719599493452005459')
+            });
+        });
+        if (tmpSponsors&&tmpSponsors.length>=10) discordLastValues.sponsors = tmpSponsors;
+    }
+
+    res.send(discordLastValues);
 });
 
 app.get('/api/whitelisted', function (req, res) {

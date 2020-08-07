@@ -1,66 +1,19 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
 import ScrollableAnchor  from 'react-scrollable-anchor';
 
-import { Grid, useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
 
-import { NDonateCard, NDonateCardLoading } from './NDonateCard';
-import { NDonatorCard, NDonatorCardLoading } from './NDonatorCard';
-import { NGoalCard, NGoalCardLoading } from './NGoalCard';
 import { NLanding, NLandingLoading } from './NLanding';
-import { NLoading, NDonations } from '../../NConsts';
-
-function Translation(props) {
-    const { t } = useTranslation();
-
-    return t(props.t);
-}
+import { NCards } from './NCards';
+import { NDiscord } from './NDiscord';
+import { NLoading } from '../../NConsts';
 
 export function NHome(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const isScreenLarge = useMediaQuery(theme.breakpoints.up("lg"));
-    const { enqueueSnackbar } = useSnackbar();
-
-    const [cards, setCards] = React.useState({
-        top: null,
-        second: null,
-        third: null,
-        latest: null,
-        total: null
-    });
 
     const xs = useMediaQuery(theme.breakpoints.down("xs"));
-
-    useEffect(() => {
-        const reloadCards = () => {
-            fetch('/api/cards/').then(res => {
-                res.json().then(res => {
-                    setCards(res);
-                })
-                .catch(err => enqueueSnackbar(
-                    <Suspense fallback="We're unable to reach our servers, some things may not display properly">
-                        {NLoading()?
-                            "We're unable to reach our servers, some things may not display properly"
-                        :
-                            <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
-                        }
-                    </Suspense>,
-                    {variant: 'error'}));
-            }).catch(err => enqueueSnackbar(
-                <Suspense fallback="We're unable to reach our servers, some things may not display properly">
-                    {NLoading()?
-                        "We're unable to reach our servers, some things may not display properly"
-                    :
-                        <Translation t='RahNeil_N3.Irus.Error.Display.Server'/>
-                    }
-                </Suspense>,
-                {variant: 'error'}));
-        }
-        reloadCards();
-    }, [enqueueSnackbar]);
 
     return (
         <>
@@ -73,141 +26,96 @@ export function NHome(props) {
             </Suspense>
 
             
-            <div className={classes.root}>
-                {xs?null:
-                    <div className={classes.waveTopContainer}>
-                        <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
-                            <path className={classes.waveTopPath} d="M0,288L1440,128L1440,320L0,320Z" />
-                        </svg>
-                    </div>
-                }
-
-                <ScrollableAnchor id='donate'>
-                    <div>
-                        <Grid container spacing={2} className={classes.gridRoot}>
-                            <Grid item xs={12} sm={12} md={8} lg={6} style={{display: 'flex', flexDirection: 'column'}}>
-                                <Suspense fallback={<NDonateCardLoading/>}>
-                                    {NDonations()&&!NLoading()?
-                                        <NDonateCard/>
-                                    :
-                                        <NDonateCardLoading/>
-                                    }
-                                </Suspense>
-
-                                <Suspense fallback={<NGoalCardLoading/>}>
-                                    {cards.total===null||NLoading()?
-                                        <NGoalCardLoading/>
-                                    :
-                                        <NGoalCard amount={cards.total} />
-                                    }
-                                </Suspense>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={4} lg={6}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6} md={12} lg={6}>
-                                        <Suspense fallback={
-                                            <NDonatorCardLoading top />
-                                        }>
-                                            {cards.top==null||NLoading()?
-                                                <NDonatorCardLoading top />
-                                            :
-                                                <NDonatorCard
-                                                    amount={cards.top.amount}
-                                                    amountGlobal={cards.top.amount_global}
-                                                    currency={cards.top.currency}
-                                                    uuid={cards.top.uuid}
-                                                    top
-                                                />
-                                            }
-                                        </Suspense>
-                                    </Grid>
-                                    {isScreenLarge?
-                                        <>
-                                            <Grid item xs={12} sm={6} md={12} lg={6}>
-                                                <Suspense fallback={
-                                                    <NDonatorCardLoading second />
-                                                }>
-                                                    {cards.second==null||NLoading()?
-                                                        <NDonatorCardLoading second />
-                                                    :
-                                                        <NDonatorCard
-                                                            amount={cards.second.amount}
-                                                            amountGlobal={cards.second.amount_global}
-                                                            currency={cards.second.currency}
-                                                            uuid={cards.second.uuid}
-                                                            second
-                                                        />
-                                                    }
-                                                </Suspense>
-                                            </Grid>
-                                            <Grid item xs={12} sm={6} md={12} lg={6}>
-                                                <Suspense fallback={
-                                                    <NDonatorCardLoading third />
-                                                }>
-                                                    {cards.third==null||NLoading()?
-                                                        <NDonatorCardLoading third />
-                                                    :
-                                                        <NDonatorCard
-                                                            amount={cards.third.amount}
-                                                            amountGlobal={cards.third.amount_global}
-                                                            currency={cards.third.currency}
-                                                            uuid={cards.third.uuid}
-                                                            third
-                                                        />
-                                                    }
-                                                </Suspense>
-                                            </Grid>
-                                        </>
-                                    :null}
-                                    <Grid item xs={12} sm={6} md={12} lg={6}>
-                                        <Suspense fallback={
-                                            <NDonatorCardLoading latest />
-                                        }>
-                                            {cards.latest==null||NLoading()?
-                                                <NDonatorCardLoading latest />
-                                            :
-                                                <NDonatorCard
-                                                    amount={cards.latest.amount}
-                                                    amountGlobal={cards.latest.amount_global}
-                                                    currency={cards.latest.currency}
-                                                    uuid={cards.latest.uuid}
-                                                    latest
-                                                />
-                                            }
-                                        </Suspense>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </ScrollableAnchor>
-            </div>
+            <ScrollableAnchor id='donate'>
+                <div className={classes.cards}>
+                    {xs?null:
+                        <>
+                            <div className={classes.waveTopContainer}>
+                                <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
+                                    <path className={classes.waveTopPathWhite} d="M0,288L1440,128L1440,320L0,320Z" />
+                                </svg>
+                            </div>
+                            <div className={classes.waveBottomContainer}>
+                                <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
+                                    <path className={classes.waveTopPathWhite} d="M0,32L1440,96L1440,0L0,0Z" />
+                                </svg>
+                            </div>
+                        </>
+                    }
+                    <NCards />
+                </div>
+            </ScrollableAnchor>
+            
+            <ScrollableAnchor id='discord'>
+                <div className={classes.discord}>
+                    {xs?null:
+                        <>
+                            <div className={classes.waveTopContainer} style={{transform: 'scale(-1, -1)'}}>
+                                <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
+                                    <path className={classes.waveTopPathWhite} d="M0,32L1440,96L1440,0L0,0Z" />
+                                </svg>
+                            </div>
+                            <div className={classes.waveBottomContainer} style={{transform: 'scaleX(-1)'}}>
+                                <svg preserveAspectRatio="none" className={classes.waveTopSvg} viewBox="0 0 1440 320">
+                                    <path className={classes.waveTopPathWhite} d="M0,32L1440,96L1440,0L0,0Z" />
+                                </svg>
+                            </div>
+                        </>
+                    }
+                    <NDiscord />
+                </div>
+            </ScrollableAnchor>
         </>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    cards: {
         position: 'relative',
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(4),
+        display: 'flex',
+        alignItems: 'center',
 
         [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(6),
-            paddingTop: 0,
         },
     },
-    waveTopPath: {
+    discord: {
+        position: 'relative',
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing(4),
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 'calc(210px + '+theme.spacing(2)+'px)',
+
+        [theme.breakpoints.up('sm')]: {
+            padding: theme.spacing(6),
+        },
+    },
+    waveTopPathWhite: {
         stroke: 'none',
         fill: theme.palette.background.default,
+    },
+    waveTopPathPurple: {
+        stroke: 'none',
+        fill: theme.palette.primary.main,
     },
     waveTopContainer: {
         width: '100%',
         position: 'absolute',
         left: 0,
-
         top: -210,
         height: '210px',
+        zIndex: -1,
+    },
+    waveBottomContainer: {
+        width: '100%',
+        position: 'absolute',
+        left: 0,
+        bottom: -210,
+        height: '210px',
+        zIndex: -1,
     },
     waveTopSvg: {
         height: '100%',
@@ -219,9 +127,5 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         width: '100%',
         textAlign: 'center',
-    },
-    gridRoot: {
-        width: 'auto',
-        margin: 0,
     }
 }));
