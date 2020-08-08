@@ -90,11 +90,12 @@ export function NSponsorCard(props) {
                                 horizontal: 'right',
                             }}
                             variant="dot"
+                            className={classes.avatar}
                         >
                             <Avatar alt={props.data.username} src={props.data.avatarURL} />
                         </StyledBadge>
                     :
-                        <Avatar alt={props.data.username} src={props.data.avatarURL} />
+                        <Avatar alt={props.data.username} src={props.data.avatarURL} className={classes.avatar} />
                     )
                 }
                 title={
@@ -219,8 +220,8 @@ export function NSponsorCardLoading(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
+    avatar: {
+        margin: 8,
     },
     chipGrid: {
         flex: 1,

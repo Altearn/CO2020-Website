@@ -3,5 +3,5 @@ export function NLoading() {
 }
 
 export function NDonations() {
-    return true;
+    return false;
 }
