@@ -238,11 +238,12 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                     });
                 }
 
+                const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
                 db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
                     [
-                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
-                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
-                        Number((JSON.parse(body).purchase_units[0].payments.captures[0].amount.value / currencies.find(c => c.code===JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code).value).toFixed(2)),
+                        capture.amount.value,
+                        capture.amount.currency_code,
+                        Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2)),
                         req.params.uuid==='null'?null:req.params.uuid,
                         req.params.discordId
                     ], function (err, results)
@@ -252,7 +253,6 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         throw err;
                     }
                 });
-
                 res.json({
                     status: 'success'
                 });
