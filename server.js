@@ -63,6 +63,39 @@ db.connect(function(err) {
     console.log("Connected to database!");
 });
 
+function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
+    mc_uuid = (mc_uuid === "null") ? null : mc_uuid;
+    const embed = {
+        "title": "New donation!",
+        "color": 14996107,
+        "timestamp": new Date().getTime(),
+        "thumbnail": discord_user ? {
+          "url": discord_user.user.displayAvatarURL({ size: 512 })
+        } : null,
+        "author": discord_user ? {
+          "name": discord_user.user.username + "#" + discord_user.user.discriminator,
+          "icon_url": discord_user.user.displayAvatarURL({ size: 64 })
+        } : null,
+        "fields": [
+          {
+            "name": "Value",
+            "value": value + (value_eur ? ` (${value_eur}€)` : "")
+          },
+          {
+            "name": "Discord ID",
+            "value": discord_user ? discord_user.user.id : "Unknown",
+            "inline": true
+          },
+          {
+            "name": "Minecraft UUID",
+            "value": mc_uuid || "Unknown",
+            "inline": true
+          }
+        ]
+      };
+      return { embed }
+}
+
 app.get('/:page', function (req, res) {
     if (req.params.page!=='api') {
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -233,22 +266,27 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             }
 
             if (JSON.parse(body).status==='COMPLETED') {
-                if (req.params.discordId!=='null' && req.params.discordId!=='') {
+                const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
+                const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
+
+                if (req.params.discordId !== 'null' && req.params.discordId !== '') {
                     var guild = client.guilds.cache.get(GUILD_ID);
                     guild.members.fetch(req.params.discordId).then(user => {
                         guild.roles.fetch(DONATOR_ROLE_ID).then(role => {
                             user.roles.add(role, 'made a donation');
                         });
+                        client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(user, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
                     });
+                } else {
+                    client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(null, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
                 }
-
-                const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
+                
                 db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
                     [
                         capture.amount.value,
                         capture.amount.currency_code,
-                        Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2)),
-                        req.params.uuid==='null'?null:req.params.uuid,
+                        to_eur,
+                        req.params.uuid === 'null' ? null : req.params.uuid,
                         req.params.discordId
                     ], function (err, results)
                 {
