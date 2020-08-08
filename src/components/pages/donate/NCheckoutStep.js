@@ -5,7 +5,9 @@ import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 
-import { CircularProgress, Grid } from '@material-ui/core'; 
+import { CircularProgress, Grid } from '@material-ui/core';
+
+import { NPaypalInfo } from '../../NConsts';
 
 export function NCheckoutStep(props) {
     const { t } = useTranslation();
@@ -73,7 +75,7 @@ export function NCheckoutStep(props) {
                     }}
                     options={{
                         currency: currency,
-                        clientId: "AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"
+                        clientId: NPaypalInfo().client_id
                     }}
                     onButtonReady={() => setLoading(false)}
                     currency={currency}

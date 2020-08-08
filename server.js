@@ -36,6 +36,10 @@ const currencies = [
 
 const GUILD_ID = '719527687000948797';
 const DONATOR_ROLE_ID = '723308537710772265';
+const DISCORD_LOGS_CHANNEL = '741717277027729450';
+const PAYPAL_CLIENT = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_CLIENT_SANDBOX : process.env.PAYPAL_CLIENT_live;
+const PAYPAL_SECRET = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_SECRET_SANDBOX : process.env.PAYPAL_SECRET_live;
+const PAYPAL_BASE_URL = process.env.USE_PAYPAL_SANDBOX ? "https://api.sandbox.paypal.com" : "https://api.paypal.com"
 
 const db = mysql.createConnection({host: "localhost", port: (process.env.DB_PORT || 3306), user: process.env.DB_USER, password: process.env.DB_PWD});
 
@@ -158,10 +162,10 @@ app.get('/api/cards', function (req, res) {
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+    request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
-            user: process.env.PAYPAL_CLIENT,
-            password: process.env.PAYPAL_SECRET
+            user: PAYPAL_CLIENT,
+            password: PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -171,7 +175,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
             return res.sendStatus(500);
         }
 
-        request.post('https://api.paypal.com/v2/checkout/orders', {
+        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -203,10 +207,10 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
 });
 
 app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+    request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
-            user: process.env.PAYPAL_CLIENT,
-            password: process.env.PAYPAL_SECRET
+            user: PAYPAL_CLIENT,
+            password: PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -216,7 +220,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             return res.sendStatus(500);
         }
         
-        request.post('https://api.paypal.com/v2/checkout/orders/' + req.params.orderId + '/capture', {
+        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.params.orderId + '/capture', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
