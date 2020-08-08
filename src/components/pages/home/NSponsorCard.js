@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { useSnackbar } from 'notistack';
 
 import { Grid, Typography, Badge, Avatar, Card, CardHeader, Chip, IconButton, Tooltip, SvgIcon } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LaunchIcon from '@material-ui/icons/Launch';
 
@@ -77,7 +77,6 @@ const StyledBadge = withStyles((theme) => ({
 
 export function NSponsorCard(props) {
     const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <Card variant="outlined" className={classes.root}>
@@ -189,7 +188,40 @@ export function NSponsorCard(props) {
     )
 }
 
+export function NSponsorCardLoading(props) {
+    const classes = useStyles();
+
+    return (
+        <Card variant="outlined" className={classes.root}>
+            <CardHeader
+                avatar={
+                    <Skeleton variant="circle" width={40} height={40} />
+                }
+                title={
+                    <Grid container spacing={1} alignItems='center' wrap='nowrap'>
+                        <Grid item>
+                            <Typography variant='subtitle2' noWrap>
+                                <Skeleton>
+                                    <span>
+                                        neil3000
+                                    </span>
+                                </Skeleton>
+                            </Typography>
+                        </Grid>
+                        <Grid item className={classes.chipGrid}>
+                            <Chip size="small" label="Sponsor" className={classes.sponsorChip} />
+                        </Grid>
+                    </Grid>
+                }
+            />
+        </Card>
+    )
+}
+
 const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+    },
     chipGrid: {
         flex: 1,
     },

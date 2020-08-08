@@ -4,6 +4,7 @@ import ScrollableAnchor  from 'react-scrollable-anchor';
 
 import { useMediaQuery } from '@material-ui/core';
 
+import { NLandingButtons, NLandingButtonsLoading } from './NLandingButtons';
 import { NLanding, NLandingLoading } from './NLanding';
 import { NCards } from './NCards';
 import { NDiscord } from './NDiscord';
@@ -46,6 +47,16 @@ export function NHome(props) {
                 </div>
             </ScrollableAnchor>
             
+            <div className={classes.landingButtons}>
+                <Suspense fallback={<NLandingButtonsLoading />}>
+                    {NLoading()?
+                        <NLandingButtonsLoading />
+                    :
+                        <NLandingButtons />
+                    }
+                </Suspense>
+            </div>
+
             <ScrollableAnchor id='discord'>
                 <div className={classes.discord}>
                     {xs?null:
@@ -87,7 +98,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(4),
         display: 'flex',
         alignItems: 'center',
-        marginTop: 'calc(210px + '+theme.spacing(2)+'px)',
 
         [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(6),
@@ -127,5 +137,8 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         width: '100%',
         textAlign: 'center',
+    },
+    landingButtons: {
+        padding: theme.spacing(18, 0),
     }
 }));
