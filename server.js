@@ -37,7 +37,7 @@ const currencies = [
 const GUILD_ID = '719527687000948797';
 const DONATOR_ROLE_ID = '723308537710772265';
 
-const db = mysql.createConnection({host: "localhost", user: process.env.DB_USER, password: process.env.DB_PWD});
+const db = mysql.createConnection({host: "localhost", port: (process.env.DB_PORT || 3306), user: process.env.DB_USER, password: process.env.DB_PWD});
 
 var discordLastValues = {
     onlineCount: null,
