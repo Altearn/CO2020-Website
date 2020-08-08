@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
 
 import { Grid, Typography, SvgIcon, Divider, Collapse, Slide, Dialog, DialogTitle, IconButton, Button, DialogContent } from '@material-ui/core';
@@ -8,7 +8,7 @@ import { Skeleton } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { NMainButton, NMainButtonLoading } from '../../NMainButton';
-import { NSponsorCard } from './NSponsorCard';
+import { NSponsorCard, NSponsorCardLoading } from './NSponsorCard';
 import { NLoading } from '../../NConsts';
 
 function Translation(props) {
@@ -23,7 +23,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export function NDiscord(props) {
     const classes = useStyles();
-    const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
 
     const [discordValues, setDiscordValues] = React.useState({
@@ -68,8 +67,8 @@ export function NDiscord(props) {
     }, [enqueueSnackbar]);
 
     return (
-        <Grid container alignItems='center' direction='column' spacing={2}>
-            <Grid item style={{textAlign: 'center'}}>
+        <Grid container alignItems='center' direction='column' spacing={2} className={classes.autoWidth}>
+            <Grid item className={classes.centeredText}>
                 <Typography variant='h5'>
                     <Suspense fallback={<Skeleton className={classes.inline}><span>Join us on Discord now !</span></Skeleton>}>
                         {NLoading()?
@@ -148,22 +147,30 @@ export function NDiscord(props) {
                     }
                 </Suspense>
             </Grid>
-            <Grid item style={{margin: theme.spacing(2), width: 500}}>
+            <Grid item className={classes.dividerGrid}>
                 <Divider variant="middle" />
             </Grid>
-            <Grid item>
-                {discordValues.sponsors.map(function(data, index){
-                    return (
-                        <Collapse in={sponsorIndex===index} onEnter={() => {
-                            const timeoutID = window.setTimeout(() => {
-                                setSponsorIndex(sponsorIndex>=discordValues.sponsors.length-1?0:(sponsorIndex+1));
-                                window.clearTimeout(timeoutID);
-                            }, 5000);
-                        }}>
-                            <NSponsorCard data={data} />
-                        </Collapse>
-                    );
-                })}
+            <Grid item className={classes.fullWidth}>
+                <Grid container justify='center'>
+                    <Grid item xs={12} sm={12} md={6} lg={4}>
+                        {discordValues.sponsors.length>=10?
+                            (discordValues.sponsors.map(function(data, index) {
+                                return (
+                                    <Collapse in={sponsorIndex===index} onEnter={() => {
+                                        const timeoutID = window.setTimeout(() => {
+                                            setSponsorIndex(sponsorIndex>=discordValues.sponsors.length-1?0:(sponsorIndex+1));
+                                            window.clearTimeout(timeoutID);
+                                        }, 5000);
+                                    }}>
+                                        <NSponsorCard data={data} />
+                                    </Collapse>
+                                );
+                            }))
+                        :
+                            <NSponsorCardLoading />
+                        }
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item>
                 <Suspense fallback={
@@ -176,7 +183,7 @@ export function NDiscord(props) {
                             <Skeleton><span>All sponsors</span></Skeleton>
                         </Button>
                     :
-                        <Button size="small" variant="outlined" onClick={() => setDialogOpened(true)}>
+                        <Button size="small" variant="outlined" onClick={() => discordValues.sponsors.length>=10?setDialogOpened(true):null}>
                             <Translation t='RahNeil_N3.Irus.Discord.Sponsors.All' />
                         </Button>
                     }
@@ -255,4 +262,18 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 'none',
         display: 'inline',
     },
+    fullWidth: {
+        width: '100%',
+    },
+    dividerGrid: {
+        margin: theme.spacing(2, 0),
+        width: '100%',
+    },
+    centeredText: {
+        textAlign: 'center',
+    },
+    autoWidth: {
+        width: '100%',
+        margin: 0,
+    }
 }));
