@@ -102,23 +102,18 @@ function refresh_roles(discord_id) {
         "SELECT SUM(amount_global) total FROM "+process.env.DB_NAME+".Donations WHERE discordID="+discord_id+";",
         function (err, result, fields)
     {
-        console.debug("hi 1");
         if (err) return;
         let sum = result[0].total;
-        console.debug("hi 2", sum);
         if (sum < 1) return;
         var guild = client.guilds.cache.get(GUILD_ID);
-        console.debug("hi 3");
         guild.members.fetch(discord_id).then(user => {
             let roles = [];
-            console.debug("hi 4");
             if (sum >= 1 && !user.roles.cache.has(DISCORD_SMALLDONATOR_ROLE)) {
                 roles.push(DISCORD_SMALLDONATOR_ROLE)
             }
             if (sum >=5 && !user.roles.cache.has(DISCORD_DONATOR_ROLE)) {
                 roles.push(DISCORD_DONATOR_ROLE)
             }
-            console.debug("hi 5", roles);
             if (roles.length > 0) {
                 sum = Math.round((sum + Number.EPSILON) * 100) / 100;
                 user.roles.add(roles, `donated ${sum}€`)
