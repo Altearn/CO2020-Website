@@ -49,20 +49,6 @@ export function NLanding(props) {
     
     return (
         <>
-            {xs?null:
-                <Fab
-                    variant="extended"
-                    size="medium"
-                    color={props.isDarkTheme?"primary":"secondary"}
-                    aria-label="Scroll"
-                    className={classes.fab}
-                    onClick={() => goToAnchor('donate')}
-                >
-                    {t('RahNeil_N3.Irus.Scroll')}
-                    <ExpandMoreIcon/>
-                </Fab>
-            }
-
             <NLogo isDarkTheme={props.isDarkTheme} />
 
             <div className={classes.viewsContainer}>
@@ -91,6 +77,19 @@ export function NLanding(props) {
                     <NLandingButtons/>
                 </Grid>
             </Grid>
+            {xs?null:
+                <Fab
+                    variant="extended"
+                    size="medium"
+                    color={props.isDarkTheme?"primary":"secondary"}
+                    aria-label="Scroll"
+                    className={classes.fab}
+                    onClick={() => goToAnchor('donate')}
+                >
+                    {t('RahNeil_N3.Irus.Scroll')}
+                    <ExpandMoreIcon/>
+                </Fab>
+            }
         </>
     )
 }
@@ -104,24 +103,6 @@ export function NLandingLoading(props) {
 
     return (
         <>
-            {xs?null:
-                <Fab
-                    variant="extended"
-                    size="medium"
-                    color={props.isDarkTheme?"primary":"secondary"}
-                    aria-label="Scroll"
-                    className={classes.fab}
-                    onClick={() => goToAnchor('donate')}
-                >
-                    <Skeleton>
-                        <span>
-                            Scroll
-                        </span>
-                    </Skeleton>
-                    <ExpandMoreIcon/>
-                </Fab>
-            }
-
             <NLogoLoading isDarkTheme={props.isDarkTheme} />
 
             <div className={classes.viewsContainer}>
@@ -150,6 +131,23 @@ export function NLandingLoading(props) {
                     <NLandingButtonsLoading/>
                 </Grid>
             </Grid>
+            {xs?null:
+                <Fab
+                    variant="extended"
+                    size="medium"
+                    color={props.isDarkTheme?"primary":"secondary"}
+                    aria-label="Scroll"
+                    className={classes.fab}
+                    onClick={() => goToAnchor('donate')}
+                >
+                    <Skeleton>
+                        <span>
+                            Scroll
+                        </span>
+                    </Skeleton>
+                    <ExpandMoreIcon/>
+                </Fab>
+            }
         </>
     )
 }
