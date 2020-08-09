@@ -7,6 +7,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { currencies, getCurrencyLabel, hasCurrencyDecimals } from '../../NCurrencies';
 
+import { NPaypalInfo } from '../../NConsts';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -17,7 +19,9 @@ export function NAmountStep(props) {
     const [dialogOpened, setDialogOpened] = React.useState(false);
 
     const handleChangeCurrency = (value) => {
-        if (document.querySelector('script[src="https://www.paypal.com/sdk/js?currency='+(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+'&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"]')!==null) document.body.querySelector('script[src="https://www.paypal.com/sdk/js?currency='+(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+'&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8"]').src = "https://www.paypal.com/sdk/js?currency="+(value||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')+"&client-id=AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8";
+        const paypalURL = 'https://www.paypal.com/sdk/js?client-id=' + NPaypalInfo().sdk_clientid + '&currency=';
+        const Zdiv = document.querySelector(`script[src="${paypalURL}${(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')}"]`)
+        if (Zdiv !== null) Zdiv.src = paypalURL + (value||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD');
         props.setCurrency(value);
         setDialogOpened(false);
     }

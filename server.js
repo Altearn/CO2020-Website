@@ -36,8 +36,12 @@ const currencies = [
 
 const GUILD_ID = '719527687000948797';
 const DONATOR_ROLE_ID = '723308537710772265';
+const DISCORD_LOGS_CHANNEL = '741717277027729450';
+const PAYPAL_CLIENT = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_CLIENT_SANDBOX : process.env.PAYPAL_CLIENT_live;
+const PAYPAL_SECRET = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_SECRET_SANDBOX : process.env.PAYPAL_SECRET_live;
+const PAYPAL_BASE_URL = process.env.USE_PAYPAL_SANDBOX ? "https://api.sandbox.paypal.com" : "https://api.paypal.com"
 
-const db = mysql.createConnection({host: "localhost", user: process.env.DB_USER, password: process.env.DB_PWD});
+const db = mysql.createConnection({host: "localhost", port: (process.env.DB_PORT || 3306), user: process.env.DB_USER, password: process.env.DB_PWD});
 
 var discordLastValues = {
     onlineCount: null,
@@ -58,6 +62,39 @@ db.connect(function(err) {
     }
     console.log("Connected to database!");
 });
+
+function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
+    mc_uuid = (mc_uuid === "null") ? null : mc_uuid;
+    const embed = {
+        "title": "New donation!",
+        "color": 14996107,
+        "timestamp": new Date().getTime(),
+        "thumbnail": discord_user ? {
+          "url": discord_user.user.displayAvatarURL({ size: 512 })
+        } : null,
+        "author": discord_user ? {
+          "name": discord_user.user.username + "#" + discord_user.user.discriminator,
+          "icon_url": discord_user.user.displayAvatarURL({ size: 64 })
+        } : null,
+        "fields": [
+          {
+            "name": "Value",
+            "value": value + (value_eur ? ` (${value_eur}€)` : "")
+          },
+          {
+            "name": "Discord ID",
+            "value": discord_user ? discord_user.user.id : "Unknown",
+            "inline": true
+          },
+          {
+            "name": "Minecraft UUID",
+            "value": mc_uuid || "Unknown",
+            "inline": true
+          }
+        ]
+      };
+      return { embed }
+}
 
 app.get('/:page', function (req, res) {
     if (req.params.page!=='api') {
@@ -108,7 +145,7 @@ app.get('/api/whitelisted', function (req, res) {
     });
 });
 
-app.get('/api/cards', function (req, res) {
+function get_cards(callback) {
     var finalValue = {
         top: null,
         second: null,
@@ -150,18 +187,21 @@ app.get('/api/cards', function (req, res) {
                 }
         
                 if (result.length===1) finalValue.total = result[0].total;
-        
-                res.json(finalValue);
+                callback(finalValue);
             });
         });
     });
+}
+
+app.get('/api/cards', function (req, res) {
+    get_cards(result => res.json(result));
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+    request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
-            user: process.env.PAYPAL_CLIENT,
-            password: process.env.PAYPAL_SECRET
+            user: PAYPAL_CLIENT,
+            password: PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -171,7 +211,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
             return res.sendStatus(500);
         }
 
-        request.post('https://api.paypal.com/v2/checkout/orders', {
+        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -203,10 +243,10 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
 });
 
 app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
-    request.post('https://api.paypal.com/v1/oauth2/token', {
+    request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
-            user: process.env.PAYPAL_CLIENT,
-            password: process.env.PAYPAL_SECRET
+            user: PAYPAL_CLIENT,
+            password: PAYPAL_SECRET
         },
         body: 'grant_type=client_credentials'
     }, function(err, response, body) {
@@ -216,7 +256,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             return res.sendStatus(500);
         }
         
-        request.post('https://api.paypal.com/v2/checkout/orders/' + req.params.orderId + '/capture', {
+        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.params.orderId + '/capture', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -229,21 +269,27 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             }
 
             if (JSON.parse(body).status==='COMPLETED') {
-                if (req.params.discordId!=='null' && req.params.discordId!=='') {
+                const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
+                const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
+
+                if (req.params.discordId !== 'null' && req.params.discordId !== '') {
                     var guild = client.guilds.cache.get(GUILD_ID);
                     guild.members.fetch(req.params.discordId).then(user => {
                         guild.roles.fetch(DONATOR_ROLE_ID).then(role => {
                             user.roles.add(role, 'made a donation');
                         });
+                        client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(user, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
                     });
+                } else {
+                    client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(null, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
                 }
-
+                
                 db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
                     [
-                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.value,
-                        JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code,
-                        Number((JSON.parse(body).purchase_units[0].payments.captures[0].amount.value / currencies.find(c => c.code===JSON.parse(body).purchase_units[0].payments.captures[0].amount.currency_code).value).toFixed(2)),
-                        req.params.uuid==='null'?null:req.params.uuid,
+                        capture.amount.value,
+                        capture.amount.currency_code,
+                        to_eur,
+                        req.params.uuid === 'null' ? null : req.params.uuid,
                         req.params.discordId
                     ], function (err, results)
                 {
@@ -252,10 +298,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         throw err;
                     }
                 });
-
                 res.json({
                     status: 'success'
                 });
+                if (req.params.uuid !== 'null') {
+                    get_cards(newCards => {
+                        expressWs.getWss().clients.forEach(client => client.send({ code: 600, newCards: newCards }))
+                    })
+                }
             }else{
                 console.log("Error#6716");
                 res.json({
@@ -308,6 +358,23 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
         console.log("Error#2300");
         res.json({status: 'error'});
     }
+});
+
+/*
+Websocket codes:
+    600 New donation done
+*/
+
+var expressWs = require('express-ws')(app);
+app.ws('/api/ws', function(ws, req) {
+    console.debug("WS: New connection")
+    ws.on('error', function (err) {
+        console.warn(`WS: Error detected:\n ${err}`);
+    });
+
+    ws.on('close', function (code, reason) {
+        console.debug(`WS: Closed with code ${code} (Reason: ${reason})`);
+    });
 });
 
 app.listen(process.env.PORT || 8080);
