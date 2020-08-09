@@ -160,6 +160,10 @@
       "Logo": "Logo de Creative Olympics",
       "More": "Plus",
       "Next": "Suivant",
+      "Opengraph": {
+        "description": "Creative Olympics est un événement caritatif basé sur le jeu Minecraft, et vise à succéder au célèbre MineAthon, avec plusieurs équipes de différents pays qui s'affronteront dans divers domaines. Aidez-nous et faites un don sur ce site.",
+        "title": "Creative Olympics (fr)"
+      },
       "Search": "Rechercher",
       "Scroll": "Défiler",
       "Theme": {
