@@ -35,8 +35,9 @@ const currencies = [
 ];
 
 const GUILD_ID = '719527687000948797';
-const DONATOR_ROLE_ID = '723308537710772265';
+const DISCORD_DONATOR_ROLE = '723308537710772265';
 const DISCORD_LOGS_CHANNEL = '741717277027729450';
+const DISCORD_SMALLDONATOR_ROLE = '742116043165794395';
 const PAYPAL_CLIENT = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_CLIENT_SANDBOX : process.env.PAYPAL_CLIENT_live;
 const PAYPAL_SECRET = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_SECRET_SANDBOX : process.env.PAYPAL_SECRET_live;
 const PAYPAL_BASE_URL = process.env.USE_PAYPAL_SANDBOX ? "https://api.sandbox.paypal.com" : "https://api.paypal.com"
@@ -94,6 +95,36 @@ function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
         ]
       };
       return { embed }
+}
+
+function refresh_roles(discord_id) {
+    db.query(
+        "SELECT SUM(amount_global) total FROM "+process.env.DB_NAME+".Donations WHERE discordID="+discord_id+";",
+        function (err, result, fields)
+    {
+        console.debug("hi 1");
+        if (err) return;
+        let sum = result[0].total;
+        console.debug("hi 2", sum);
+        if (sum < 1) return;
+        var guild = client.guilds.cache.get(GUILD_ID);
+        console.debug("hi 3");
+        guild.members.fetch(discord_id).then(user => {
+            let roles = [];
+            console.debug("hi 4");
+            if (sum >= 1 && !user.roles.cache.has(DISCORD_SMALLDONATOR_ROLE)) {
+                roles.push(DISCORD_SMALLDONATOR_ROLE)
+            }
+            if (sum >=5 && !user.roles.cache.has(DISCORD_DONATOR_ROLE)) {
+                roles.push(DISCORD_DONATOR_ROLE)
+            }
+            console.debug("hi 5", roles);
+            if (roles.length > 0) {
+                sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+                user.roles.add(roles, `donated ${sum}€`)
+            }
+        });
+    });
 }
 
 app.get('/:page', function (req, res) {
@@ -271,13 +302,11 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             if (JSON.parse(body).status==='COMPLETED') {
                 const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
                 const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
+                req.params.discordId = (req.params.discordId !== 'null' && req.params.discordId !== '') ? req.params.discordId : null;
 
-                if (req.params.discordId !== 'null' && req.params.discordId !== '') {
+                if (req.params.discordId) {
                     var guild = client.guilds.cache.get(GUILD_ID);
                     guild.members.fetch(req.params.discordId).then(user => {
-                        guild.roles.fetch(DONATOR_ROLE_ID).then(role => {
-                            user.roles.add(role, 'made a donation');
-                        });
                         client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(user, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
                     });
                 } else {
@@ -296,6 +325,9 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                     if (err) {
                         console.log("Error#4806");
                         throw err;
+                    }
+                    if (req.params.discordId) {
+                        refresh_roles(req.params.discordId)
                     }
                 });
                 res.json({
