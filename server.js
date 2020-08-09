@@ -145,7 +145,7 @@ app.get('/api/whitelisted', function (req, res) {
     });
 });
 
-app.get('/api/cards', function (req, res) {
+function get_cards(callback) {
     var finalValue = {
         top: null,
         second: null,
@@ -187,11 +187,14 @@ app.get('/api/cards', function (req, res) {
                 }
         
                 if (result.length===1) finalValue.total = result[0].total;
-        
-                res.json(finalValue);
+                callback(finalValue);
             });
         });
     });
+}
+
+app.get('/api/cards', function (req, res) {
+    get_cards(result => res.json(result));
 });
 
 app.post('/api/createOrder/:amount/:currency', function(req, res) {
@@ -298,6 +301,11 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                 res.json({
                     status: 'success'
                 });
+                if (req.params.uuid !== 'null') {
+                    get_cards(newCards => {
+                        expressWs.getWss().clients.forEach(client => client.send({ code: 600, newCards: newCards }))
+                    })
+                }
             }else{
                 console.log("Error#6716");
                 res.json({
@@ -350,6 +358,23 @@ app.get('/api/discordprofile/:username/:tag', function(req, res) {
         console.log("Error#2300");
         res.json({status: 'error'});
     }
+});
+
+/*
+Websocket codes:
+    600 New donation done
+*/
+
+var expressWs = require('express-ws')(app);
+app.ws('/api/ws', function(ws, req) {
+    console.debug("WS: New connection")
+    ws.on('error', function (err) {
+        console.warn(`WS: Error detected:\n ${err}`);
+    });
+
+    ws.on('close', function (code, reason) {
+        console.debug(`WS: Closed with code ${code} (Reason: ${reason})`);
+    });
 });
 
 app.listen(process.env.PORT || 8080);
