@@ -303,7 +303,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                 });
                 if (req.params.uuid !== 'null') {
                     get_cards(newCards => {
-                        expressWs.getWss().clients.forEach(client => client.send({ code: 600, newCards: newCards }))
+                        expressWs.getWss().clients.forEach(client => client.send(JSON.stringify({ code: 600, newCards: newCards })))
                     })
                 }
             }else{

@@ -20,6 +20,7 @@ export function NCards(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
+    const ws = React.useRef(null);
 
     const isScreenLarge = useMediaQuery(theme.breakpoints.up("lg"));
 
@@ -30,6 +31,24 @@ export function NCards(props) {
         latest: null,
         total: null
     });
+
+    React.useEffect(() => {
+        ws.current = new WebSocket("ws://localhost:3000/api/ws");
+    
+        ws.current.onmessage = e => {
+            try {
+                e = JSON.parse(e.data)
+            } catch (err) {
+                console.error(err);
+                return;
+            }
+            if (e.code === 600) setCards(e.newCards);
+        };
+    
+        return () => {
+            ws.current.close();
+        };
+    }, []);
 
     React.useEffect(() => {
         const reloadCards = () => {
