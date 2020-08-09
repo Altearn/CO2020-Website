@@ -71,7 +71,9 @@ function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
         "timestamp": new Date().getTime(),
         "thumbnail": discord_user ? {
           "url": discord_user.user.displayAvatarURL({ size: 512 })
-        } : null,
+        } : ( mc_uuid ? {
+            "url": "https://visage.surgeplay.com/bust/512/"+mc_uuid
+        } :null),
         "author": discord_user ? {
           "name": discord_user.user.username + "#" + discord_user.user.discriminator,
           "icon_url": discord_user.user.displayAvatarURL({ size: 64 })
