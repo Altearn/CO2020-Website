@@ -67,10 +67,14 @@ export default function App(props) {
                             <NTrailerModal />
                         </Route>
                         <Route path="/donate">
-                            <NDonateModal opened />
-                            <NTrailerModal />
-
-                            {NDonations()?null:<Redirect to="/" />}
+                            {NDonations()?
+                                <>
+                                    <NDonateModal opened />
+                                    <NTrailerModal />
+                                </>
+                            :
+                                <Redirect to="/" />
+                            }
                         </Route>
                         <Route path="/trailer">
                             <NDonateModal />
