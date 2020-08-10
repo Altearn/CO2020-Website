@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser')
 const path = require('path');
+const got = require('got');
 const app = express();
 const mysql = require('mysql');
 app.use(express.static(path.join(__dirname, 'build')));
@@ -63,15 +64,22 @@ db.connect(function(err) {
     console.log("Connected to database!");
 });
 
-function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
+async function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
     mc_uuid = (mc_uuid === "null") ? null : mc_uuid;
+    let mc_name = null;
+    if (mc_uuid) {
+        const {body} = await got(`https://api.mojang.com/user/profiles/${mc_uuid}/names`, { responseType: 'json' });
+        mc_name = body[0].name;
+    }
     const embed = {
         "title": "New donation!",
         "color": 14996107,
         "timestamp": new Date().getTime(),
         "thumbnail": discord_user ? {
           "url": discord_user.user.displayAvatarURL({ size: 512 })
-        } : null,
+        } : ( mc_uuid ? {
+            "url": "https://visage.surgeplay.com/bust/512/"+mc_uuid
+        } :null),
         "author": discord_user ? {
           "name": discord_user.user.username + "#" + discord_user.user.discriminator,
           "icon_url": discord_user.user.displayAvatarURL({ size: 64 })
@@ -87,12 +95,15 @@ function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
             "inline": true
           },
           {
-            "name": "Minecraft UUID",
-            "value": mc_uuid || "Unknown",
+            "name": "Minecraft name",
+            "value": mc_name || "Unknown",
             "inline": true
           }
         ]
       };
+      if (mc_uuid) {
+        
+    }
       return { embed }
 }
 
@@ -271,6 +282,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
             if (JSON.parse(body).status==='COMPLETED') {
                 const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
                 const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
+                const currency_label = currencies.find(c => c.code===capture.amount.currency_code).label;
 
                 if (req.params.discordId !== 'null' && req.params.discordId !== '') {
                     var guild = client.guilds.cache.get(GUILD_ID);
@@ -278,10 +290,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                         guild.roles.fetch(DONATOR_ROLE_ID).then(role => {
                             user.roles.add(role, 'made a donation');
                         });
-                        client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(user, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
+                        make_donation_embed(user, req.params.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
+                            client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(embed);
+                        });
                     });
                 } else {
-                    client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(make_donation_embed(null, req.params.uuid, capture.amount.value+capture.amount.currency_code, (capture.amount.value==to_eur ? null : to_eur)));
+                    make_donation_embed(null, req.params.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
+                        client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(embed);
+                    });
                 }
                 
                 db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
@@ -303,7 +319,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                 });
                 if (req.params.uuid !== 'null') {
                     get_cards(newCards => {
-                        expressWs.getWss().clients.forEach(client => client.send({ code: 600, newCards: newCards }))
+                        expressWs.getWss().clients.forEach(client => client.send(JSON.stringify({ code: 600, newCards: newCards })))
                     })
                 }
             }else{
