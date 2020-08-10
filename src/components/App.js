@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { configureAnchors } from 'react-scrollable-anchor'
 
@@ -11,6 +12,12 @@ import { NHome } from './pages/home/NHome';
 import { NDonateModal } from './pages/donate/NDonateModal';
 import { NTrailerModal } from './pages/trailer/NTrailerModal';
 import { NDonations } from './NConsts';
+
+function Translation(props) {
+    const { t } = useTranslation();
+
+    return t(props.t);
+}
 
 export default function App(props) {
     var prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -55,7 +62,10 @@ export default function App(props) {
         <ThemeProvider theme={renderDark?themeDark:themeLight}>
             <SnackbarProvider maxSnack={3}>
                 <CssBaseline/>
+                
                 <meta name="theme-color" content={renderDark?"#000000":"#6b54b6"} />
+                <meta property="og:title" content={<Translation t="RahNeil_N3.Irus.Opengraph.title" />} />
+                <meta property="og:description" content={<Translation t="RahNeil_N3.Irus.Opengraph.description" />} />
 
                 <BrowserRouter>
                     <NAppBar toggleTheme={toggleTheme} isDarkTheme={renderDark} />
