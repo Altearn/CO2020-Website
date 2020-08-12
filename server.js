@@ -167,11 +167,26 @@ app.get('/api/discord', function (req, res) {
     res.send(discordLastValues);
 });
 
-app.get('/api/whitelisted', function (req, res) {
+app.get('/api/whitelisted/1', function (req, res) {
     var finalValue = "";
-    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL", function (err, result, fields) {
+    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL AND amount_global>=1", function (err, result, fields) {
         if (err) {
             console.log("Error#4073");
+            throw err;
+        }
+
+        for (var i = 0; i < result.length; i++) {
+            finalValue+=result[i].uuid+"<br>";
+        }
+        res.send(finalValue);
+    });
+});
+
+app.get('/api/whitelisted/5', function (req, res) {
+    var finalValue = "";
+    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL AND amount_global>=5", function (err, result, fields) {
+        if (err) {
+            console.log("Error#2456");
             throw err;
         }
 
