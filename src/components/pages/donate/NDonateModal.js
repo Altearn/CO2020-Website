@@ -129,6 +129,7 @@ export function NDonateModal(props) {
                         currency={currency}
                         uuid={uuid}
                         setProcessing={setProcessing}
+                        ref={props.ref}
                         onSuccess={() => {
                             setSuccess(true);
                             const timeoutID = window.setTimeout(() => {
