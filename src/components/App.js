@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect, useParams } from "react-router-dom";
 import { configureAnchors } from 'react-scrollable-anchor'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -76,16 +76,18 @@ export default function App(props) {
                             <NDonateModal />
                             <NTrailerModal />
                         </Route>
-                        <Route path="/donate">
-                            {NDonations()?
-                                <>
+                        {NDonations()?
+                            <>
+                                <Route path="/donate">
                                     <NDonateModal opened />
                                     <NTrailerModal />
-                                </>
-                            :
-                                <Redirect to="/" />
-                            }
-                        </Route>
+                                </Route>
+                                <Route path="/donate/:ref">
+                                    <NDonateModal opened ref={props.match.params.ref} />
+                                    <NTrailerModal />
+                                </Route>
+                            </>
+                        :null}
                         <Route path="/trailer">
                             <NDonateModal />
                             <NTrailerModal opened />
