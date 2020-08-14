@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { configureAnchors } from 'react-scrollable-anchor'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery, CssBaseline } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 
@@ -20,6 +20,7 @@ function Translation(props) {
 }
 
 export default function App(props) {
+    const classes = useStyles();
     var prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
     const [isDarkTheme, setDarkTheme] = useState(null);
 
@@ -94,8 +95,16 @@ export default function App(props) {
                             <Redirect to="/" />
                         </Route>
                     </Switch>
+                    <div className={classes.footer}>This website is not affiliated with Mojang Studios | Copyright © 2020 Gunivers. All rights reserved</div>
                 </BrowserRouter>
             </SnackbarProvider>
         </ThemeProvider>
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    footer: {
+        color: 'gray',
+        marginLeft: theme.spacing(4)
+    }
+}));
