@@ -36,7 +36,14 @@ export function NDiscordStep(props) {
 
     const handleDiscordLink = () => {
         props.setProcessing(true);
-        fetch('/api/discordprofile/'+props.username+'/'+props.tag).then(res => {
+        const data = JSON.stringify({ username: props.username, tag: props.tag });
+        fetch('/api/discordprofile', {
+            body: data,
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }}).then(res => {
             res.json().then(res => {
                 if(res.status === 'success') {
                     props.setDiscordId(res.id);
@@ -57,6 +64,7 @@ export function NDiscordStep(props) {
                 props.setProcessing(false);
             });
         }).catch(err => {
+            console.error(err);
             enqueueSnackbar(t('RahNeil_N3.Irus.Error.General'), {variant: 'error'});
             props.setProcessing(false);
         });
