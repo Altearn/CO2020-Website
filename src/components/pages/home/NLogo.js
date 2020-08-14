@@ -28,7 +28,7 @@ export function NLogo(props) {
                 </div>
                 <Grid container alignItems='center' className={classes.header} style={{position: md?'absolute':'fixed'}}>
                     <div className={trigger?classes.logoContainerAnimated:classes.logoContainer}>
-                        <img alt={t('RahNeil_N3.Irus.Logo')} src='logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
+                        <img alt={t('RahNeil_N3.Irus.Logo')} src='/logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
                     </div>
                     {!md?
                         <div className={trigger?classes.titleContainerAnimated:classes.titleContainer}>
@@ -64,7 +64,7 @@ export function NLogoLoading(props) {
                 </div>
                 <Grid container alignItems='center' className={classes.header} style={{position: md?'absolute':'fixed'}}>
                     <div className={trigger?classes.logoContainerAnimated:classes.logoContainer}>
-                        <img alt="Creative Olympics's Logo" src='logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
+                        <img alt="Creative Olympics's Logo" src='/logo150_animated.gif' width='150px' height='150px' className={trigger?classes.logoAnimated:classes.logo} />
                     </div>
                     {!md?
                         <div className={trigger?classes.titleContainerAnimated:classes.titleContainer}>
