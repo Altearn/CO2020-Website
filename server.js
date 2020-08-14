@@ -6,6 +6,8 @@ const got = require('got');
 const app = express();
 const mysql = require('mysql');
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
@@ -374,7 +376,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
     });
 });
 
-app.get('/api/discordprofile', function(req, res) {
+app.post('/api/discordprofile', function(req, res) {
 
     const username = req.body.username;
     const tag = req.body.tag;
