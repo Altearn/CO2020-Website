@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Route, Switch, Redirect, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { configureAnchors } from 'react-scrollable-anchor'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -65,30 +65,27 @@ export default function App(props) {
                 
                 <meta name="theme-color" content={renderDark?"#000000":"#6b54b6"} />
                 <meta property="og:title" content={<Translation t="RahNeil_N3.Irus.Opengraph.title" />} />
+                <meta name="description" content={<Translation t="RahNeil_N3.Irus.Opengraph.description" />} />
                 <meta property="og:description" content={<Translation t="RahNeil_N3.Irus.Opengraph.description" />} />
 
                 <BrowserRouter>
+                    
                     <NAppBar toggleTheme={toggleTheme} isDarkTheme={renderDark} />
 
                     <NHome isDarkTheme={renderDark}/>
+                    
                     <Switch>
                         <Route exact path="/">
                             <NDonateModal />
                             <NTrailerModal />
                         </Route>
-                        {NDonations()?
-                            <>
-                                <Route path="/donate">
-                                    <NDonateModal opened />
-                                    <NTrailerModal />
-                                </Route>
-                                <Route path="/donate/:ref">
-                                    <NDonateModal opened ref={props.match.params.ref} />
-                                    <NTrailerModal />
-                                </Route>
-                            </>
-                        :null}
-                        <Route path="/trailer">
+                        <Route exact path="/donate/:ref?">
+                            <NDonateModal opened />
+                            <NTrailerModal />
+
+                            {NDonations()?null:<Redirect to="/" />}
+                        </Route>
+                        <Route exact path="/trailer">
                             <NDonateModal />
                             <NTrailerModal opened />
                         </Route>

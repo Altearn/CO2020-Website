@@ -102,9 +102,7 @@ async function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
           }
         ]
       };
-      if (mc_uuid) {
-        
-    }
+      
       return { embed }
 }
 
@@ -132,12 +130,6 @@ function refresh_roles(discord_id) {
         });
     });
 }
-
-app.get('/:page', function (req, res) {
-    if (req.params.page!=='api') {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    }
-});
 
 app.get('/api/discord', function (req, res) {
     const guild = client.guilds.cache.get(GUILD_ID);
@@ -433,5 +425,11 @@ app.ws('/api/ws', function(ws, req) {
         console.debug(`WS: Closed with code ${code} (Reason: ${reason})`);
     });
 });
+
+const root = require('path').join(__dirname, 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+})
 
 app.listen(process.env.PORT || 8080);
