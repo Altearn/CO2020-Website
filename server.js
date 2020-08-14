@@ -374,10 +374,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
     });
 });
 
-app.get('/api/discordprofile/:username/:tag', function(req, res) {
+app.get('/api/discordprofile', function(req, res) {
 
-    const username = req.params.username;
-    const tag = req.params.tag;
+    const username = req.body.username;
+    const tag = req.body.tag;
+    if (!username || !tag) {
+        res.status(422).send("Missing parameter(s)");
+        return; 
+    }
 
     if (username!=='null'&&tag!=='null'&&tag.length===4) {
         // Gets all the users with that username
