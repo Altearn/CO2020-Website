@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PayPalButton } from "react-paypal-button-v2";
 import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { CircularProgress, Grid } from '@material-ui/core';
 
@@ -16,6 +16,8 @@ export function NCheckoutStep(props) {
     const history = useHistory();
     const [currency, setCurrency] = React.useState(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD');
     const [loading, setLoading] = React.useState(true);
+
+    let { ref } = useParams();
 
     React.useEffect(() => {
         setCurrency(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD');
@@ -44,7 +46,8 @@ export function NCheckoutStep(props) {
                     onApprove={function(data, actions) {
                         return fetch('/api/approveOrder/'+data.orderID+'/'
                             +(props.discordId===''?'null':props.discordId)
-                            +'/'+(props.uuid===null?'null':props.uuid),
+                            +'/'+(props.uuid===null?'null':props.uuid)
+                            +'/'+(ref===null?'null':(ref||'null')),
                         {
                             method: 'post'
                         }).then(function(res) {

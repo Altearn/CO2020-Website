@@ -102,9 +102,7 @@ async function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
           }
         ]
       };
-      if (mc_uuid) {
-        
-    }
+      
       return { embed }
 }
 
@@ -132,12 +130,6 @@ function refresh_roles(discord_id) {
         });
     });
 }
-
-app.get('/:page', function (req, res) {
-    if (req.params.page!=='api') {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    }
-});
 
 app.get('/api/discord', function (req, res) {
     const guild = client.guilds.cache.get(GUILD_ID);
@@ -294,7 +286,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
+app.post('/api/approveOrder/:orderId/:discordId/:uuid/:ref', function(req, res) {
     request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
             user: PAYPAL_CLIENT,
@@ -339,13 +331,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                     });
                 }
                 
-                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId) VALUES (?, ?, ?, ?, ?);',
+                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId, ref) VALUES (?, ?, ?, ?, ?, ?);',
                     [
                         capture.amount.value,
                         capture.amount.currency_code,
                         to_eur,
                         req.params.uuid === 'null' ? null : req.params.uuid,
-                        req.params.discordId
+                        req.params.discordId === 'null' ? null : req.params.discordId,
+                        req.params.ref === 'null' ? null : req.params.ref,
                     ], function (err, results)
                 {
                     if (err) {
@@ -359,11 +352,9 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid', function(req, res) {
                 res.json({
                     status: 'success'
                 });
-                if (req.params.uuid !== 'null') {
-                    get_cards(newCards => {
-                        expressWs.getWss().clients.forEach(client => client.send(JSON.stringify({ code: 600, newCards: newCards })))
-                    })
-                }
+                get_cards(newCards => {
+                    expressWs.getWss().clients.forEach(client => client.send(JSON.stringify({ code: 600, newCards: newCards })))
+                })
             }else{
                 console.log("Error#6716");
                 res.json({
@@ -434,5 +425,11 @@ app.ws('/api/ws', function(ws, req) {
         console.debug(`WS: Closed with code ${code} (Reason: ${reason})`);
     });
 });
+
+const root = require('path').join(__dirname, 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+})
 
 app.listen(process.env.PORT || 8080);

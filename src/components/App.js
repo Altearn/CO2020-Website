@@ -65,28 +65,27 @@ export default function App(props) {
                 
                 <meta name="theme-color" content={renderDark?"#000000":"#6b54b6"} />
                 <meta property="og:title" content={<Translation t="RahNeil_N3.Irus.Opengraph.title" />} />
+                <meta name="description" content={<Translation t="RahNeil_N3.Irus.Opengraph.description" />} />
                 <meta property="og:description" content={<Translation t="RahNeil_N3.Irus.Opengraph.description" />} />
 
                 <BrowserRouter>
+                    
                     <NAppBar toggleTheme={toggleTheme} isDarkTheme={renderDark} />
 
                     <NHome isDarkTheme={renderDark}/>
+                    
                     <Switch>
                         <Route exact path="/">
                             <NDonateModal />
                             <NTrailerModal />
                         </Route>
-                        <Route path="/donate">
-                            {NDonations()?
-                                <>
-                                    <NDonateModal opened />
-                                    <NTrailerModal />
-                                </>
-                            :
-                                <Redirect to="/" />
-                            }
+                        <Route exact path="/donate/:ref?">
+                            <NDonateModal opened />
+                            <NTrailerModal />
+
+                            {NDonations()?null:<Redirect to="/" />}
                         </Route>
-                        <Route path="/trailer">
+                        <Route exact path="/trailer">
                             <NDonateModal />
                             <NTrailerModal opened />
                         </Route>
