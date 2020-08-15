@@ -6,6 +6,7 @@ import { useMediaQuery } from '@material-ui/core';
 
 import { NLandingButtons, NLandingButtonsLoading } from './NLandingButtons';
 import { NLanding, NLandingLoading } from './NLanding';
+import { NFooter, NFooterLoading } from './NFooter';
 import { NCards } from './NCards';
 import { NDiscord } from './NDiscord';
 import { NLoading } from '../../NConsts';
@@ -76,6 +77,16 @@ export function NHome(props) {
                     <NDiscord />
                 </div>
             </ScrollableAnchor>
+
+            <div className={classes.footerContainer}>
+                <Suspense fallback={<NFooterLoading />}>
+                    {NLoading()?
+                        <NFooterLoading />
+                    :
+                        <NFooter />
+                    }
+                </Suspense>
+            </div>
         </>
     );
 }
@@ -139,6 +150,15 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     landingButtons: {
-        padding: theme.spacing(18, 0),
+        padding: theme.spacing(10, 0),
+
+        [theme.breakpoints.up('sm')]: {
+            padding: theme.spacing(18, 0),
+        },
+    },
+    footerContainer: {
+        [theme.breakpoints.up('sm')]: {
+            paddingTop: theme.spacing(18),
+        },
     }
 }));
