@@ -22,6 +22,8 @@
         }
       },
       "Currency": {
+        "Title": "Währungen",
+        "Description": "Währung ändern",
         "Name": {
           "AUD": "Australischer Dollar",
           "CAD": "Kanadischer Dollar",
@@ -52,6 +54,22 @@
         },
         "IsPlacedAfter": true
       },
+      "Discord": {
+        "Members": "Mitglieder",
+        "Online": "Online",
+        "Sponsors": {
+          "Title": "Sponsoren",
+          "All": "Alle Sponsoren",
+          "Account": {
+            "0": "Gehen Sie zu Ihrem",
+            "1": "Account"
+          },
+          "Join_Now": {
+            "Short": "Treten Sie bei",
+            "Long": "Kommen Sie in unseren Discord Server !"
+          }
+        }
+      },
       "Donations": {
         "Amount": {
           "Title": "Wählen Sie den Betrag Ihrer Spende",
@@ -62,6 +80,29 @@
             "Cancelled": "Spende Abgebrochen"
           },
           "Title": "Auschecken"
+        },
+        "Asso": {
+          "Title": "Füll die assoziation Info aus",
+          "First_Name": "Vorname",
+          "Last_Name": "Nachname",
+          "Email": "Email",
+          "Address": "Addresse",
+          "City": "Stadt",
+          "Postal_Code": "Postleitzahl",
+          "State": "Bundesland",
+          "Country": "Land",
+          "Phone_Number": "Handy Nummer",
+          "Gender": "Geschlecht",
+          "Age": "Alter",
+          "Info": {
+            "0": "Diese Informationen bekommen",
+            "1": "Greenpeace",
+            "2": ". Diese sind",
+            "3": "Optional",
+            "4": "aber empfohlen wenn Sie wollen",
+            "5": "Wir kontaktieren Sie",
+            "6": "später."
+          }
         },
         "Discord": {
           "Title": "Link zum Discord Account",
@@ -149,7 +190,14 @@
         "Light": "Zum light Theme ändern"
       },
       "Title": "Creative Olympics",
-      "Trailer": "Trailer"
+      "Trailer": "Trailer",
+      "Close": "Knapp",
+      "Footer": {
+        "Top": "Top",
+        "Staff": "Gemacht ❤️ von den Creative Olympics Helfern",
+        "Minecraft": "\"Minecraft\"™ ist ein Wahrzeichen von Mojang Synergies AB.",
+        "Affiliation": "Diese Webseite und Creative Olympics gehören nicht zu Mojang."
+      }
     }
   }
 }
