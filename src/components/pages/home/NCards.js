@@ -111,6 +111,7 @@ export function NCards(props) {
                                     amountGlobal={cards.top.amount_global}
                                     currency={cards.top.currency}
                                     uuid={cards.top.uuid}
+                                    discordid={cards.top.discordId}
                                     top
                                 />
                             }
@@ -130,6 +131,7 @@ export function NCards(props) {
                                             amountGlobal={cards.second.amount_global}
                                             currency={cards.second.currency}
                                             uuid={cards.second.uuid}
+                                            discordid={cards.second.discordId}
                                             second
                                         />
                                     }
@@ -147,6 +149,7 @@ export function NCards(props) {
                                             amountGlobal={cards.third.amount_global}
                                             currency={cards.third.currency}
                                             uuid={cards.third.uuid}
+                                            discordid={cards.third.discordId}
                                             third
                                         />
                                     }
@@ -166,6 +169,7 @@ export function NCards(props) {
                                     amountGlobal={cards.latest.amount_global}
                                     currency={cards.latest.currency}
                                     uuid={cards.latest.uuid}
+                                    discordid={cards.latest.discordId}
                                     latest
                                 />
                             }

@@ -49,20 +49,56 @@ function PodiumThirdIcon() {
     );
 }
 
+function AnonymousAvatar() {
+    const classes = useStyles();
+
+    return (
+        <SvgIcon color="action" className={classes.podium}>
+            <path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </SvgIcon>
+    );
+}
+
 export function NDonatorCard(props) {
     const { t } = useTranslation();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const isScreenLarge = useMediaQuery(useTheme().breakpoints.up("lg"));
     const [username, setUsername] = React.useState(null);
+    const [avatar, setAvatar] = React.useState(null);
+    const [avatarClass, setAvatarClass] = React.useState(classes.cover);
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
-        fetch("https://api.minetools.eu/uuid/"+props.uuid, {crossDomain: true, method: 'GET'}).then((res) => {
-            res.json().then((json) => {
-                setUsername(json.name);
+        
+        if (props.discordid && props.discordid !== "null") {
+            fetch("api/discordprofile-id/", {
+                crossDomain: true,
+                method: 'POST',
+                body: JSON.stringify({ id: props.discordid }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }}).then((res) => {
+                res.json().then((json) => {
+                    if (json.status === 'success') {
+                        setAvatar(json.avatarURL);
+                        setUsername(json.username);
+                        setAvatarClass(classes.discordCover);
+                    }
+                })
             }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
-        }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+        } else if (props.uuid) {
+            fetch("https://api.minetools.eu/uuid/"+props.uuid, {crossDomain: true, method: 'GET'}).then((res) => {
+                res.json().then((json) => {
+                    setUsername(json.name);
+                }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+            }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+            setAvatar("https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex"));
+        } else {
+            setUsername("Test");
+            setAvatar("https://ogp.me/logo.png")
+        }
     }, [props.uuid, enqueueSnackbar, t])            
 
     function NDonatorCardIconLabel() {
@@ -97,7 +133,7 @@ export function NDonatorCard(props) {
         <>
             <img
                 style={{display: 'none'}}
-                src={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                src={"https://crafatar.com/renders/body/08831584-f289-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
                 onLoad={() => setLoading(false)}
                 alt='Loading...'
             />
@@ -145,9 +181,9 @@ export function NDonatorCard(props) {
                     </CardContent>
                     <Tooltip title={username} arrow>
                         <CardMedia
-                            className={classes.cover}
-                            image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                            title={username}
+                            className={avatarClass}
+                            // image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                            image={avatar}
                         />
                     </Tooltip>
                 </Card>
@@ -227,6 +263,13 @@ const useStyles = makeStyles((theme) => ({
         width: 151,
         height: 151,
         backgroundPosition: 'top',
+        backgroundSize: 'auto',
+        flexBasis: '50%',
+    },
+    discordCover: {
+        width: 151,
+        height: 151,
+        backgroundPosition: 'center',
         backgroundSize: 'auto',
         flexBasis: '50%',
     },
