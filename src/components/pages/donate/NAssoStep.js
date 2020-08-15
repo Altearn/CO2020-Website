@@ -1,21 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
-import { Collapse, Grid, TextField, InputAdornment, Button, Avatar, Zoom, useTheme, Link, useMediaQuery, Card } from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { Grid, TextField } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import EditIcon from '@material-ui/icons/Edit';
-import LinkIcon from '@material-ui/icons/Link';
 
 export function NAssoStep(props) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
-
-    const fullScreen = useMediaQuery(useTheme().breakpoints.up('md'));
-    const phoneScreen = useMediaQuery(useTheme().breakpoints.down('xs'));
 
     return (
         <>

@@ -27,10 +27,10 @@ export function NFooter() {
                     &nbsp;
                     <Link rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0">
                         CC BY-NC-ND 4.0
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
                     </Link>
                 </p>
                 <Typography variant='body2' color='inherit'>
@@ -80,10 +80,10 @@ export function NFooterLoading() {
                     &nbsp;
                     <Link rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0">
                         CC BY-NC-ND 4.0
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
-                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} alt="CC BY-NC-ND 4.0" src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
                     </Link>
                 </p>
                 <Typography variant='body2' color='inherit'>
