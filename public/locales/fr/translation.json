@@ -172,7 +172,14 @@
       },
       "Title": "Creative Olympics",
       "Trailer": "Bande-annonce",
-      "Close": "Fermer"
+      "Close": "Fermer",
+      "Footer": {
+        "Copyright": "Copyright © 2020 Rahmouni Neïl",
+        "Top": "Haut",
+        "Staff": "Fait avec ❤️ par le staff des Creative Olympics",
+        "Minecraft": "\"Minecraft\"™ est une marque déposée de Mojang Synergies AB.",
+        "Affiliation": "Ce site ainsi que les Creative Olympics ne sont en aucun cas affiliés avec Mojang ou Discord."
+      }
     }
   }
 }
