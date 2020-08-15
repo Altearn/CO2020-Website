@@ -288,7 +288,7 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
     });
 });
 
-app.post('/api/approveOrder/:orderId/:discordId/:uuid/:ref', function(req, res) {
+app.post('/api/approveOrder/', function(req, res) {
     request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
         auth: {
             user: PAYPAL_CLIENT,
@@ -302,7 +302,7 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid/:ref', function(req, res) 
             return res.sendStatus(500);
         }
         
-        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.params.orderId + '/capture', {
+        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.body.orderId + '/capture', {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer "+JSON.parse(body).access_token,
@@ -317,38 +317,49 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid/:ref', function(req, res) 
             if (JSON.parse(body).status==='COMPLETED') {
                 const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
                 const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
-                req.params.discordId = (req.params.discordId !== 'null' && req.params.discordId !== '') ? req.params.discordId : null;
+                req.body.discordId = (req.body.discordId !== 'null' && req.body.discordId !== '') ? req.body.discordId : null;
                 const currency_label = currencies.find(c => c.code===capture.amount.currency_code).label;
 
-                if (req.params.discordId) {
+                if (req.body.discordId) {
                     var guild = client.guilds.cache.get(GUILD_ID);
-                    guild.members.fetch(req.params.discordId).then(user => {
-                        make_donation_embed(user, req.params.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
+                    guild.members.fetch(req.body.discordId).then(user => {
+                        make_donation_embed(user, req.body.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
                             client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(embed);
                         });
                     });
                 } else {
-                    make_donation_embed(null, req.params.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
+                    make_donation_embed(null, req.body.uuid, capture.amount.value+currency_label, (capture.amount.value==to_eur ? null : to_eur)).then(embed => {
                         client.channels.cache.get(DISCORD_LOGS_CHANNEL).send(embed);
                     });
                 }
                 
-                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId, ref) VALUES (?, ?, ?, ?, ?, ?);',
+                db.query('INSERT INTO '+process.env.DB_NAME+'.Donations (amount, currency, amount_global, uuid, discordId, ref, firstName, lastName, email, address, city, postalCode, state, country, phone, gender, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
                     [
                         capture.amount.value,
                         capture.amount.currency_code,
                         to_eur,
-                        req.params.uuid === 'null' ? null : req.params.uuid,
-                        req.params.discordId === 'null' ? null : req.params.discordId,
-                        req.params.ref === 'null' ? null : req.params.ref,
+                        req.body.uuid === 'null' ? null : req.body.uuid,
+                        req.body.discordId === 'null' ? null : req.body.discordId,
+                        req.body.ref === 'null' ? null : req.body.ref,
+                        req.body.firstName||null,
+                        req.body.lastName||null,
+                        req.body.email||null,
+                        req.body.address||null,
+                        req.body.city||null,
+                        req.body.postalCode||null,
+                        req.body.state||null,
+                        req.body.country||null,
+                        req.body.phone||null,
+                        req.body.gender||null,
+                        req.body.age||null,
                     ], function (err, results)
                 {
                     if (err) {
                         console.log("Error#4806");
                         throw err;
                     }
-                    if (req.params.discordId) {
-                        refresh_roles(req.params.discordId)
+                    if (req.body.discordId) {
+                        refresh_roles(req.body.discordId)
                     }
                 });
                 res.json({

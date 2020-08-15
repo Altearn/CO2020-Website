@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { goToTop } from 'react-scrollable-anchor';
 
-import { Fab, Typography, Grid, useMediaQuery } from '@material-ui/core';
+import { Fab, Typography, Grid, useMediaQuery, Link } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
@@ -22,9 +22,17 @@ export function NFooter() {
                 </Typography>
             </Grid>
             <Grid item>
-                <Typography gutterBottom variant='body1' color='inherit'>
-                    {t('RahNeil_N3.Irus.Footer.Copyright')}
-                </Typography>
+                <p xmlns={{dct: "http://purl.org/dc/terms/", cc: "http://creativecommons.org/ns#"}}>
+                    This work by <span property="cc:attributionName">Neïl Rahmouni</span> is licensed under
+                    &nbsp;
+                    <Link rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0">
+                        CC BY-NC-ND 4.0
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
+                    </Link>
+                </p>
                 <Typography variant='body2' color='inherit'>
                     {t('RahNeil_N3.Irus.Footer.Minecraft')}
                 </Typography>
@@ -67,13 +75,17 @@ export function NFooterLoading() {
                 </Typography>
             </Grid>
             <Grid item>
-                <Typography gutterBottom variant='body1' color='inherit'>
-                    <Skeleton className={classes.inline}>
-                        <span>
-                            Copyright © 2020 Rahmouni Neïl
-                        </span>
-                    </Skeleton>
-                </Typography>
+                <p xmlns={{dct: "http://purl.org/dc/terms/", cc: "http://creativecommons.org/ns#"}}>
+                    This work by <span property="cc:attributionName">Neïl Rahmouni</span> is licensed under
+                    &nbsp;
+                    <Link rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0">
+                        CC BY-NC-ND 4.0
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
+                        <img style={{height: '22px', marginLeft: '3px', verticalAlign: 'bottom'}} src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" />
+                    </Link>
+                </p>
                 <Typography variant='body2' color='inherit'>
                     <Skeleton className={classes.inline}>
                         <span>

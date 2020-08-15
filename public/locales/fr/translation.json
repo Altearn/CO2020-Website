@@ -81,6 +81,29 @@
           },
           "Title": "Procéder au paiement"
         },
+        "Asso": {
+          "Title": "Infos destinées à l'association",
+          "First_Name": "Prénom",
+          "Last_Name": "Nom",
+          "Email": "Email",
+          "Address": "Addresse",
+          "City": "Ville",
+          "Postal_Code": "Code postal",
+          "State": "Région",
+          "Country": "Pays",
+          "Phone_Number": "Numéro de téléphone",
+          "Gender": "Genre",
+          "Age": "Âge",
+          "Info": {
+            "0": "Ces informations seront transmises à",
+            "1": "Greenpeace",
+            "2": ". Elles sont",
+            "3": "facultatives",
+            "4": "mais recommandées si vous souhaitez qu'ils",
+            "5": "vous contactent",
+            "6": "ultérieurement."
+          }
+        },
         "Discord": {
           "Title": "Lier au compte Discord",
           "Username": "Pseudonyme",
@@ -174,7 +197,6 @@
       "Trailer": "Bande-annonce",
       "Close": "Fermer",
       "Footer": {
-        "Copyright": "Copyright © 2020 Rahmouni Neïl",
         "Top": "Haut",
         "Staff": "Fait avec ❤️ par le staff des Creative Olympics",
         "Minecraft": "\"Minecraft\"™ est une marque déposée de Mojang Synergies AB.",

@@ -81,6 +81,29 @@
           },
           "Title": "Checkout"
         },
+        "Asso": {
+          "Title": "Fill out association's infos",
+          "First_Name": "First name",
+          "Last_Name": "Last name",
+          "Email": "Email",
+          "Address": "Address",
+          "City": "City",
+          "Postal_Code": "Postal code",
+          "State": "State",
+          "Country": "Country",
+          "Phone_Number": "Phone number",
+          "Gender": "Gender",
+          "Age": "Age",
+          "Info": {
+            "0": "Those informations are gonna be transmitted to",
+            "1": "Greenpeace",
+            "2": ". They are",
+            "3": "optional",
+            "4": "but recommended if you want them to",
+            "5": "contact you",
+            "6": "later on."
+          }
+        },
         "Discord": {
           "Title": "Link Discord account",
           "Username": "Username",
@@ -174,7 +197,6 @@
       "Trailer": "Trailer",
       "Close": "Close",
       "Footer": {
-        "Copyright": "Copyright © 2020 Rahmouni Neïl",
         "Top": "Top",
         "Staff": "Made by ❤️ by the Creative Olympics Staff",
         "Minecraft": "\"Minecraft\"™ is a trademark of Mojang Synergies AB.",

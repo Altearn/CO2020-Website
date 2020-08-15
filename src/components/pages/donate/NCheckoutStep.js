@@ -44,12 +44,29 @@ export function NCheckoutStep(props) {
                         });
                     }}
                     onApprove={function(data, actions) {
-                        return fetch('/api/approveOrder/'+data.orderID+'/'
-                            +(props.discordId===''?'null':props.discordId)
-                            +'/'+(props.uuid===null?'null':props.uuid)
-                            +'/'+(ref===null?'null':(ref||'null')),
-                        {
-                            method: 'post'
+                        return fetch('/api/approveOrder/', {
+                            body: JSON.stringify({
+                                orderId: data.orderID,
+                                discordId: (props.discordId===''?'null':props.discordId),
+                                uuid: (props.uuid===null?'null':props.uuid),
+                                ref: (ref===null?'null':(ref||'null')),
+                                firstName: props.firstName||null,
+                                lastName: props.lastName||null,
+                                email: props.email||null,
+                                address: props.address||null,
+                                city: props.city||null,
+                                postalCode: props.postalCode||null,
+                                state: props.state||null,
+                                country: props.country||null,
+                                phone: props.phone||null,
+                                gender: props.gender||null,
+                                age: props.age||null,
+                            }),
+                            method: "POST",
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
                         }).then(function(res) {
                             return res.json();
                         }).then(function(data) {

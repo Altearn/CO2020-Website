@@ -9,6 +9,7 @@ import { Skeleton } from '@material-ui/lab';
 import { NMinecraftStep, NMinecraftStepLoading } from './NMinecraftStep.js';
 import { NDiscordStep } from './NDiscordStep.js';
 import { NAmountStep } from "./NAmountStep";
+import { NAssoStep } from './NAssoStep.js';
 import { NCheckoutStep } from './NCheckoutStep.js';
 import { NDonateModalForm } from './NDonateModalForm.js';
 import { NDonateModalSuccess } from './NDonateModalSuccess.js';
@@ -45,6 +46,18 @@ export function NDonateModal(props) {
 
     const [MS_username, MS_setUsername] = React.useState('');
     const [MS_usernameLinked, MS_setUsernameLinked] = React.useState(null);
+
+    const [DT_firstName, DT_setFirstName] = React.useState('');
+    const [DT_lastName, DT_setLastName] = React.useState('');
+    const [DT_email, DT_setEmail] = React.useState('');
+    const [DT_address, DT_setAddress] = React.useState('');
+    const [DT_city, DT_setCity] = React.useState('');
+    const [DT_postalCode, DT_setPostalCode] = React.useState('');
+    const [DT_state, DT_setState] = React.useState('');
+    const [DT_country, DT_setCountry] = React.useState('');
+    const [DT_phone, DT_setPhone] = React.useState('');
+    const [DT_gender, DT_setGender] = React.useState('');
+    const [DT_age, DT_setAge] = React.useState('');
 
     const handleClose = () => {
         history.push('/');
@@ -118,6 +131,40 @@ export function NDonateModal(props) {
         },
         {
             label: {
+                placeholder: "Fill out association's infos",
+                translation: "RahNeil_N3.Irus.Donations.Asso.Title",
+            },
+            content: {
+                translation: (
+                    <NAssoStep
+                        firstName={DT_firstName}
+                        setFirstName={DT_setFirstName}
+                        lastName={DT_lastName}
+                        setLastName={DT_setLastName}
+                        email={DT_email}
+                        setEmail={DT_setEmail}
+                        address={DT_address}
+                        setAddress={DT_setAddress}
+                        city={DT_city}
+                        setCity={DT_setCity}
+                        postalCode={DT_postalCode}
+                        setPostalCode={DT_setPostalCode}
+                        state={DT_state}
+                        setState={DT_setState}
+                        country={DT_country}
+                        setCountry={DT_setCountry}
+                        phone={DT_phone}
+                        setPhone={DT_setPhone}
+                        gender={DT_gender}
+                        setGender={DT_setGender}
+                        age={DT_age}
+                        setAge={DT_setAge}
+                    />
+                ),
+            }
+        },
+        {
+            label: {
                 placeholder: "Checkout",
                 translation: "RahNeil_N3.Irus.Donations.Checkout.Title",
             },
@@ -129,6 +176,17 @@ export function NDonateModal(props) {
                         currency={currency}
                         uuid={uuid}
                         setProcessing={setProcessing}
+                        firstName={DT_firstName}
+                        lastName={DT_lastName}
+                        email={DT_email}
+                        address={DT_address}
+                        city={DT_city}
+                        postalCode={DT_postalCode}
+                        state={DT_state}
+                        country={DT_country}
+                        phone={DT_phone}
+                        gender={DT_gender}
+                        age={DT_age}
                         onSuccess={() => {
                             setSuccess(true);
                             const timeoutID = window.setTimeout(() => {

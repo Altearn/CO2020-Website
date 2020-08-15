@@ -1,6 +1,11 @@
 {
   "RahNeil_N3": {
     "Irus": {
+      "Donations": {
+        "Asso": {
+          "State": "Post town"
+        }
+      },
       "Currency": {
         "Default": {
           "Code": "GBP",
