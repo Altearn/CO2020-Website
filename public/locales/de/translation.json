@@ -95,12 +95,12 @@
           "Gender": "Geschlecht",
           "Age": "Alter",
           "Info": {
-            "0": "Diese Informationen bekommen",
+            "0": "Diese Informationen bekommt",
             "1": "Greenpeace",
             "2": ". Diese sind",
             "3": "Optional",
-            "4": "aber empfohlen wenn Sie wollen",
-            "5": "Wir kontaktieren Sie",
+            "4": "aber empfohlen. Wenn Sie wollen",
+            "5": "kontaktieren wir Sie",
             "6": "später."
           }
         },
@@ -196,7 +196,7 @@
         "Top": "Top",
         "Staff": "Gemacht ❤️ von den Creative Olympics Helfern",
         "Minecraft": "\"Minecraft\"™ ist ein Wahrzeichen von Mojang Synergies AB.",
-        "Affiliation": "Diese Webseite und Creative Olympics gehören nicht zu Mojang."
+        "Affiliation": "Diese Webseite und Creative Olympics gehören nicht zu Mojang oder Discord."
       }
     }
   }
