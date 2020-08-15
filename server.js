@@ -200,7 +200,7 @@ function get_cards(callback) {
         total: null,
     }
     db.query(
-        "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY amount_global DESC LIMIT 3;",
+        "SELECT amount, amount_global, currency, uuid, discordId FROM "+process.env.DB_NAME+".Donations ORDER BY amount_global DESC LIMIT 3;",
         function (err, result, fields)
     {
         if (err) {
@@ -213,7 +213,7 @@ function get_cards(callback) {
         finalValue.third = result.length>2?result[2]:null;
 
         db.query(
-            "SELECT amount, amount_global, currency, uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL ORDER BY id DESC LIMIT 1;",
+            "SELECT amount, amount_global, currency, uuid, discordId FROM "+process.env.DB_NAME+".Donations ORDER BY id DESC LIMIT 1;",
             function (err, result, fields)
         {
             if (err) {
@@ -377,6 +377,25 @@ app.post('/api/approveOrder/', function(req, res) {
         });
     });
 });
+
+app.post('/api/discordprofile-id', function (req, res) {
+    if (!req.body.id) {
+        res.status(422).send("Missing parameter");
+        return; 
+    }
+
+    client.users.fetch(req.body.id).then(user => {
+        res.json({
+            status: "success",
+            avatarURL: user.displayAvatarURL(),
+            username: user.username,
+            tag: user.tag
+        })
+    }).catch(err => {
+        res.json({ status: 'error' })
+    })
+})
+
 
 app.post('/api/discordprofile', function(req, res) {
 
