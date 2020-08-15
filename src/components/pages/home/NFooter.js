@@ -1,15 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { goToTop } from 'react-scrollable-anchor';
 
-import { Fab, Typography, Grid } from '@material-ui/core';
+import { Fab, Typography, Grid, useMediaQuery } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 export function NFooter() {
     const { t } = useTranslation();
     const classes = useStyles();
+    const theme = useTheme();
 
     const xs = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -50,6 +51,9 @@ export function NFooter() {
 
 export function NFooterLoading() {
     const classes = useStyles();
+    const theme = useTheme();
+
+    const xs = useMediaQuery(theme.breakpoints.down("xs"));
 
     return (
         <Grid container className={classes.root}>
