@@ -6,6 +6,8 @@ const got = require('got');
 const app = express();
 const mysql = require('mysql');
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
@@ -365,10 +367,14 @@ app.post('/api/approveOrder/:orderId/:discordId/:uuid/:ref', function(req, res) 
     });
 });
 
-app.get('/api/discordprofile/:username/:tag', function(req, res) {
+app.post('/api/discordprofile', function(req, res) {
 
-    const username = req.params.username;
-    const tag = req.params.tag;
+    const username = req.body.username;
+    const tag = req.body.tag;
+    if (!username || !tag) {
+        res.status(422).send("Missing parameter(s)");
+        return; 
+    }
 
     if (username!=='null'&&tag!=='null'&&tag.length===4) {
         // Gets all the users with that username
