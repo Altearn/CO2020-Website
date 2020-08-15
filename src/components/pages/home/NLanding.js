@@ -82,7 +82,7 @@ export function NLanding(props) {
                     variant="extended"
                     size="medium"
                     color={props.isDarkTheme?"primary":"secondary"}
-                    aria-label="Scroll"
+                    aria-label={t('RahNeil_N3.Irus.Scroll')}
                     className={classes.fab}
                     onClick={() => goToAnchor('donate')}
                 >

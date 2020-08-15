@@ -33,7 +33,7 @@ export function NCards(props) {
     });
 
     React.useEffect(() => {
-        ws.current = new WebSocket("ws://"+location.host+"/api/ws");
+        ws.current = new WebSocket("ws://"+window.location.host+"/api/ws");
     
         ws.current.onmessage = e => {
             try {
