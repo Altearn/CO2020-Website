@@ -289,33 +289,36 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
 });
 
 app.post('/api/approveOrder/', function(req, res) {
-    request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
-        auth: {
-            user: PAYPAL_CLIENT,
-            password: PAYPAL_SECRET
-        },
-        body: 'grant_type=client_credentials'
-    }, function(err, response, body) {
-        if (err) {
-            console.log("Error#2993");
-            console.error(err);
-            return res.sendStatus(500);
-        }
-        
-        request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.body.orderId + '/capture', {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer "+JSON.parse(body).access_token,
-            }
-        }, function(err, response, body) {
-            if (err) {
-                console.log("Error#4724");
-                console.error(err);
-                return res.sendStatus(500);
-            }
+    console.debug("TEST 1");
+    // request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
+    //     auth: {
+    //         user: PAYPAL_CLIENT,
+    //         password: PAYPAL_SECRET
+    //     },
+    //     body: 'grant_type=client_credentials'
+    // }, function(err, response, body) {
+    //     console.debug("TEST 2");
+    //     if (err) {
+    //         console.log("Error#2993");
+    //         console.error(err);
+    //         return res.sendStatus(500);
+    //     }
+    //     console.debug("TEST 3");
+    //     request.post(PAYPAL_BASE_URL+'/v2/checkout/orders/' + req.body.orderId + '/capture', {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": "Bearer "+JSON.parse(body).access_token,
+    //         }
+    //     }, function(err, response, body) {
+    //         if (err) {
+    //             console.log("Error#4724");
+    //             console.error(err);
+    //             return res.sendStatus(500);
+    //         }
 
-            if (JSON.parse(body).status==='COMPLETED') {
-                const capture = JSON.parse(body).purchase_units[0].payments.captures[0];
+    //         if (JSON.parse(body).status==='COMPLETED') {
+                // const capture = JSON.parse(req.body).details.purchase_units[0].payments.captures[0];
+                const capture = req.body.capture;
                 const to_eur = Number((capture.amount.value / currencies.find(c => c.code===capture.amount.currency_code).value).toFixed(2));
                 req.body.discordId = (req.body.discordId !== 'null' && req.body.discordId !== '') ? req.body.discordId : null;
                 const currency_label = currencies.find(c => c.code===capture.amount.currency_code).label;
@@ -368,15 +371,16 @@ app.post('/api/approveOrder/', function(req, res) {
                 get_cards(newCards => {
                     expressWs.getWss().clients.forEach(client => client.send(JSON.stringify({ code: 600, newCards: newCards })))
                 })
-            }else{
-                console.log("Error#6716");
-                res.json({
-                    status: 'error'
-                });
-            }
-        });
-    });
-});
+            });
+//             else{
+//                 console.log("Error#6716");
+//                 res.json({
+//                     status: 'error'
+//                 });
+//             }
+//         });
+//     });
+// });
 
 app.post('/api/discordprofile-id', function (req, res) {
     if (!req.body.id) {

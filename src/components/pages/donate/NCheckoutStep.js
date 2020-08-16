@@ -54,8 +54,10 @@ export function NCheckoutStep(props) {
                         });
                     }}
                     onApprove={function(data, actions) {
-                        return fetch('/api/approveOrder/', {
+                        return actions.order.capture().then(function(details) {
+                        fetch('/api/approveOrder/', {
                             body: JSON.stringify({
+                                capture: details.purchase_units[0].payments.captures[0],
                                 orderId: data.orderID,
                                 discordId: (props.discordId===''?'null':props.discordId),
                                 uuid: (props.uuid===null?'null':props.uuid),
@@ -88,6 +90,7 @@ export function NCheckoutStep(props) {
                                 history.push('/');
                             }
                         });
+                    });
                     }}
                     catchError={(error) => {
                         props.setProcessing(false);
