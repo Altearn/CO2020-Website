@@ -73,7 +73,21 @@
       "Donations": {
         "Amount": {
           "Title": "Choisissez le montant du don",
-          "Label": "Montant"
+          "Label": "Montant",
+          "Advantages": {
+            "Title": "Avantages",
+            "Small": {
+              "0": "Accès à plusieurs salons privés sur notre serveur Discord.",
+              "1": "Possibilité de voter pour les concours de créations.",
+              "2": "Accès à tous les serveurs Minecraft 24/7.",
+              "3": "Rôle Discord \"Donor Tier 1\"."
+            },
+            "Big": {
+              "0": "Possibilité d'assister aux tournois PvP sur Minecraft.",
+              "1": "Possibilité de promouvoir votre live sur un salon de notre serveur Discord.",
+              "2": "Rôle Discord \"Donor Tier 2\"."
+            }
+          }
         },
         "Checkout": {
           "Snackbar": {

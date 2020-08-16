@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
+import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, Avatar, useTheme, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { currencies, getCurrencyLabel, hasCurrencyDecimals } from '../../NCurrencies';
-
+import { NAdvantagesCard } from './NAdvantagesCard';
 import { NPaypalInfo } from '../../NConsts';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -27,7 +27,15 @@ export function NAmountStep(props) {
     }
     const handleSliderChange = (event, newValue) => props.setAmount(newValue);
 
-    let marks = ([1,5,10,20,30,40,50].map(n => ({ value: n, label: (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'))+n+(t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')) })));
+    let marks = ([
+        Math.ceil(getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(5*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(10*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(20*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(30*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(40*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+        Math.ceil(50*getCurrencyValue(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')),
+    ].map(n => ({ value: n, label: (t('RahNeil_N3.Irus.Currency.IsPlacedAfter')?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'))+n+(t('RahNeil_N3.Irus.Currency.IsPlacedAfter')===false?'':getCurrencyLabel(props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD')) })));
 
     return (
         <div className={classes.root}>
@@ -73,6 +81,22 @@ export function NAmountStep(props) {
                 max={50}
                 className={classes.slider}
             />
+            <Grid container spacing={2} className={classes.gridAwards}>
+                <Grid item xs={6} style={{flex: 1}}>
+                    <NAdvantagesCard
+                        amount={props.amount}
+                        currency={props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'}
+                        value={1}
+                        />
+                </Grid>
+                <Grid item xs={6} style={{flex: 1}}>
+                    <NAdvantagesCard
+                        amount={props.amount}
+                        currency={props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'}
+                        value={5}
+                    />
+                </Grid>
+            </Grid>
             <Dialog
                 onClose={() => setDialogOpened(false)}
                 aria-labelledby={t('RahNeil_N3.Irus.Currency.Description')}
@@ -110,5 +134,8 @@ const useStyles = makeStyles((theme) => ({
     },
     slider: {
        margin: theme.spacing(0, 2),
-    }
+    },
+    gridAwards: {
+        marginTop: theme.spacing(4),
+    },
 }));

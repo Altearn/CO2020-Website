@@ -32,7 +32,7 @@ export function NCards(props) {
         total: null
     });
 
-    React.useEffect(() => {
+    /*React.useEffect(() => {
         ws.current = new WebSocket("ws://"+window.location.host+"/api/ws");
     
         ws.current.onmessage = e => {
@@ -48,7 +48,7 @@ export function NCards(props) {
         return () => {
             ws.current.close();
         };
-    }, []);
+    }, []);*/
 
     React.useEffect(() => {
         const reloadCards = () => {
@@ -111,7 +111,7 @@ export function NCards(props) {
                                     amountGlobal={cards.top.amount_global}
                                     currency={cards.top.currency}
                                     uuid={cards.top.uuid}
-                                    discordid={cards.top.discordId}
+                                    avatar={cards.top.avatar}
                                     top
                                 />
                             }
@@ -131,7 +131,7 @@ export function NCards(props) {
                                             amountGlobal={cards.second.amount_global}
                                             currency={cards.second.currency}
                                             uuid={cards.second.uuid}
-                                            discordid={cards.second.discordId}
+                                            avatar={cards.second.avatar}
                                             second
                                         />
                                     }
@@ -149,7 +149,7 @@ export function NCards(props) {
                                             amountGlobal={cards.third.amount_global}
                                             currency={cards.third.currency}
                                             uuid={cards.third.uuid}
-                                            discordid={cards.third.discordId}
+                                            avatar={cards.third.avatar}
                                             third
                                         />
                                     }
@@ -169,7 +169,7 @@ export function NCards(props) {
                                     amountGlobal={cards.latest.amount_global}
                                     currency={cards.latest.currency}
                                     uuid={cards.latest.uuid}
-                                    discordid={cards.latest.discordId}
+                                    avatar={cards.latest.avatar}
                                     latest
                                 />
                             }

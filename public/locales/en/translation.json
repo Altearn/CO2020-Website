@@ -73,7 +73,21 @@
       "Donations": {
         "Amount": {
           "Title": "Choose donation amount",
-          "Label": "Donation amount"
+          "Label": "Donation amount",
+          "Advantages": {
+            "Title": "Advantages",
+            "Small": {
+              "0": "Access to several private channels on our Discord server.",
+              "1": "Ability to vote for the creation contests.",
+              "2": "Access to all the 24/7 Minecraft servers.",
+              "3": "\"Donor Tier 1\" Discord role."
+            },
+            "Big": {
+              "0": "Ability to spectate Minecraft PvP tournaments.",
+              "1": "Ability to promote your stream on a channel of our Discord server.",
+              "2": "\"Donor Tier 2\" Discord role."
+            }
+          }
         },
         "Checkout": {
           "Snackbar": {

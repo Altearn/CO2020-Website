@@ -66,38 +66,15 @@ export function NDonatorCard(props) {
     const isScreenLarge = useMediaQuery(useTheme().breakpoints.up("lg"));
     const [username, setUsername] = React.useState(null);
     const [avatar, setAvatar] = React.useState(null);
-    const [avatarClass, setAvatarClass] = React.useState(classes.cover);
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
-        
-        if (props.discordid && props.discordid !== "null") {
-            fetch("api/discordprofile-id/", {
-                crossDomain: true,
-                method: 'POST',
-                body: JSON.stringify({ id: props.discordid }),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }}).then((res) => {
-                res.json().then((json) => {
-                    if (json.status === 'success') {
-                        setAvatar(json.avatarURL);
-                        setUsername(json.username);
-                        setAvatarClass(classes.discordCover);
-                    }
-                })
-            }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
-        } else if (props.uuid) {
+        if (props.uuid) {
             fetch("https://api.minetools.eu/uuid/"+props.uuid, {crossDomain: true, method: 'GET'}).then((res) => {
                 res.json().then((json) => {
                     setUsername(json.name);
                 }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
             }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
-            setAvatar("https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex"));
-        } else {
-            setUsername("Test");
-            setAvatar("https://ogp.me/logo.png")
         }
     }, [props.uuid, enqueueSnackbar, t])            
 
@@ -181,9 +158,8 @@ export function NDonatorCard(props) {
                     </CardContent>
                     <Tooltip title={username} arrow>
                         <CardMedia
-                            className={avatarClass}
-                            // image={"https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
-                            image={avatar}
+                            className={props.uuid?classes.cover:classes.discordCover}
+                            image={props.uuid?("https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_Steve"):props.avatar}
                         />
                     </Tooltip>
                 </Card>
