@@ -82,14 +82,14 @@ export function NAmountStep(props) {
                 className={classes.slider}
             />
             <Grid container spacing={2} className={classes.gridAwards}>
-                <Grid item xs={6} style={{flex: 1}}>
+                <Grid item xs={12} sm={6} style={{flex: 1}}>
                     <NAdvantagesCard
                         amount={props.amount}
                         currency={props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'}
                         value={1}
                         />
                 </Grid>
-                <Grid item xs={6} style={{flex: 1}}>
+                <Grid item xs={12} sm={6} style={{flex: 1}}>
                     <NAdvantagesCard
                         amount={props.amount}
                         currency={props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'}
