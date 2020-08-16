@@ -71,8 +71,8 @@ async function make_donation_embed(discord_user, mc_uuid, value, value_eur) {
     mc_uuid = (mc_uuid === "null") ? null : mc_uuid;
     let mc_name = null;
     if (mc_uuid) {
-        const {body} = await got(`https://api.mojang.com/user/profiles/${mc_uuid}/names`, { responseType: 'json' });
-        mc_name = body[0].name;
+        const {body} = await got(`https://api.minetools.eu/uuid/${mc_uuid}`, { responseType: 'json' });
+        mc_name = body.name;
     }
     const embed = {
         "title": "New donation!",
