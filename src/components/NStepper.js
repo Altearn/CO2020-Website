@@ -88,7 +88,7 @@ export function NStepper(props) {
                     nextButton={
                             <Button
                                 size="small"
-                                onClick={activeStep !== 3 ? handleNextStep:null}
+                                onClick={activeStep !== props.steps.length-1 ? handleNextStep:null}
                                 disabled={activeStep===props.steps.length-1}
                             >
                                 {t('RahNeil_N3.Irus.Next')}
