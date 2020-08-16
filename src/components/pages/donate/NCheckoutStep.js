@@ -34,13 +34,23 @@ export function NCheckoutStep(props) {
             <div style={{visibility: loading?'hidden':'visible'}}>
                 <PayPalButton
                     createOrder={function(data, actions) {
-                        props.setProcessing(true);
-                        return fetch('/api/createOrder/' + Number(props.amount).toFixed(2) + '/' + currency, {
-                            method: 'post'
-                        }).then(function(res) {
-                            return res.json();
-                        }).then(function(data) {
-                            return data.id;
+                        console.debug("CHECK 0");
+                        // props.setProcessing(true);
+                        // return fetch('/api/createOrder/' + Number(props.amount).toFixed(2) + '/' + currency, {
+                        //     method: 'post'
+                        // }).then(function(res) {
+                        //     console.debug("CHECK 0.1");
+                        //     return res.json();
+                        // }).then(function(data) {
+                        //     console.debug("CHECK 0.2");
+                        //     return data.id;
+                        // });
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: props.amount
+                                }
+                            }]
                         });
                     }}
                     onApprove={function(data, actions) {
@@ -95,7 +105,8 @@ export function NCheckoutStep(props) {
                     }}
                     options={{
                         currency: currency,
-                        clientId: NPaypalInfo().client_id
+                        clientId: NPaypalInfo().client_id,
+                        debug: true
                     }}
                     onButtonReady={() => setLoading(false)}
                     currency={currency}
