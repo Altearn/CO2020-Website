@@ -20,7 +20,7 @@ export function NCards(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
-    const ws = React.useRef(null);
+    //const ws = React.useRef(null);
 
     const isScreenLarge = useMediaQuery(theme.breakpoints.up("lg"));
 

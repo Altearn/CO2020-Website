@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, Avatar, useTheme, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
+import { Grid, Slider, Input, Button, Dialog, DialogTitle, ListItem, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { currencies, getCurrencyLabel, hasCurrencyDecimals, getCurrencyValue } from '../../NCurrencies';

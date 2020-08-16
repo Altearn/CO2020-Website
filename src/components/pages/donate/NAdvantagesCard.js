@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import { Grid, Zoom, Badge, Avatar, Card, CardContent, Typography, useTheme, Slide, ListItemText, List, Tooltip } from '@material-ui/core';
+import { Grid, Zoom, Badge, Avatar, Card, CardContent, Typography, useTheme } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
@@ -49,7 +49,7 @@ export function NAdvantagesCard(props) {
                         </Avatar>
                     </Badge>
                     <Typography variant="h6" component="h2" className={classes.advTypo}>
-                        Advantages
+                        {t('RahNeil_N3.Irus.Donations.Amount.Advantages.Title')}
                     </Typography>
                 </Grid>
                 <Typography variant="body2" className={classes.advTypo}>
@@ -136,8 +136,8 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     avatar: {
-        color: theme.palette.common.black,
-        backgroundColor: theme.palette.common.white,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
+        backgroundColor: theme.palette.background.paper,
         border: '1px solid',
         width: theme.spacing(8),
         height: theme.spacing(8),
