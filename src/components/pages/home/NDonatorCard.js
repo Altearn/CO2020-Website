@@ -64,6 +64,8 @@ export function NDonatorCard(props) {
                     setUsername(json.name);
                 }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
             }).catch(err => enqueueSnackbar(t('RahNeil_N3.Irus.Error.Display.Server_External'), {variant: 'error'}));
+        } else if (props.username) {
+            setUsername(props.username);
         }
     }, [props.uuid, enqueueSnackbar, t])            
 
@@ -99,7 +101,7 @@ export function NDonatorCard(props) {
         <>
             <img
                 style={{display: 'none'}}
-                src={"https://crafatar.com/renders/body/08831584-f289-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
+                src={"https://crafatar.com/renders/body/08831584-f129-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex")}
                 onLoad={() => setLoading(false)}
                 alt='Loading...'
             />
@@ -147,7 +149,7 @@ export function NDonatorCard(props) {
                     </CardContent>
                     <Tooltip title={username} arrow>
                         <CardMedia
-                            className={props.uuid?classes.cover:classes.discordCover}
+                            className={props.isDiscord?classes.discordCover:classes.cover}
                             image={props.uuid?("https://crafatar.com/renders/body/"+props.uuid+".png?overlay&default=MHF_Steve"):props.avatar}
                         />
                     </Tooltip>

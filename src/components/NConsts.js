@@ -9,7 +9,7 @@ export function NDonations() {
 
 // Use PayPal sandbox account instead of live
 export function NPaypalInfo() {
-    const LIVE = false;
+    const LIVE = true;
     if (LIVE)
         return { // LIVE
             sdk_clientid: "AZou0pB8z1QnlmJkSH9Gyi2M8gyEykclrkbargPTSQGrsqFKeGbvZIQvNO8GEnqjsdCOWIC4R5-2kKg8",

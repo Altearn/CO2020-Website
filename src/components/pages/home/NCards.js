@@ -112,6 +112,8 @@ export function NCards(props) {
                                     currency={cards.top.currency}
                                     uuid={cards.top.uuid}
                                     avatar={cards.top.avatar}
+                                    username={cards.top.username}
+                                    isDiscord={cards.top.isDiscordAvatar}
                                     top
                                 />
                             }
@@ -132,6 +134,8 @@ export function NCards(props) {
                                             currency={cards.second.currency}
                                             uuid={cards.second.uuid}
                                             avatar={cards.second.avatar}
+                                            username={cards.second.username}
+                                            isDiscord={cards.second.isDiscordAvatar}
                                             second
                                         />
                                     }
@@ -150,6 +154,8 @@ export function NCards(props) {
                                             currency={cards.third.currency}
                                             uuid={cards.third.uuid}
                                             avatar={cards.third.avatar}
+                                            username={cards.third.username}
+                                            isDiscord={cards.third.isDiscordAvatar}
                                             third
                                         />
                                     }
@@ -170,6 +176,8 @@ export function NCards(props) {
                                     currency={cards.latest.currency}
                                     uuid={cards.latest.uuid}
                                     avatar={cards.latest.avatar}
+                                    username={cards.latest.username}
+                                    isDiscord={cards.latest.isDiscordAvatar}
                                     latest
                                 />
                             }

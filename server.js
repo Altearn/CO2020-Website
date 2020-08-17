@@ -233,6 +233,17 @@ function get_cards(callback) {
                 }
         
                 if (result.length===1) finalValue.total = result[0].total;
+                [finalValue.top, finalValue.second, finalValue.third, finalValue.latest].forEach(e => {
+                    if (!e) return;
+                    if (e.discordId) {
+                        e.username = client.users.cache.get(e.discordId)?.username;
+                        e.avatar = client.users.cache.get(e.discordId)?.displayAvatarURL();
+                    } else {
+                        e.username = "Anonymous";
+                        e.avatar = "https://crafatar.com/renders/body/08831584-f29-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex");
+                    }
+                    e.isDiscordAvatar = Boolean(e.discordId && !e.uuid);
+                })
                 callback(finalValue);
             });
         });
