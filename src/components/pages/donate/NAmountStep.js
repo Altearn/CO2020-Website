@@ -54,7 +54,7 @@ export function NAmountStep(props) {
                                         props.setAmount(event.target.value.split(',').join('.'));
                                 }}
                                 onBlur={(event) => {
-                                    if (event.target.value==='') props.setAmount(5);
+                                    if (event.target.value==='') props.setAmount(2);
                                 }}
                             />
                         </Grid>
@@ -93,7 +93,7 @@ export function NAmountStep(props) {
                     <NAdvantagesCard
                         amount={props.amount}
                         currency={props.currency||t('RahNeil_N3.Irus.Currency.Default.Code')||'USD'}
-                        value={5}
+                        value={2}
                     />
                 </Grid>
             </Grid>

@@ -122,7 +122,7 @@ function refresh_roles(discord_id) {
             if (sum >= 1 && !user.roles.cache.has(DISCORD_SMALLDONATOR_ROLE)) {
                 roles.push(DISCORD_SMALLDONATOR_ROLE)
             }
-            if (sum >=5 && !user.roles.cache.has(DISCORD_DONATOR_ROLE)) {
+            if (sum >= 2 && !user.roles.cache.has(DISCORD_DONATOR_ROLE)) {
                 roles.push(DISCORD_DONATOR_ROLE)
             }
             if (roles.length > 0) {
@@ -178,7 +178,7 @@ app.get('/api/whitelisted/1', function (req, res) {
 
 app.get('/api/whitelisted/5', function (req, res) {
     var finalValue = "";
-    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL AND amount_global>=5", function (err, result, fields) {
+    db.query("SELECT uuid FROM "+process.env.DB_NAME+".Donations WHERE uuid IS NOT NULL AND amount_global>=2", function (err, result, fields) {
         if (err) {
             console.log("Error#2456");
             throw err;
@@ -236,8 +236,8 @@ function get_cards(callback) {
                 [finalValue.top, finalValue.second, finalValue.third, finalValue.latest].forEach(e => {
                     if (!e) return;
                     if (e.discordId) {
-                        e.username = client.users.cache.get(e.discordId)?.username;
-                        e.avatar = client.users.cache.get(e.discordId)?.displayAvatarURL();
+                        e.username = client.users.cache.get(e.discordId).username;
+                        e.avatar = client.users.cache.get(e.discordId).displayAvatarURL();
                     } else {
                         e.username = "Anonymous";
                         e.avatar = "https://crafatar.com/renders/body/08831584-f29-40e0-b572-d1ae7363ec96.png?overlay&default=MHF_"+(Math.random()>=0.5?"Steve":"Alex");
