@@ -45,7 +45,7 @@ const PAYPAL_CLIENT = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_CLIENT
 const PAYPAL_SECRET = process.env.USE_PAYPAL_SANDBOX ? process.env.PAYPAL_SECRET_SANDBOX : process.env.PAYPAL_SECRET_live;
 const PAYPAL_BASE_URL = process.env.USE_PAYPAL_SANDBOX ? "https://api.sandbox.paypal.com" : "https://api.paypal.com"
 
-const db = mysql.createConnection({host: "localhost", port: (process.env.DB_PORT || 3306), user: process.env.DB_USER, password: process.env.DB_PWD});
+const db = mysql.createPool({host: "localhost", port: (process.env.DB_PORT || 3306), user: process.env.DB_USER, password: process.env.DB_PWD});
 
 var discordLastValues = {
     onlineCount: null,
@@ -59,11 +59,12 @@ client.on('ready', () => {
 
 client.login(process.env.DISCORD_TOKEN);
 
-db.connect(function(err) {
-    if (err) {
-        console.log("Error#3386");
-        throw err;
-    }
+// db.connect(function(err) {
+db.on('connection', function (connection) {
+    // if (err) {
+    //     console.log("Error#3386");
+    //     throw err;
+    // }
     console.log("Connected to database!");
 });
 
@@ -300,7 +301,6 @@ app.post('/api/createOrder/:amount/:currency', function(req, res) {
 });
 
 app.post('/api/approveOrder/', function(req, res) {
-    console.debug("TEST 1");
     // request.post(PAYPAL_BASE_URL+'/v1/oauth2/token', {
     //     auth: {
     //         user: PAYPAL_CLIENT,
