@@ -4,7 +4,7 @@ export function NLoading() {
 
 // Enable users donations
 export function NDonations() {
-    return true;
+    return false;
 }
 
 // Use PayPal sandbox account instead of live
